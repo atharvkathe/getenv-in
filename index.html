@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>.env File Generator - Free dotenv Template Generator for Developers</title>
+  <meta name="description" content="Generate production-ready .env files instantly. Pick your stack and services — get a complete environment variable template with explanations. Free, no login required.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://envgenerator.dev/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://envgenerator.dev/">
+  <meta property="og:title" content=".env File Generator - Free dotenv Template Generator for Developers">
+  <meta property="og:description" content="Generate production-ready .env files instantly. Pick your stack and services, get a complete environment variable template with explanations. Free, no login required">
+  <meta property="og:image" content="https://envgenerator.dev/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://envgenerator.dev/">
+  <meta property="twitter:title" content=".env File Generator — Free dotenv Template Generator for Developers">
+  <meta property="twitter:description" content="Generate production-ready .env files instantly. Pick your stack and services — get a complete environment variable template with explanations. Free, no login required.">
+  <meta property="twitter:image" content="https://envgenerator.dev/og-image.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Style sheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": ".env File Generator",
+    "url": "https://envgenerator.dev",
+    "description": "Generate production-ready .env templates for Next.js, Vite, Node.js, FastAPI, and more with integrated services like Stripe, Supabase, OpenAI, and Clerk.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires HTML5, Javascript, and CSS Grid",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+
+  <!-- FEATURE: Terminal Boot Sequence Overlay -->
+  <div id="boot-overlay" class="boot-overlay">
+    <div class="boot-content jetbrains-font">
+      <div id="boot-line-1" class="boot-line"></div>
+      <div id="boot-line-2" class="boot-line"></div>
+      <div id="boot-line-3" class="boot-line"></div>
+      <div id="boot-line-4" class="boot-line"></div>
+      <div id="boot-line-5" class="boot-line"></div>
+    </div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#home" class="logo" id="logo-link" aria-label="Go to homepage">
+        <span class="logo-text">.env Generator
+          <span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: calc(0.6rem + 5px); color: #888888; line-height: 1; margin-top: 2px; text-align: center;">getenv.in</span>
+        </span>
+        <span class="pulse-dot"></span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="#howitworks" class="nav-link">How it works</a>
+        <a href="#blog" class="nav-link">Blog</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#privacy" class="nav-link">Privacy</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="menu-toggle" class="menu-toggle jetbrains-font" aria-expanded="false" aria-label="Toggle navigation">[ menu ]</button>
+      </div>
+    </div>
+    
+    <!-- Mobile dropdown menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <nav class="mobile-nav-links">
+        <a href="#howitworks" class="mobile-nav-link">How it works</a>
+        <a href="#blog" class="mobile-nav-link">Blog</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#privacy" class="mobile-nav-link">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-wrapper">
+    
+    <!-- Home View -->
+    <div id="home-view" class="view active-view">
+      
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <h1 id="hero-title"><span class="typewriter-text"></span><span class="blinking-cursor">|</span></h1>
+        <p class="subheadline" id="hero-subheadline" style="opacity: 0; transition: opacity 0.5s ease;">No more hunting for API keys. No more wrong variable names. Just pick your stack and get a production-ready .env instantly.</p>
+        
+        <div class="stat-badges" id="hero-stat-badges">
+          <div class="stat-badge" style="opacity: 0; transition: opacity 0.4s ease;">20+ Frameworks</div>
+          <div class="stat-badge" style="opacity: 0; transition: opacity 0.4s ease;">100+ Services</div>
+          <div class="stat-badge" style="opacity: 0; transition: opacity 0.4s ease;">Free Forever</div>
+        </div>
+      </section>
+
+      <!-- Step Indicator -->
+      <div class="step-indicator" id="step-indicator" role="navigation" aria-label="Progress">
+        <div class="step-indicator-item active" data-step="1">
+          <span class="step-num">1</span>
+          <span class="step-text">Choose Stack</span>
+        </div>
+        <div class="step-line" id="line-1"></div>
+        <div class="step-indicator-item" data-step="2">
+          <span class="step-num">2</span>
+          <span class="step-text">Integrate Services</span>
+        </div>
+        <div class="step-line" id="line-2"></div>
+        <div class="step-indicator-item" data-step="3">
+          <span class="step-num">3</span>
+          <span class="step-text">Get .env</span>
+        </div>
+      </div>
+
+      <!-- Main Card Container -->
+      <div class="tool-card-container">
+        
+        <!-- STEP 1 — FRAMEWORK SELECTION -->
+        <div id="step-1-card" class="step-card active">
+          <!-- Session Memory Welcome Banner -->
+          <div id="storage-welcome-banner" class="storage-welcome-banner" style="display: none;">
+            <!-- Populated dynamically via app.js -->
+          </div>
+
+          <div class="card-header">
+            <h2>Pick Your Framework</h2>
+            <p class="card-subtext">What are you building with? Pick your primary framework or runtime.</p>
+          </div>
+          
+          <div class="framework-grid" id="framework-grid" role="radiogroup" aria-label="Select framework">
+            <!-- Dynamically populated in app.js -->
+          </div>
+
+          <div class="card-footer-actions">
+            <button id="btn-step1-next" class="btn btn-primary" disabled>
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2 — SERVICE SELECTION -->
+        <div id="step-2-card" class="step-card">
+          <div class="card-header">
+            <h2>Select Your Services</h2>
+            <p class="card-subtext">Which services are you integrating? Select all that apply — we'll generate the right keys for each.</p>
+          </div>
+
+          <!-- FEATURE 4: Search Input -->
+          <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="service-search-input" class="search-input" placeholder=" " aria-label="Search integration services">
+            <div class="search-placeholder-overlay jetbrains-font">
+              Search services... (e.g. Stripe, Redis, OpenAI)<span class="blinking-cursor">|</span>
+            </div>
+          </div>
+          
+          <div class="services-container" id="services-container">
+            <!-- Dynamically populated in app.js -->
+          </div>
+
+          <!-- Zero search results indicator -->
+          <div id="search-empty-state" class="search-empty-state" style="display: none;"></div>
+
+          <!-- FEATURE 2: Validation Warnings stacked -->
+          <div id="validation-warnings-container" class="validation-warnings-container"></div>
+
+          <div class="card-footer-actions">
+            <button id="btn-step2-back" class="btn btn-secondary">
+              ← Back
+            </button>
+            <button id="btn-step2-next" class="btn btn-primary">
+              Generate .env <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3 — GENERATED .env OUTPUT -->
+        <div id="step-3-card" class="step-card">
+          <div class="card-header">
+            <h2>Your .env File is Ready</h2>
+            <p class="card-subtext">Fill in your actual values. Never commit this file to Git.</p>
+          </div>
+          
+          <div class="output-container">
+            <!-- FEATURE 8: Multi-Environment Switcher -->
+            <div class="env-switcher-container">
+              <div class="env-switcher">
+                <button id="env-btn-dev" class="env-btn active" data-env="development">[ development ]</button>
+                <button id="env-btn-staging" class="env-btn" data-env="staging">[ staging ]</button>
+                <button id="env-btn-production" class="env-btn" data-env="production">[ production ]</button>
+              </div>
+              <div id="env-transition-status" class="env-transition-status jetbrains-font" style="display: none;"></div>
+            </div>
+
+            <!-- FEATURE 1: Code Block Tabs Header -->
+            <div class="code-block-header">
+              <div class="tab-switcher">
+                <button id="tab-btn-env" class="tab-btn active" data-tab="env">.env</button>
+                <button id="tab-btn-example" class="tab-btn" data-tab="example">
+                  .env.example
+                  <span class="tab-tooltip">Safe to commit to Git. Share this with your team.</span>
+                </button>
+              </div>
+              <div class="header-right-meta">
+                <div id="env-badge" class="env-badge dev-badge">DEVELOPMENT</div>
+              </div>
+            </div>
+            
+            <div class="code-block-body">
+              <pre><code id="dotenv-code-render" class="jetbrains-font"></code></pre>
+            </div>
+
+            <!-- Sticky Code Action Buttons -->
+            <div class="code-actions">
+              <button id="btn-copy-env" class="btn btn-action" aria-label="Copy code block">
+                <span class="btn-icon">📋</span> <span class="btn-text">Copy to Clipboard</span>
+              </button>
+              <button id="btn-download-env" class="btn btn-primary" aria-label="Download .env file">
+                <span class="btn-icon">⬇️</span> <span class="btn-text">Download .env</span>
+              </button>
+              <button id="btn-generate-secrets" class="btn btn-action" aria-label="Generate all secrets">
+                <span class="btn-icon">⚡</span> <span class="btn-text">Generate All Secrets</span>
+              </button>
+              <button id="btn-start-over" class="btn btn-secondary" aria-label="Reset and start over">
+                ← Start Over
+              </button>
+            </div>
+            <div id="secrets-status-line" class="secrets-status-line jetbrains-font" style="display: none;"></div>
+          </div>
+
+          <!-- FEATURE 3: Shareable Stack URL Section -->
+          <div class="share-stack-section">
+            <label for="share-url-input" class="share-label">Share your stack config with your team →</label>
+            <div class="share-input-group">
+              <input type="text" id="share-url-input" class="share-input" readonly value="">
+              <button id="btn-share-copy" class="btn btn-primary btn-share-copy" aria-label="Copy share link">
+                <span class="btn-text">📋 Copy Link</span>
+              </button>
+            </div>
+          </div>
+
+
+
+          <!-- Pro Tips Section -->
+          <div class="pro-tips-section">
+            <h3 class="section-title">🔒 Production Security & Pro Tips</h3>
+            <div class="tips-grid">
+              <div class="tip-card">
+                <span class="tip-prefix">[git]</span>
+                <h4>Git ignore secret keys</h4>
+                <p>Add <code>.env</code> to your <code>.gitignore</code> file immediately. Never push production credentials to remote repositories.</p>
+              </div>
+              <div class="tip-card">
+                <span class="tip-prefix">[doc]</span>
+                <h4>Maintain a template</h4>
+                <p>Use a <code>.env.example</code> with dummy placeholder values. Commit this template to let your team members know which variables are required.</p>
+              </div>
+              <div class="tip-card">
+                <span class="tip-prefix">[sec]</span>
+                <h4>Server-side isolation</h4>
+                <p>Never hardcode secrets in source files. Restrict client-accessible keys using appropriate environment variable prefixes.</p>
+              </div>
+              <div class="tip-card">
+                <span class="tip-prefix">[key]</span>
+                <h4>Key rotation</h4>
+                <p>Set up automatic rotations for your API secrets, and replace them instantly if they are ever leaked or pushed online by accident.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <!-- How It Works View -->
+    <div id="howitworks-view" class="view page-view">
+      <div class="blog-container">
+
+        <h1 class="page-title">How it works</h1>
+        <p class="blog-subtext">Three simple steps to generate your production-ready .env file.</p>
+        
+        <div class="how-it-works-grid" style="margin-top: 40px; margin-bottom: 40px;">
+          <div class="how-step">
+            <span class="how-num">01</span>
+            <h3>Select Stack</h3>
+            <p>Select your runtime environment or frontend framework. This ensures public variables receive the correct build-time prefix, like <code>NEXT_PUBLIC_</code> or <code>VITE_</code>.</p>
+          </div>
+          <div class="how-step">
+            <span class="how-num">02</span>
+            <h3>Select Integrations</h3>
+            <p>Pick the databases, authentication services, payment gateways, and AI modules you need. We'll automatically identify which variables are public or secret.</p>
+          </div>
+          <div class="how-step">
+            <span class="how-num">03</span>
+            <h3>Download & Secure</h3>
+            <p>Copy the custom template to your editor or download a raw <code>.env</code> file. Everything runs locally in your browser. Absolutely zero data is logged or sent to servers.</p>
+          </div>
+        </div>
+        
+        <div class="blog-cta-box" style="text-align: center;">
+          <a href="#home" class="btn btn-primary cta-btn" style="margin: 0 auto; display: inline-flex;">Generate my .env now &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE 6: Blog Index View -->
+    <div id="blog-view" class="view page-view">
+      <div class="blog-container">
+
+        <h1 class="page-title">Developer Guides</h1>
+        <p class="blog-subtext">Short, practical guides on environment variables, API keys, and project setup.</p>
+        
+        <div class="blog-grid" id="blog-grid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+        
+
+        
+        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+      </div>
+    </div>
+
+    <!-- FEATURE 6: Blog Post View -->
+    <div id="blog-post-view" class="view page-view">
+      <div class="blog-post-container">
+        <a href="#blog" class="back-link">← Back to Blog</a>
+        
+        <article id="blog-article-content" class="blog-article-body">
+          <!-- Loaded dynamically via app.js -->
+        </article>
+        
+
+        
+        <!-- CTA Box -->
+        <div class="blog-cta-box">
+          <h3>Ready to configure your stack?</h3>
+          <p>Generate a professional, fully commented .env file for your exact framework in seconds.</p>
+          <a href="#home" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About View -->
+    <div id="about-view" class="view page-view">
+      <div class="page-container">
+        <h1 class="page-title">About this tool</h1>
+        <div class="page-content font-inter">
+          <p>Every developer has wasted precious time copy-pasting API keys, looking up dashboard URLs, and manually typing environment variables. Starting a new project should be instant, not a scavenger hunt for config formats.</p>
+          <p>This tool was built to solve that problem. By selecting your stack and services, you get a clean, ready-to-use <code>.env</code> file complete with inline documentation, official API URLs, and proper prefix compliance for your specific framework.</p>
+          <p>It's designed to be keyboard-friendly, super lightweight, and completely private. We don't save your selections, and everything runs in your local browser sandbox. Simple, clean, developer experience first.</p>
+        </div>
+        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+      </div>
+    </div>
+
+    <!-- Privacy View -->
+    <div id="privacy-view" class="view page-view">
+      <div class="page-container">
+        <h1 class="page-title">Privacy Policy</h1>
+        <div class="page-content font-inter">
+          <p class="accent-glow-text">We take privacy seriously. In fact, we don't even have a database.</p>
+          <p>Everything inside this application is executed strictly on the client-side inside your browser sandbox. None of your selections, variables, frameworks, or keystrokes are transmitted over the network, processed on our servers, or shared with third parties.</p>
+          <p>No tracking databases, no tracking cookies, and no key-logging. You are fully secure to populate your credentials in your code editor knowing this tool remains 100% server-less and local.</p>
+        </div>
+        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Sticky Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <span class="footer-left">Built for developers, by developers.</span>
+      <div class="footer-right">
+        <a href="#blog" class="footer-link">Blog</a>
+        <span class="divider">•</span>
+        <a href="#about" class="footer-link">About</a>
+        <span class="divider">•</span>
+        <a href="#privacy" class="footer-link">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom Figma-Style Cursor Elements -->
+  <div id="cursor-pointer" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999; will-change: transform;">
+    <svg width="20" height="20" viewBox="0 0 20 20">
+      <path 
+        d="M 0 0 L 0 14 L 4 10 L 8 18 L 10 17 L 6 9 L 11 9 Z"
+        fill="white"
+        stroke="black"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+
+
+  <!-- App logic -->
+  <script src="app.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>

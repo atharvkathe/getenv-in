@@ -1,0 +1,472 @@
+/* animations.css */
+
+/* BASE ANIMATION RULES */
+.btn, .framework-card, .service-checkbox-card, .nav-link, .mobile-nav-link, .tab-btn, .env-btn, .back-link, .blog-card-link, .cta-btn, .btn-primary, .btn-secondary, .btn-action {
+  will-change: transform;
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* BASE HOVER STATE — ALL BUTTONS */
+.btn {
+  position: relative;
+  overflow: hidden; /* For clipping ripple */
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: 0 1px 8px rgba(34, 197, 94, 0.15) !important;
+  transition-duration: 0ms !important;
+}
+
+/* Button text shifts right by 2px on hover, > prefix */
+.btn-anim-text {
+  display: inline-block;
+  transition: transform 150ms ease;
+  position: relative;
+}
+.btn:hover .btn-anim-text {
+  transform: translateX(2px);
+}
+.btn-anim-prefix {
+  position: absolute;
+  left: -16px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+  color: inherit;
+}
+.btn:hover .btn-anim-prefix {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* RIPPLE EFFECT */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-animation 500ms ease-out forwards;
+  background-color: rgba(34, 197, 94, 0.3);
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes ripple-animation {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.4; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+/* 1. "Next ->" (Step 1) */
+#btn-step1-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(34,197,94,0.4);
+}
+#btn-step1-next:hover .arrow {
+  display: inline-block;
+  transform: translateX(4px);
+}
+#btn-step1-next.anim-click .arrow {
+  animation: bounce-arrow 300ms ease;
+}
+@keyframes bounce-arrow {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+#btn-step1-next.anim-click {
+  color: #fff !important;
+}
+
+/* 2. "Generate .env ->" (Step 2) */
+#btn-step2-next:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(34,197,94,0.5);
+  animation: pulse-generate 1.5s infinite;
+}
+@keyframes pulse-generate {
+  0% { transform: translateY(-3px) scale(1); }
+  50% { transform: translateY(-3px) scale(1.02); }
+  100% { transform: translateY(-3px) scale(1); }
+}
+#btn-step2-next:active {
+  transform: translateY(2px) scale(0.95) !important;
+}
+#btn-step2-next.anim-click {
+  transform: translateY(2px) scale(0.95) !important;
+  transition-duration: 800ms !important;
+}
+
+/* 3. "Download .env" (Step 3) */
+#btn-download-env:hover .btn-icon {
+  display: inline-block;
+  animation: bounce-icon 600ms infinite;
+}
+@keyframes bounce-icon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+#btn-download-env.anim-click .btn-icon {
+  animation: drop-icon 400ms forwards;
+}
+@keyframes drop-icon {
+  0% { transform: translateY(0); opacity: 1; }
+  49% { transform: translateY(4px); opacity: 0; }
+  50% { transform: translateY(-8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+#btn-download-env.anim-glow {
+  box-shadow: 0 0 40px rgba(34,197,94,0.6);
+  transition: box-shadow 400ms;
+}
+
+/* 4. "Copy to Clipboard" (Step 3) */
+#btn-copy-env:hover .btn-icon {
+  display: inline-block;
+  animation: wiggle-icon 300ms 2;
+}
+@keyframes wiggle-icon {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+#btn-copy-env.anim-flash {
+  background-color: #ffffff !important;
+  color: #22c55e !important;
+  transition: background-color 100ms, color 100ms;
+}
+
+/* 5. "Generate All Secrets" (Step 3) */
+#btn-generate-secrets:hover .btn-icon {
+  display: inline-block;
+  animation: pulse-icon 600ms infinite;
+}
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+#btn-generate-secrets:hover {
+  box-shadow: 0 0 20px rgba(234,179,8,0.3);
+}
+#btn-generate-secrets.anim-click .btn-icon {
+  animation: spin-icon 500ms forwards;
+}
+@keyframes spin-icon {
+  100% { transform: rotate(360deg); }
+}
+
+/* 6. "<- Start Over" (Step 3) */
+#btn-start-over:hover .btn-icon {
+  display: inline-block;
+  transform: translateX(-4px);
+}
+#btn-start-over:hover {
+  color: #fff !important;
+}
+#btn-start-over::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background-color: #22c55e;
+  width: 0;
+  transition: width 200ms;
+}
+#btn-start-over:hover::after {
+  width: 100%;
+}
+#btn-start-over.anim-shake {
+  animation: shake-btn 300ms forwards;
+}
+@keyframes shake-btn {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+
+/* 7. "Copy Link" (Step 3) */
+#btn-share-copy:hover .btn-icon {
+  display: inline-block;
+  transform: rotate(15deg);
+}
+
+/* Floating Feedback Text */
+.floating-feedback {
+  position: absolute;
+  color: #22c55e;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  pointer-events: none;
+  animation: float-up 800ms forwards;
+  z-index: 9999;
+}
+@keyframes float-up {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* 8. "<- Back" (Step 2) */
+#btn-step2-back {
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#btn-step2-back:hover {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+#btn-step2-back:hover .arrow {
+  display: inline-block;
+  transform: translateX(-3px);
+  transition: transform 200ms ease;
+}
+#btn-step2-back.anim-click {
+  animation: slide-left-snap 200ms forwards;
+}
+@keyframes slide-left-snap {
+  50% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* 9. NAVIGATION LINKS */
+.nav-link, .mobile-nav-link {
+  position: relative;
+  transition: color 200ms;
+}
+.nav-link:hover, .mobile-nav-link:hover {
+  color: #fff;
+}
+.nav-link::after, .mobile-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background-color: #22c55e;
+  transition: width 200ms ease;
+}
+.nav-link:hover::after, .mobile-nav-link:hover::after {
+  width: 100%;
+}
+.nav-link.anim-click, .mobile-nav-link.anim-click {
+  animation: flash-opacity 150ms forwards;
+}
+@keyframes flash-opacity {
+  50% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* 11. TAB BUTTONS */
+.tab-btn {
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tab-btn:hover {
+  border-color: #22c55e;
+  transform: translateY(-1px);
+}
+.tab-btn:active {
+  transform: scale(0.96);
+  transition-duration: 0ms;
+}
+.tab-btn.anim-click {
+  animation: spring-back 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-color: #22c55e;
+}
+@keyframes spring-back {
+  50% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+/* 12. ENV TAB BUTTONS */
+.env-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.env-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(34,197,94,0.5);
+}
+.env-btn:active {
+  transform: scale(0.95);
+  transition-duration: 0ms;
+}
+.env-btn.anim-click {
+  animation: spring-back 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.env-btn.anim-slide-away {
+  animation: slide-away 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes slide-away {
+  50% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+.env-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: #22c55e;
+  width: 0;
+  transition: width 200ms;
+}
+.env-btn.active::after {
+  width: 100%;
+}
+
+/* 13. "<- Back to Generator" */
+.back-to-home {
+  transition: all 200ms;
+}
+.back-to-home:hover {
+  border-color: #22c55e;
+  transform: translateY(-2px);
+}
+.back-to-home:hover .arrow {
+  display: inline-block;
+  transform: translateX(-4px);
+  transition: transform 200ms ease;
+}
+.back-to-home.anim-click {
+  animation: slide-left-back 200ms forwards;
+}
+@keyframes slide-left-back {
+  50% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+/* 14. "Read ->" Blog Cards */
+.blog-card-link {
+  transition: all 200ms;
+}
+.blog-card-link:hover {
+  color: #fff !important;
+  text-decoration: underline;
+}
+.blog-card-link:hover .arrow {
+  display: inline-block;
+  transform: translateX(4px);
+  transition: transform 200ms ease;
+}
+.blog-card-link.anim-click .arrow {
+  animation: jump-arrow 300ms forwards;
+}
+@keyframes jump-arrow {
+  50% { transform: translateX(8px); }
+  100% { transform: translateX(0); }
+}
+
+/* FRAMEWORK CARDS */
+.framework-card {
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden !important;
+}
+.framework-card:hover {
+  transform: translateY(-4px);
+  border-color: #22c55e;
+  box-shadow: 0 8px 24px rgba(34,197,94,0.15);
+}
+.framework-icon {
+  transition: transform 200ms ease;
+}
+.framework-card:hover .framework-icon {
+  transform: scale(1.15);
+}
+.framework-card::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, rgba(34,197,94,0.4), transparent);
+  opacity: 0;
+  transition: opacity 200ms;
+  pointer-events: none;
+}
+.framework-card:hover::before {
+  animation: scan-line 600ms forwards;
+}
+@keyframes scan-line {
+  0% { top: -30px; opacity: 0.1; }
+  100% { top: 100%; opacity: 0; }
+}
+.framework-card:active {
+  transform: scale(0.95);
+  transition-duration: 0ms;
+}
+.framework-card.anim-select {
+  animation: spring-framework 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-color: #22c55e;
+}
+.framework-card.anim-select .framework-icon {
+  animation: spin-icon 400ms forwards;
+}
+@keyframes spring-framework {
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.framework-card.selected {
+  animation: breathing-glow 2s infinite alternate;
+}
+@keyframes breathing-glow {
+  from { box-shadow: 0 0 8px rgba(34,197,94,0.2); border-color: #22c55e; }
+  to { box-shadow: 0 0 16px rgba(34,197,94,0.4); border-color: #22c55e; }
+}
+
+/* SERVICE CHECKBOXES */
+.service-checkbox-card {
+  transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.service-checkbox-card:hover {
+  transform: translateY(-2px);
+  border-color: #22c55e;
+}
+.service-checkbox-card:hover .checkbox {
+  border-color: #22c55e;
+}
+.checkbox {
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.service-checkbox-card.checked .checkbox {
+  animation: check-spring 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background-color: #22c55e;
+  border-color: #22c55e;
+}
+@keyframes check-spring {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+.service-checkbox-card.checked {
+  border-color: #22c55e;
+}
+.service-checkbox-card.anim-check-bg {
+  animation: flash-green-bg 400ms forwards;
+}
+@keyframes flash-green-bg {
+  50% { background-color: rgba(34, 197, 94, 0.1); }
+  100% { background-color: var(--bg-card); }
+}
+.service-checkbox-card.anim-uncheck .checkbox {
+  animation: uncheck-spring 300ms;
+}
+@keyframes uncheck-spring {
+  50% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
