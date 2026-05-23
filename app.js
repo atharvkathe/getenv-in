@@ -1,4 +1,27 @@
 /* ==========================================================================
+   CODE PROTECTION MODULE
+   ========================================================================== */
+(function initCodeProtection() {
+  // 1. Disable Right Click
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // 2. Disable DevTools Keyboard Shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && e.key === 'I') e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && e.key === 'J') e.preventDefault();
+    if (e.ctrlKey && e.key === 'u') e.preventDefault();
+    if (e.ctrlKey && e.key === 's') e.preventDefault();
+  });
+
+  // 3. Obfuscate Console
+  console.clear();
+  console.log('%c⚠️ Stop!', 'color: #22c55e; font-size: 30px; font-weight: bold;');
+  console.log('%cThis browser feature is for developers. If someone told you to paste something here, it is a scam.', 'color: red; font-size: 16px;');
+  console.log('%c© 2026 getenv.in — All rights reserved.', 'color: #4a4a4a; font-size: 12px;');
+})();
+
+/* ==========================================================================
    APP CONFIGURATION & DATA STRUCTURES
    ========================================================================== */
 
@@ -1402,9 +1425,20 @@ function init() {
     handleStorageCheck();
   }
 
-  // Handle window popstate for hash routing SPA
-  handleHashRoute();
-  window.addEventListener('hashchange', handleHashRoute);
+  // Handle window popstate for path routing SPA
+  handlePathRoute();
+  window.addEventListener('popstate', handlePathRoute);
+
+  // Global Link Interceptor for SPA navigation
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (link && link.getAttribute('href') && link.getAttribute('href').startsWith('/')) {
+      e.preventDefault();
+      const path = link.getAttribute('href');
+      history.pushState(null, '', path);
+      handlePathRoute();
+    }
+  });
 
   // Run Boot Sequence or Typewriter
   checkBootSequence();
@@ -1887,8 +1921,8 @@ function updateHowItWorksVisibility() {
   const howItWorks = document.getElementById('how-it-works');
   if (!howItWorks) return;
   
-  const hash = window.location.hash || '#home';
-  const isHomePage = (hash === '#home' || hash === '' || hash.startsWith('#how-it-works'));
+  const path = window.location.pathname;
+  const isHomePage = (path === '/' || path === '/index.html');
   
   if (isHomePage && state.step === 1) {
     howItWorks.style.display = 'block';
@@ -3493,8 +3527,8 @@ function setupEventListeners() {
 /* ==========================================================================
    HASH ROUTING & SPA COMPONENT PAGE SIMULATIONS
    ========================================================================== */
-function handleHashRoute() {
-  const hash = window.location.hash || '#home';
+function handlePathRoute() {
+  const path = window.location.pathname;
   
   // Hide all views first
   elements.homeView.classList.remove('active-view');
@@ -3504,19 +3538,17 @@ function handleHashRoute() {
   elements.blogView.classList.remove('active-view');
   elements.blogPostView.classList.remove('active-view');
   
-  if (hash === '#about') {
+  if (path === '/about') {
     elements.aboutView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else if (hash === '#privacy') {
+  } else if (path === '/privacy') {
     elements.privacyView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else if (hash === '#blog') {
-    // Render blog index view
+  } else if (path === '/blog') {
     elements.blogView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else if (hash.startsWith('#blog/')) {
-    // Decodes the slug to render the targeted post
-    const postSlug = hash.replace('#blog/', '');
+  } else if (path.startsWith('/blog/')) {
+    const postSlug = path.replace('/blog/', '');
     const activePost = BLOG_POSTS.find(p => p.slug === postSlug);
     
     if (activePost) {
@@ -3532,14 +3564,14 @@ function handleHashRoute() {
       elements.blogPostView.classList.add('active-view');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Fallback if post is invalid
-      window.location.hash = '#blog';
+      history.replaceState(null, '', '/blog');
+      handlePathRoute();
+      return;
     }
-  } else if (hash === '#howitworks') {
+  } else if (path === '/how-it-works') {
     if (elements.howItWorksView) elements.howItWorksView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-    // Default to #home
     elements.homeView.classList.add('active-view');
   }
   updateHowItWorksVisibility();
@@ -3566,10 +3598,9 @@ elements.logoLink.addEventListener('click', (e) => {
     }
   });
 
-  // 3. Clear URL hash
-  if (history.replaceState) {
-    history.replaceState(null, null, window.location.pathname);
-  }
+  // 3. Reset URL path to root
+  history.pushState(null, '', '/');
+  handlePathRoute();
   
   // 4. Force exact pixel-perfect scroll reset instantly
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });

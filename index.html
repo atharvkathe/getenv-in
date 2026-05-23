@@ -70,7 +70,7 @@
   <!-- Sticky Header -->
   <header class="header">
     <div class="header-container">
-      <a href="#home" class="logo" id="logo-link" aria-label="Go to homepage">
+      <a href="/" class="logo" id="logo-link" aria-label="Go to homepage">
         <span class="logo-text">.env Generator
           <span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: calc(0.6rem + 5px); color: #888888; line-height: 1; margin-top: 2px; text-align: center;">getenv.in</span>
         </span>
@@ -78,10 +78,10 @@
       </a>
       
       <nav class="nav-links">
-        <a href="#howitworks" class="nav-link">How it works</a>
-        <a href="#blog" class="nav-link">Blog</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#privacy" class="nav-link">Privacy</a>
+        <a href="/how-it-works" class="nav-link">How it works</a>
+        <a href="/blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/privacy" class="nav-link">Privacy</a>
       </nav>
 
       <div class="header-actions">
@@ -92,10 +92,10 @@
     <!-- Mobile dropdown menu -->
     <div id="mobile-menu" class="mobile-menu">
       <nav class="mobile-nav-links">
-        <a href="#howitworks" class="mobile-nav-link">How it works</a>
-        <a href="#blog" class="mobile-nav-link">Blog</a>
-        <a href="#about" class="mobile-nav-link">About</a>
-        <a href="#privacy" class="mobile-nav-link">Privacy</a>
+        <a href="/how-it-works" class="mobile-nav-link">How it works</a>
+        <a href="/blog" class="mobile-nav-link">Blog</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/privacy" class="mobile-nav-link">Privacy</a>
       </nav>
     </div>
   </header>
@@ -304,9 +304,14 @@
     <!-- How It Works View -->
     <div id="howitworks-view" class="view page-view">
       <div class="blog-container">
-
+        
+        <div class="blog-terminal-header">
+          $ cat ./docs/how-it-works.md<br>
+          &gt; loading guide...
+        </div>
+        
         <h1 class="page-title">How it works</h1>
-        <p class="blog-subtext">Three simple steps to generate your production-ready .env file.</p>
+        <p class="blog-subtext">Three simple steps to generate your production-ready .env file instantly.</p>
         
         <div class="how-it-works-grid" style="margin-top: 40px; margin-bottom: 40px;">
           <div class="how-step">
@@ -327,7 +332,7 @@
         </div>
         
         <div class="blog-cta-box" style="text-align: center;">
-          <a href="#home" class="btn btn-primary cta-btn" style="margin: 0 auto; display: inline-flex;">Generate my .env now &rarr;</a>
+          <a href="/" class="btn btn-primary cta-btn" style="margin: 0 auto; display: inline-flex;">Generate my .env now &rarr;</a>
         </div>
       </div>
     </div>
@@ -345,14 +350,14 @@
         
 
         
-        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+        <a href="/" class="btn btn-secondary back-to-home">← Back to Generator</a>
       </div>
     </div>
 
     <!-- FEATURE 6: Blog Post View -->
     <div id="blog-post-view" class="view page-view">
       <div class="blog-post-container">
-        <a href="#blog" class="back-link">← Back to Blog</a>
+        <a href="/blog" class="back-link">← Back to Blog</a>
         
         <article id="blog-article-content" class="blog-article-body">
           <!-- Loaded dynamically via app.js -->
@@ -364,7 +369,7 @@
         <div class="blog-cta-box">
           <h3>Ready to configure your stack?</h3>
           <p>Generate a professional, fully commented .env file for your exact framework in seconds.</p>
-          <a href="#home" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
+          <a href="/" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
         </div>
       </div>
     </div>
@@ -378,7 +383,7 @@
           <p>This tool was built to solve that problem. By selecting your stack and services, you get a clean, ready-to-use <code>.env</code> file complete with inline documentation, official API URLs, and proper prefix compliance for your specific framework.</p>
           <p>It's designed to be keyboard-friendly, super lightweight, and completely private. We don't save your selections, and everything runs in your local browser sandbox. Simple, clean, developer experience first.</p>
         </div>
-        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+        <a href="/" class="btn btn-secondary back-to-home">← Back to Generator</a>
       </div>
     </div>
 
@@ -391,7 +396,7 @@
           <p>Everything inside this application is executed strictly on the client-side inside your browser sandbox. None of your selections, variables, frameworks, or keystrokes are transmitted over the network, processed on our servers, or shared with third parties.</p>
           <p>No tracking databases, no tracking cookies, and no key-logging. You are fully secure to populate your credentials in your code editor knowing this tool remains 100% server-less and local.</p>
         </div>
-        <a href="#home" class="btn btn-secondary back-to-home">← Back to Generator</a>
+        <a href="/" class="btn btn-secondary back-to-home">← Back to Generator</a>
       </div>
     </div>
 
@@ -400,13 +405,16 @@
   <!-- Sticky Footer -->
   <footer class="footer">
     <div class="footer-container">
-      <span class="footer-left">Built for developers, by developers.</span>
+      <span class="footer-left">
+        Built for developers, by developers.<br>
+        <span style="display:block; font-family:'JetBrains Mono', monospace; font-size:0.7rem; margin-top:5px; color:var(--text-muted);">© 2026 getenv.in — All rights reserved.</span>
+      </span>
       <div class="footer-right">
-        <a href="#blog" class="footer-link">Blog</a>
+        <a href="/blog" class="footer-link">Blog</a>
         <span class="divider">•</span>
-        <a href="#about" class="footer-link">About</a>
+        <a href="/about" class="footer-link">About</a>
         <span class="divider">•</span>
-        <a href="#privacy" class="footer-link">Privacy Policy</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
       </div>
     </div>
   </footer>
