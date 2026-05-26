@@ -17,13 +17,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Meta Tags -->
-  <title>.env File Generator — Free dotenv Template for Next.js, React, Django & More | getenv.in</title>
-  <meta name="description" content="Generate production-ready .env files instantly. Pick your framework (Next.js, React, Django, Laravel) and services (Stripe, Supabase, OpenAI) — get a complete environment variables template with inline docs. Free, no login required.">
+  <title>Node.js + Stripe + MongoDB .env Generator</title>
+  <meta name="description" content="Generate secure environment variables for a Node.js backend using MongoDB and Stripe payment processing.">
   <meta name="keywords" content="env file generator, dotenv generator, environment variables template, nextjs env setup, react env file, django env variables, stripe env variables, supabase env setup, generate dotenv file online, free env generator">
   <meta name="robots" content="index, follow">
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.getenv.in/">
+  <link rel="canonical" href="https://www.getenv.in/stack/node-stripe-mongodb">
 
   <!-- Open Graph -->
   <meta property="og:title" content=".env File Generator — Free dotenv Template Generator"/>
@@ -43,8 +43,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  
+  <script>
+    window.PRELOADED_STATE = {
+      framework: 'nodejs',
+      services: ["stripe","mongodb"]
+    };
+  </script>
   <!-- Style sheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -183,7 +190,7 @@
       
       <!-- Hero Section -->
       <section class="hero-section">
-        <h1 id="hero-title"><span class="typewriter-text"></span><span class="blinking-cursor">|</span></h1>
+        <h1 id="hero-title">Generate .env for Node.js Express with Stripe</h1>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Free .env File Generator for Developers</h2>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Generate Environment Variables for 20+ Frameworks Instantly</h2>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Support for Next.js, React, Django, Laravel and More</h2>
@@ -428,6 +435,18 @@
       </div>
 
 
+    
+      <!-- SEO Context Block for SSG Page -->
+      <div class="ssg-seo-context" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+        <div class="blog-markdown" style="font-family:'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6; color: var(--text-muted);">
+          <h2 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 20px;">About this Configuration</h2>
+          <p>Building a custom Node.js backend gives you ultimate control, but it also places the burden of security entirely on your shoulders. When processing payments with Stripe and storing user data in MongoDB, your environment file becomes the vault for your most critical infrastructure secrets.</p><p>This generator outputs a robust, production-ready template for Express or plain Node environments. It includes your MongoDB connection URIs, Stripe Secret Keys, and the critical Stripe Webhook Secret necessary for validating payment events. Keep these keys out of version control and ensure your Node server remains impenetrable.</p>
+          <div style="margin-top: 40px; text-align: center;">
+             <a href="/" class="btn btn-primary cta-btn">← Generate custom .env for another stack</a>
+          </div>
+        </div>
+      </div>
+  
     </div>
 
     <!-- How It Works View -->
@@ -573,9 +592,9 @@
 
 
   <!-- App logic -->
-  <script src="stack-data.js"></script>
-  <script src="compiler-core.js"></script>
-  <script src="app.js"></script>
-  <script src="animations.js"></script>
+  <script src="/stack-data.js"></script>
+  <script src="/compiler-core.js"></script>
+  <script src="/app.js"></script>
+  <script src="/animations.js"></script>
 </body>
 </html>

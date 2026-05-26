@@ -17,13 +17,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Meta Tags -->
-  <title>.env File Generator — Free dotenv Template for Next.js, React, Django & More | getenv.in</title>
-  <meta name="description" content="Generate production-ready .env files instantly. Pick your framework (Next.js, React, Django, Laravel) and services (Stripe, Supabase, OpenAI) — get a complete environment variables template with inline docs. Free, no login required.">
+  <title>Next.js + OpenAI .env File Generator</title>
+  <meta name="description" content="Instantly generate the environment variables needed to integrate OpenAI into your Next.js application securely.">
   <meta name="keywords" content="env file generator, dotenv generator, environment variables template, nextjs env setup, react env file, django env variables, stripe env variables, supabase env setup, generate dotenv file online, free env generator">
   <meta name="robots" content="index, follow">
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.getenv.in/">
+  <link rel="canonical" href="https://www.getenv.in/stack/nextjs-openai">
 
   <!-- Open Graph -->
   <meta property="og:title" content=".env File Generator — Free dotenv Template Generator"/>
@@ -43,8 +43,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  
+  <script>
+    window.PRELOADED_STATE = {
+      framework: 'nextjs',
+      services: ["openai"]
+    };
+  </script>
   <!-- Style sheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -183,7 +190,7 @@
       
       <!-- Hero Section -->
       <section class="hero-section">
-        <h1 id="hero-title"><span class="typewriter-text"></span><span class="blinking-cursor">|</span></h1>
+        <h1 id="hero-title">Generate .env for Next.js OpenAI Integration</h1>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Free .env File Generator for Developers</h2>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Generate Environment Variables for 20+ Frameworks Instantly</h2>
         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Support for Next.js, React, Django, Laravel and More</h2>
@@ -428,6 +435,18 @@
       </div>
 
 
+    
+      <!-- SEO Context Block for SSG Page -->
+      <div class="ssg-seo-context" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+        <div class="blog-markdown" style="font-family:'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6; color: var(--text-muted);">
+          <h2 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 20px;">About this Configuration</h2>
+          <p>Integrating OpenAI into a Next.js application opens up powerful AI capabilities, from chat interfaces to advanced text generation. However, the most common mistake developers make is accidentally exposing their OpenAI API keys to the client browser, leading to unauthorized usage and massive billing spikes.</p><p>By generating your <code>.env</code> file here, we ensure your OpenAI secret keys are strictly formatted for the server-side Next.js API routes or Server Actions. This template provides the exact configuration required by the official OpenAI Node SDK, allowing you to build generative AI features securely without worrying about token leakage.</p>
+          <div style="margin-top: 40px; text-align: center;">
+             <a href="/" class="btn btn-primary cta-btn">← Generate custom .env for another stack</a>
+          </div>
+        </div>
+      </div>
+  
     </div>
 
     <!-- How It Works View -->
@@ -573,9 +592,9 @@
 
 
   <!-- App logic -->
-  <script src="stack-data.js"></script>
-  <script src="compiler-core.js"></script>
-  <script src="app.js"></script>
-  <script src="animations.js"></script>
+  <script src="/stack-data.js"></script>
+  <script src="/compiler-core.js"></script>
+  <script src="/app.js"></script>
+  <script src="/animations.js"></script>
 </body>
 </html>
