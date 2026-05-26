@@ -449,6 +449,16 @@ function setupEventListeners() {
         brandDropdown.style.display = 'none';
       }
     });
+    
+    // Close dropdown and reset when clicking active brand dropdown item
+    const activeDropdownItem = document.querySelector('.brand-dropdown-item.active');
+    if (activeDropdownItem) {
+      activeDropdownItem.addEventListener('click', (e) => {
+        e.preventDefault();
+        brandDropdown.style.display = 'none';
+        elements.logoLink.click();
+      });
+    }
   }
 
   // Bind Quick Preset Configuration Buttons
@@ -755,6 +765,10 @@ function handlePathRoute() {
 // Intercept logo clicking to perform startover resets
 elements.logoLink.addEventListener('click', (e) => {
   e.preventDefault();
+  
+  // Close the brand dropdown if open
+  const brandDropdown = document.getElementById('brand-dropdown');
+  if (brandDropdown) brandDropdown.style.display = 'none';
   
   // 1. Reset state and steps
   if (state.step !== 1) {
