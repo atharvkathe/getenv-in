@@ -553,6 +553,7 @@ BLOG_POSTS.forEach((post, index) => {
 
   // 6. Fix Asset Paths for Absolute references
   html = html.replace(/href="styles\.css"/g, 'href="/styles.css"');
+  html = html.replace(/src="presets-core\.js"/g, 'src="/presets-core.js"');
   html = html.replace(/src="compiler-core\.js"/g, 'src="/compiler-core.js"');
   html = html.replace(/src="app\.js"/g, 'src="/app.js"');
   html = html.replace(/src="animations\.js"/g, 'src="/animations.js"');

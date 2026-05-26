@@ -165,6 +165,7 @@ stacks.forEach(stack => {
 
   // 6. Fix Asset Paths (styles.css -> /styles.css, app.js -> /app.js, favicon etc)
   html = html.replace(/href="styles\.css"/g, 'href="/styles.css"');
+  html = html.replace(/src="presets-core\.js"/g, 'src="/presets-core.js"');
   html = html.replace(/src="compiler-core\.js"/g, 'src="/compiler-core.js"');
   html = html.replace(/src="app\.js"/g, 'src="/app.js"');
   html = html.replace(/src="animations\.js"/g, 'src="/animations.js"');

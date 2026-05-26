@@ -289,28 +289,6 @@ function handleStartOver() {
   transitionToStep(1);
 }
 
-/* ==========================================================================
-   FEATURE — QUICK PRESET CONFIGURATIONS & TOASTS
-   ========================================================================== */
-const PRESETS = {
-  'ai-app': {
-    framework: 'nextjs',
-    services: ['openai', 'postgres', 'supabase_storage']
-  },
-  'saas-stack': {
-    framework: 'nextjs',
-    services: ['postgres', 'stripe', 'clerk']
-  },
-  'python-backend': {
-    framework: 'fastapi',
-    services: ['postgres', 'redis']
-  },
-  'classic-mvc': {
-    framework: 'laravel',
-    services: ['mysql']
-  }
-};
-
 function showToastNotification(message) {
   let toastContainer = document.getElementById('toast-container');
   if (!toastContainer) {
@@ -345,21 +323,34 @@ function showToastNotification(message) {
 }
 
 function applyPreset(presetId) {
-  const config = PRESETS[presetId];
-  if (!config) return;
-  
-  // Clear existing selections
+  // 1. Cycle rotation if same preset clicked
+  if (state.activePreset === presetId) {
+    state.presetClicks[presetId] = (state.presetClicks[presetId] || 0) + 1;
+  } else {
+    state.activePreset = presetId;
+    if (state.presetClicks[presetId] === undefined) {
+      state.presetClicks[presetId] = 0;
+    }
+  }
+
+  // 2. Fetch config based on rotation
+  const presetConfig = getPresetConfig(presetId, state.presetClicks[presetId], state.includeProdVars);
+  if (!presetConfig) return;
+
+  // 3. Clear existing selections and add preset-specific services
   state.services.clear();
-  
-  // Select Framework
-  selectFramework(config.framework);
-  
-  // Highlight checkbox DOM cards
+  if (presetConfig.services) {
+    presetConfig.services.forEach(svcId => state.services.add(svcId));
+  }
+
+  // 4. Select framework (pass true so it doesn't wipe activePreset!)
+  selectFramework(presetConfig.framework, true);
+
+  // 5. Highlight checkbox DOM cards in Step 2 search view
   const allSvcs = document.querySelectorAll('.service-checkbox-card');
   allSvcs.forEach(c => {
     const svcId = c.getAttribute('data-id');
-    if (config.services.includes(svcId)) {
-      state.services.add(svcId);
+    if (presetConfig.services && presetConfig.services.includes(svcId)) {
       c.classList.add('checked');
       c.setAttribute('aria-checked', 'true');
     } else {
@@ -368,13 +359,38 @@ function applyPreset(presetId) {
     }
   });
 
-  // Evaluate warnings, compile dotenv, generate shareable links
+  // 6. Highlight active preset button and un-highlight others
+  const presetBtns = document.querySelectorAll('.preset-btn');
+  presetBtns.forEach(btn => {
+    if (btn.getAttribute('data-preset') === presetId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // 7. Update active preset badge
+  const badge = document.getElementById('active-preset-badge');
+  if (badge) {
+    badge.textContent = `🎯 Active: ${presetConfig.presetName} [${presetConfig.rotationIndex + 1}/${presetConfig.totalRotations}]: ${presetConfig.description}`;
+    badge.style.display = 'block';
+  }
+
+  // 8. Trigger compilation shimmer animation
+  const codeBody = document.querySelector('.code-block-body');
+  if (codeBody) {
+    codeBody.classList.remove('compile-shimmer');
+    void codeBody.offsetWidth; // Force layout reflow
+    codeBody.classList.add('compile-shimmer');
+  }
+
+  // 9. Evaluate warnings, compile dotenv, generate shareable links
   evaluateWarnings();
-  compileDotenv(false); // compile without typewriter delay
+  compileDotenv(false); // compile instantly without typewriter lag
   generateShareLink();
   saveSessionState();
-  
-  // Jump straight to Step 3 and bypass step transitions
+
+  // 10. Jump directly to Step 3
   if (elements.step1Card) {
     elements.step1Card.style.display = 'none';
     elements.step1Card.classList.remove('active');
@@ -392,9 +408,9 @@ function applyPreset(presetId) {
   state.step = 3;
   updateStepIndicator(3);
   updateHowItWorksVisibility();
-  
-  // Custom toast notification showing preset loaded!
-  showToastNotification(`🤖 Loaded Preset Stack: ${presetId.replace('-', ' ').toUpperCase()}`);
+
+  // 11. Custom toast notification
+  showToastNotification(`🤖 Loaded Preset: ${presetConfig.presetName} (${presetConfig.rotationIndex + 1}/${presetConfig.totalRotations})`);
 }
 
 /* ==========================================================================
@@ -436,6 +452,33 @@ function setupEventListeners() {
       applyPreset(presetId);
     });
   });
+
+  // Bind Advanced Mode (Include Production Variables) Toggle
+  const toggleProdVars = document.getElementById('toggle-prod-vars');
+  if (toggleProdVars) {
+    toggleProdVars.checked = state.includeProdVars || false;
+    toggleProdVars.addEventListener('change', (e) => {
+      state.includeProdVars = e.target.checked;
+      
+      if (state.activePreset) {
+        // Trigger compilation shimmer animation
+        const codeBody = document.querySelector('.code-block-body');
+        if (codeBody) {
+          codeBody.classList.remove('compile-shimmer');
+          void codeBody.offsetWidth; // Force layout reflow
+          codeBody.classList.add('compile-shimmer');
+        }
+        
+        // Re-compile active preset with the new setting
+        compileDotenv(false);
+        saveSessionState();
+        showToastNotification(state.includeProdVars ? '⚡ Advanced Mode Enabled: Production variables added' : '⚡ Advanced Mode Disabled');
+      } else {
+        compileDotenv(false);
+        saveSessionState();
+      }
+    });
+  }
 
   // Bind Global Keyboard Shortcut Interceptors
   document.addEventListener('keydown', (e) => {

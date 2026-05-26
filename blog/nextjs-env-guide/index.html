@@ -235,12 +235,30 @@
         <div id="session-restore-banner" class="session-restore-banner" style="display: none;"></div>
         
         <!-- Quick Preset Configurations -->
-        <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 4px 6px;">
-          <span style="font-weight: bold; color: var(--text-primary);">⚡ Quick Presets:</span>
-          <button class="preset-btn" data-preset="ai-app">🤖 AI App (Next + OpenAI + Supabase)</button>
-          <button class="preset-btn" data-preset="saas-stack">💳 SaaS Stack (Next + Stripe + Clerk + Postgres)</button>
-          <button class="preset-btn" data-preset="python-backend">🐍 Python API (FastAPI + Postgres + Redis)</button>
-          <button class="preset-btn" data-preset="classic-mvc">🐘 Classic MVC (Laravel + MySQL)</button>
+        <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; background: rgba(18, 18, 18, 0.4);">
+          <span style="font-weight: bold; color: var(--text-primary); display: block; margin-bottom: 8px;">⚡ Quick Presets (Click again to rotate integrations):</span>
+          <div class="preset-buttons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+            <button class="preset-btn" data-preset="ai-app">🤖 AI App</button>
+            <button class="preset-btn" data-preset="saas-stack">💳 SaaS Stack</button>
+            <button class="preset-btn" data-preset="python-backend">🐍 Python API</button>
+            <button class="preset-btn" data-preset="classic-mvc">🐘 Classic MVC</button>
+            <button class="preset-btn" data-preset="web3-dapp">🌐 Web3 dApp</button>
+            <button class="preset-btn" data-preset="devops-docker">🐳 DevOps Stack</button>
+            <button class="preset-btn" data-preset="firebase-app">🔥 Firebase App</button>
+            <button class="preset-btn" data-preset="mern-stack">🥞 MERN Stack</button>
+            <button class="preset-btn" data-preset="analytics-stack">📊 Analytics Stack</button>
+            <button class="preset-btn" data-preset="auth-system">🔐 Auth System</button>
+          </div>
+          
+          <div class="preset-options-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 12px; gap: 12px; border-top: 1px dashed var(--border-muted); padding-top: 10px;">
+            <div id="active-preset-badge" class="active-preset-badge jetbrains-font" style="display: none; font-size: 10px; color: var(--accent-color); background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); padding: 2px 6px; border-radius: 4px; transition: all 0.2s ease;"></div>
+            <div class="prod-vars-toggle-container" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+              <label class="switch-label" style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-muted); user-select: none;">
+                <input type="checkbox" id="toggle-prod-vars" style="accent-color: var(--accent-color); cursor: pointer; width: 13px; height: 13px;">
+                <span id="toggle-prod-label" style="transition: color 0.15s ease;">⚡ Include Production Variables (Advanced Mode)</span>
+              </label>
+            </div>
+          </div>
         </div>
         
         <!-- STEP 1 — FRAMEWORK SELECTION -->
@@ -577,6 +595,7 @@
 
   <!-- App logic -->
   <script src="/stack-data.js"></script>
+  <script src="/presets-core.js"></script>
   <script src="/compiler-core.js"></script>
   <script src="/app.js"></script>
   <script src="/animations.js"></script>

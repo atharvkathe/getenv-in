@@ -1197,7 +1197,10 @@ const state = {
     production: {}
   },
   dismissedWarnings: new Set(), // Tracks IDs of validation warnings closed manually
-  typewriterTimeout: null
+  typewriterTimeout: null,
+  activePreset: null, // Holds the active preset ID if currently using a preset
+  presetClicks: {}, // Maps preset ID to active rotation click counts
+  includeProdVars: false // Toggles addition of advanced monitoring, logging, and tuning variables
 };
 
 /* ==========================================================================
@@ -1682,9 +1685,20 @@ function renderBlogIndex() {
    INTERACTIVE SELECTION & STEP FLOW CONTROLS
    ========================================================================== */
 
+function clearActivePreset() {
+  state.activePreset = null;
+  const presetBtns = document.querySelectorAll('.preset-btn');
+  presetBtns.forEach(btn => btn.classList.remove('active'));
+  const badge = document.getElementById('active-preset-badge');
+  if (badge) badge.style.display = 'none';
+}
+
 // CHOOSE FRAMEWORK (Step 1)
-function selectFramework(fwId) {
+function selectFramework(fwId, isFromPreset = false) {
   state.framework = fwId;
+  if (!isFromPreset) {
+    clearActivePreset();
+  }
   
   // Update HTML active state
   const cards = elements.frameworkGrid.querySelectorAll('.framework-card');
@@ -1710,6 +1724,7 @@ function toggleService(svcId) {
   } else {
     state.services.add(svcId);
   }
+  clearActivePreset();
   
   // Update HTML active state
   const cards = elements.servicesContainer.querySelectorAll(`[data-id="${svcId}"]`);
@@ -2087,6 +2102,9 @@ function saveSessionState() {
         sessionStorage.setItem('env_session_step', state.step);
         sessionStorage.setItem('env_session_active_env', state.activeEnv);
         sessionStorage.setItem('env_session_active_tab', state.activeTab);
+        sessionStorage.setItem('env_session_active_preset', state.activePreset || '');
+        sessionStorage.setItem('env_session_preset_clicks', JSON.stringify(state.presetClicks || {}));
+        sessionStorage.setItem('env_session_include_prod_vars', state.includeProdVars ? 'true' : 'false');
       }
     }
   } catch (e) {
@@ -2102,6 +2120,9 @@ function clearSessionState() {
       sessionStorage.removeItem('env_session_step');
       sessionStorage.removeItem('env_session_active_env');
       sessionStorage.removeItem('env_session_active_tab');
+      sessionStorage.removeItem('env_session_active_preset');
+      sessionStorage.removeItem('env_session_preset_clicks');
+      sessionStorage.removeItem('env_session_include_prod_vars');
     }
   } catch (e) {
     console.error('Failed to clear session state', e);
@@ -2121,6 +2142,9 @@ function restoreSessionState() {
     const savedStepRaw = sessionStorage.getItem('env_session_step');
     const savedEnvRaw = sessionStorage.getItem('env_session_active_env');
     const savedTabRaw = sessionStorage.getItem('env_session_active_tab');
+    const savedActivePreset = sessionStorage.getItem('env_session_active_preset');
+    const savedPresetClicksRaw = sessionStorage.getItem('env_session_preset_clicks');
+    const savedIncludeProdVars = sessionStorage.getItem('env_session_include_prod_vars');
     
     const savedSvcs = savedSvcsRaw ? JSON.parse(savedSvcsRaw) : [];
     const savedStep = savedStepRaw ? parseInt(savedStepRaw) : 1;
@@ -2133,6 +2157,9 @@ function restoreSessionState() {
     savedSvcs.forEach(svc => state.services.add(svc));
     state.activeEnv = savedEnv;
     state.activeTab = savedTab;
+    state.activePreset = savedActivePreset || null;
+    state.presetClicks = savedPresetClicksRaw ? JSON.parse(savedPresetClicksRaw) : {};
+    state.includeProdVars = savedIncludeProdVars === 'true';
     
     // Visually update the UI DOM to match framework selection
     const allFw = document.querySelectorAll('.framework-card');
@@ -2172,6 +2199,37 @@ function restoreSessionState() {
       }
     });
     updateEnvBadge();
+    
+    // Restore toggle state and active presets visually
+    const toggleProdVars = document.getElementById('toggle-prod-vars');
+    if (toggleProdVars) {
+      toggleProdVars.checked = state.includeProdVars;
+    }
+    
+    if (state.activePreset) {
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      presetBtns.forEach(btn => {
+        if (btn.getAttribute('data-preset') === state.activePreset) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      const presetConfig = getPresetConfig(state.activePreset, state.presetClicks[state.activePreset] || 0, state.includeProdVars);
+      if (presetConfig) {
+        const badge = document.getElementById('active-preset-badge');
+        if (badge) {
+          badge.textContent = `🎯 Active Stack [Rotation ${presetConfig.rotationIndex + 1}/${presetConfig.totalRotations}]: ${presetConfig.description}`;
+          badge.style.display = 'block';
+        }
+      }
+    } else {
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      presetBtns.forEach(btn => btn.classList.remove('active'));
+      const badge = document.getElementById('active-preset-badge');
+      if (badge) badge.style.display = 'none';
+    }
     
     toggleOutputTab(savedTab);
     
@@ -2378,10 +2436,146 @@ function toggleOutputTab(tabId) {
   saveSessionState();
 }
 
+function compilePresetDotenv(playTypewriter = true) {
+  const presetConfig = getPresetConfig(state.activePreset, state.presetClicks[state.activePreset] || 0, state.includeProdVars);
+  if (!presetConfig) return;
+  
+  const selectedFrameworkObj = FRAMEWORKS.find(fw => fw.id === presetConfig.framework);
+  const prefixType = selectedFrameworkObj ? selectedFrameworkObj.prefixType : 'none';
+  const isExample = state.activeTab === 'example';
+  
+  let outputLines = [];
+  
+  // A. Add Production Warning Header if production environment is selected
+  if (state.activeEnv === 'production' && !isExample) {
+    outputLines.push(`# ⚠️ WARNING: PRODUCTION ENVIRONMENT`);
+    outputLines.push(`# NEVER commit production credentials to Git.`);
+    outputLines.push(`# Double-check that permissions and restrictions are active on all live services.`);
+    outputLines.push('');
+  }
+
+  // B. Add Master File Header Block
+  outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  if (isExample) {
+    outputLines.push(`# .env.EXAMPLE TEMPLATE FOR PRESET: ${presetConfig.presetName.toUpperCase()}`);
+    outputLines.push(`# Active Stack: ${presetConfig.description}`);
+    outputLines.push(`# Share this file with your development team. Safe to commit to Git.`);
+  } else {
+    outputLines.push(`# .env TEMPLATE FOR PRESET: ${presetConfig.presetName.toUpperCase()}`);
+    outputLines.push(`# Active Stack: ${presetConfig.description}`);
+    outputLines.push(`# Fill in your actual credentials. Never commit this file to Git.`);
+  }
+  outputLines.push(`# Created on ${new Date().toISOString().split('T')[0]} via getenv.in`);
+  outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  outputLines.push('');
+
+  // C. Render standard variables
+  outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  outputLines.push(`# CORE ENVIRONMENT VARIABLES`);
+  outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  outputLines.push('');
+  
+  presetConfig.variables.forEach(v => {
+    let varName = v.name;
+    let commentAnnotation = '';
+    
+    // Dynamic Variable Prefix Compiling based on Framework rules
+    if (v.type === 'public') {
+      if (prefixType === 'nextjs') {
+        varName = `NEXT_PUBLIC_${v.name}`;
+        commentAnnotation = ` # Prefixed for Next.js browser-side availability`;
+      } else if (prefixType === 'vite') {
+        varName = `VITE_${v.name}`;
+        commentAnnotation = ` # Prefixed for Vite build-time client bundle inclusion`;
+      } else if (prefixType === 'astro') {
+        varName = `PUBLIC_${v.name}`;
+        commentAnnotation = ` # Prefixed for Astro browser-side availability`;
+      }
+    }
+    
+    outputLines.push(`# ${v.comment}`);
+    if (v.docUrl) {
+      outputLines.push(`# Get it from: ${v.docUrl}`);
+    }
+    
+    let activeValue = isExample ? '' : v.placeholder;
+    
+    // Substitute secret if generated
+    if (!isExample && isSecretVariable(varName)) {
+      const generatedSecret = state.generatedSecrets[state.activeEnv]?.[varName];
+      if (generatedSecret) {
+        activeValue = generatedSecret;
+      }
+    }
+    
+    outputLines.push(`${varName}=${activeValue}${commentAnnotation}`);
+    outputLines.push('');
+  });
+
+  // D. Render advanced variables
+  if (presetConfig.advancedVariables && presetConfig.advancedVariables.length > 0) {
+    outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    outputLines.push(`# ⚡ ADVANCED PRODUCTION TUNING & TELEMETRY`);
+    outputLines.push(`# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    outputLines.push('');
+    
+    presetConfig.advancedVariables.forEach(v => {
+      let varName = v.name;
+      let commentAnnotation = '';
+      
+      // Dynamic Variable Prefix Compiling based on Framework rules
+      if (v.type === 'public') {
+        if (prefixType === 'nextjs') {
+          varName = `NEXT_PUBLIC_${v.name}`;
+          commentAnnotation = ` # Prefixed for Next.js browser-side availability`;
+        } else if (prefixType === 'vite') {
+          varName = `VITE_${v.name}`;
+          commentAnnotation = ` # Prefixed for Vite build-time client bundle inclusion`;
+        } else if (prefixType === 'astro') {
+          varName = `PUBLIC_${v.name}`;
+          commentAnnotation = ` # Prefixed for Astro browser-side availability`;
+        }
+      }
+      
+      outputLines.push(`# ${v.comment}`);
+      if (v.docUrl) {
+        outputLines.push(`# Get it from: ${v.docUrl}`);
+      }
+      
+      let activeValue = isExample ? '' : v.placeholder;
+      
+      // Substitute secret if generated
+      if (!isExample && isSecretVariable(varName)) {
+        const generatedSecret = state.generatedSecrets[state.activeEnv]?.[varName];
+        if (generatedSecret) {
+          activeValue = generatedSecret;
+        }
+      }
+      
+      outputLines.push(`${varName}=${activeValue}${commentAnnotation}`);
+      outputLines.push('');
+    });
+  }
+
+  const rawContent = outputLines.join('\n').trim() + '\n';
+  
+  // Render syntax-highlighted HTML Output
+  renderSyntaxHighlightedCode(rawContent, playTypewriter);
+  
+  // Store plain text string in button data attributes for easy file operations
+  elements.btnCopyEnv.setAttribute('data-raw', rawContent);
+  elements.btnDownloadEnv.setAttribute('data-raw', rawContent);
+}
+
 /* ==========================================================================
    CORE .env COMPILATION ENGINE
    ========================================================================== */
 function compileDotenv(playTypewriter = true) {
+  if (state.activePreset) {
+    compilePresetDotenv(playTypewriter);
+    return;
+  }
+
   const selectedFrameworkObj = FRAMEWORKS.find(fw => fw.id === state.framework);
   const prefixType = selectedFrameworkObj ? selectedFrameworkObj.prefixType : 'none';
   const prefixText = selectedFrameworkObj ? selectedFrameworkObj.prefixText : '';
