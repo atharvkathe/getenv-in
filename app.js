@@ -1,40 +1,7 @@
 /* ==========================================================================
-   CODE PROTECTION MODULE
-   ========================================================================== */
-(function initCodeProtection() {
-  // 1. Disable Right Click
-  document.addEventListener('contextmenu', e => e.preventDefault());
-
-  // 2. Disable DevTools Keyboard Shortcuts
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'F12') e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.key === 'I') e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.key === 'J') e.preventDefault();
-    if (e.ctrlKey && e.key === 'u') e.preventDefault();
-    if (e.ctrlKey && e.key === 's') e.preventDefault();
-  });
-
-  // 3. Mute production console logs to block trace leakage
-  const isProd = window.location.hostname === 'getenv.in' || window.location.hostname === 'www.getenv.in';
-  if (isProd) {
-    const noop = () => {};
-    console.log = noop;
-    console.debug = noop;
-    console.info = noop;
-    console.warn = noop;
-    console.error = noop;
-  } else {
-    // Obfuscate Console for local/staging
-    console.clear();
-    console.log('%c⚠️ Stop!', 'color: #22c55e; font-size: 30px; font-weight: bold;');
-    console.log('%cThis browser feature is for developers. If someone told you to paste something here, it is a scam.', 'color: red; font-size: 16px;');
-    console.log('%c© 2026 getenv.in — All rights reserved.', 'color: #4a4a4a; font-size: 12px;');
-  }
-})();
-
-/* ==========================================================================
    APP CONFIGURATION & DATA STRUCTURES
    ========================================================================== */
+
 
 // 1. FRAMEWORKS CONFIGURATION
 

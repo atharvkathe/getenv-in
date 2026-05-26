@@ -2668,18 +2668,4 @@ body.cursor-loading #cursor-pointer::after {
 /* ==========================================================================
    CODE PROTECTION STYLES
    ========================================================================== */
-body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-/* Keep selection enabled inside the code block */
-.code-block, 
-.env-output,
-pre,
-code {
-  -webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  user-select: text !important;
-}
+/* Text selection is fully enabled globally by default */
