@@ -1234,17 +1234,30 @@ const elements = {
   
   // Views
   homeView: document.getElementById('home-view'),
-  howItWorksView: document.getElementById('howitworks-view'),
+  workspaceView: document.getElementById('workspace-view'),
+  seoHubView: document.getElementById('seo-hub-view'),
+  searchView: document.getElementById('search-view'),
+  generatorsView: document.getElementById('generators-view'),
+  architectView: document.getElementById('architect-view'),
+  templatesView: document.getElementById('templates-view'),
+  resourcesView: document.getElementById('resources-view'),
+  pricingView: document.getElementById('pricing-view'),
   aboutView: document.getElementById('about-view'),
   privacyView: document.getElementById('privacy-view'),
-  blogView: document.getElementById('blog-view'),
-  blogPostView: document.getElementById('blog-post-view'),
   stackView: document.getElementById('stack-view'),
   
   // Containers
   blogGrid: document.getElementById('blog-grid'),
   blogArticleContent: document.getElementById('blog-article-content'),
   stackArticleContent: document.getElementById('stack-article-content'),
+  templatesGrid: document.getElementById('templates-grid'),
+  generatorsGrid: document.getElementById('generators-grid'),
+  
+  // AI Architect Elements
+  aiInputTextarea: document.getElementById('ai-architect-input'),
+  btnGenerateBlueprint: document.getElementById('btn-generate-blueprint'),
+  aiLoadingOverlay: document.getElementById('ai-loading-overlay'),
+  loaderOutput: document.getElementById('loader-output'),
   
   // Cards
   step1Card: document.getElementById('step-1-card'),
@@ -1260,7 +1273,10 @@ function init() {
   renderFrameworkGrid();
   renderServicesGrouped();
   renderBlogIndex();
+  renderTemplatesGrid();
+  renderGeneratorsGrid();
   setupEventListeners();
+  if (typeof initWorkspace === 'function') initWorkspace();
   setupEnvSwitcher();
   updateEnvBadge();
   
@@ -2239,25 +2255,25 @@ function restoreSessionState() {
       elements.step1Card.style.opacity = '1';
       elements.step1Card.style.transform = 'translateY(0)';
       elements.step1Card.classList.remove('active');
-      elements.step1Card.style.display = 'none';
+      elements.step1Card.style.display = '';
     }
     if (elements.step2Card) {
       elements.step2Card.style.opacity = '1';
       elements.step2Card.style.transform = 'translateY(0)';
       elements.step2Card.classList.remove('active');
-      elements.step2Card.style.display = 'none';
+      elements.step2Card.style.display = '';
     }
     if (elements.step3Card) {
       elements.step3Card.style.opacity = '1';
       elements.step3Card.style.transform = 'translateY(0)';
       elements.step3Card.classList.remove('active');
-      elements.step3Card.style.display = 'none';
+      elements.step3Card.style.display = '';
     }
     
     const targetCard = document.getElementById(`step-${savedStep}-card`);
     if (targetCard) {
       targetCard.classList.add('active');
-      targetCard.style.display = 'block';
+      targetCard.style.display = '';
       targetCard.style.opacity = '1';
       targetCard.style.transform = 'translateY(0)';
     }

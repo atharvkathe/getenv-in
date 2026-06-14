@@ -197,6 +197,14 @@ body {
   margin-bottom: 16px;
 }
 
+.ai-hero h1 {
+  font-size: 48px;
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+
 .subheadline {
   font-size: 15px;
   line-height: 1.6;
@@ -223,6 +231,271 @@ body {
   border-radius: 4px;
   letter-spacing: -0.01em;
 }
+
+/* AI Input Component */
+.ai-input-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-active);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(34, 197, 94, 0.1);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  margin: 32px auto 0;
+  text-align: left;
+}
+
+.ai-input-container:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-color), 0 0 24px var(--accent-glow-strong);
+}
+
+.ai-textarea {
+  width: 100%;
+  min-height: 120px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.ai-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.ai-input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(0,0,0,0.2);
+  border-top: 1px solid var(--border-muted);
+}
+
+.ai-suggestions {
+  display: flex;
+  gap: 8px;
+}
+
+.suggestion-chip {
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--border-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.suggestion-chip:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.btn-glow:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Terminal Loading Overlay */
+.ai-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.terminal-loader {
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-active);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.8), 0 0 0 1px var(--accent-focus-ring);
+}
+
+.loader-header {
+  background: #1a1a1a;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-muted);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.mac-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 16px;
+}
+
+.mac-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.mac-dots span:nth-child(1) { background: #ff5f56; }
+.mac-dots span:nth-child(2) { background: #ffbd2e; }
+.mac-dots span:nth-child(3) { background: #27c93f; }
+
+.loader-output {
+  padding: 24px;
+  font-size: 13px;
+  color: var(--accent-color);
+  min-height: 160px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Project Architect Dashboard */
+.architect-dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 16px;
+}
+
+.dashboard-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.blueprint-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blueprint-card h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed var(--border-muted);
+  padding-bottom: 8px;
+}
+
+.blueprint-card.span-1 { grid-column: span 1; }
+.blueprint-card.span-2 { grid-column: span 2; }
+.blueprint-card.span-3 { grid-column: span 3; }
+
+.bp-content {
+  display: flex;
+  gap: 8px;
+}
+
+.bp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bp-list li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.bp-list li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+}
+
+.bp-roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.roadmap-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-base);
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 2px solid var(--border-muted);
+}
+
+.roadmap-step.active {
+  border-left-color: var(--accent-color);
+}
+
+.step-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.step-details h4 {
+  font-size: 14px;
+  margin: 0 0 4px 0;
+  color: var(--text-primary);
+}
+
+.step-details p {
+  font-size: 12px;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
 
 /* ==========================================================================
    STEP INDICATOR
@@ -2709,3 +2982,160 @@ body.cursor-loading #cursor-pointer::after {
    CODE PROTECTION STYLES
    ========================================================================== */
 /* Text selection is fully enabled globally by default */
+
+/* ==========================================================================
+   PDF EXPORT (PRINT) STYLES
+   ========================================================================== */
+@media print {
+  /* Hide UI elements not meant for export */
+  header, .dashboard-header button, .blog-cta-box, .footer, #cursor-pointer, .nav-links {
+    display: none !important;
+  }
+  
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt !important;
+  }
+  
+  .architect-dashboard {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  
+  .dashboard-header {
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 20px !important;
+    margin-bottom: 30px !important;
+  }
+  
+  #blueprint-title {
+    color: #000 !important;
+    font-size: 24pt !important;
+  }
+  
+  .dashboard-grid {
+    display: block !important;
+  }
+  
+  .blueprint-card {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid !important;
+    margin-bottom: 20px !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  
+  .blueprint-card h3 {
+    color: #000 !important;
+    border-bottom: 1px solid #eee !important;
+  }
+  
+  .stat-badge {
+    border: 1px solid #666 !important;
+    color: #000 !important;
+    background: transparent !important;
+  }
+  
+  pre {
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    color: #000 !important;
+    white-space: pre-wrap !important;
+  }
+  
+  /* Ensure Details are always open for print */
+  details[open] summary ~ * {
+    display: block !important;
+  }
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH-DENSITY & MULTI-HIERARCHY CARD FRAMEWORK
+   ========================================================================== */
+.card-primary {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid var(--border-active);
+  border-radius: 8px;
+  padding: 18px 20px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.card-primary:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
+}
+
+.card-secondary {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  padding: 14px 16px;
+  transition: border-color 0.15s ease;
+}
+.card-secondary:hover {
+  border-color: var(--border-active);
+}
+
+.card-reference {
+  background: rgba(5, 5, 5, 0.6);
+  border: 1px dashed var(--border-muted);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: all 0.12s ease;
+}
+.card-reference:hover {
+  background: rgba(10, 10, 10, 0.8);
+  border-style: solid;
+  border-color: var(--border-active);
+}
+
+.density-high {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.density-high pre {
+  padding: 10px !important;
+  font-size: 11px !important;
+  margin: 8px 0 !important;
+}
+.density-high h2 {
+  font-size: 16px !important;
+  margin-top: 20px !important;
+  margin-bottom: 8px !important;
+}
+.density-high ul, .density-high ol {
+  padding-left: 20px !important;
+  margin: 8px 0 !important;
+}
+.density-high li {
+  margin-bottom: 4px !important;
+}
+
+/* Priority visual groupings for Architect */
+.architect-priority-section {
+  border-left: 3px solid var(--accent-color);
+  background: rgba(34, 197, 94, 0.02);
+  margin-bottom: 24px;
+  border-radius: 0 8px 8px 0;
+}
+.architect-medium-section {
+  border-left: 3px solid #3b82f6; /* Info Blue */
+  background: rgba(59, 130, 246, 0.01);
+  margin-bottom: 20px;
+  border-radius: 0 6px 6px 0;
+}
+.architect-low-section {
+  border-left: 3px solid var(--border-muted);
+  background: transparent;
+  margin-bottom: 16px;
+  border-radius: 0 4px 4px 0;
+}
+

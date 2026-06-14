@@ -207,240 +207,339 @@
           <span>•</span>
           <span>📂 No Server Storage</span>
           <span>•</span>
-          <span>🚀 No Login Required</span>
-        </div>
-      </section>
+          <span>🚀 No Login Required</span>      <!-- 🛠️ Workspace Mode Switcher -->
+      <div class="workspace-switcher-bar jetbrains-font" style="display: flex; justify-content: center; gap: 16px; margin: 0 auto 32px auto; max-width: 600px; padding: 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-muted); border-radius: 8px;">
+        <button class="workspace-tab active" data-workspace="generator" style="flex: 1; padding: 8px 16px; border: none; background: transparent; color: var(--text-muted); font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.2s ease;">⚡ .env Generator</button>
+        <button class="workspace-tab" data-workspace="validator" style="flex: 1; padding: 8px 16px; border: none; background: transparent; color: var(--text-muted); font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.2s ease;">🛡️ Env Validator & Fixer</button>
+      </div>
 
-      <!-- Step Indicator -->
-      <div class="step-indicator" id="step-indicator" role="navigation" aria-label="Progress">
-        <div class="step-indicator-item active" data-step="1">
-          <span class="step-num">1</span>
-          <span class="step-text">Choose Stack</span>
+      <!-- Generator Workspace Section -->
+      <div id="workspace-generator-section">
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="step-indicator" role="navigation" aria-label="Progress">
+          <div class="step-indicator-item active" data-step="1">
+            <span class="step-num">1</span>
+            <span class="step-text">Choose Stack</span>
+          </div>
+          <div class="step-line" id="line-1"></div>
+          <div class="step-indicator-item" data-step="2">
+            <span class="step-num">2</span>
+            <span class="step-text">Integrate Services</span>
+          </div>
+          <div class="step-line" id="line-2"></div>
+          <div class="step-indicator-item" data-step="3">
+            <span class="step-num">3</span>
+            <span class="step-text">Get .env</span>
+          </div>
         </div>
-        <div class="step-line" id="line-1"></div>
-        <div class="step-indicator-item" data-step="2">
-          <span class="step-num">2</span>
-          <span class="step-text">Integrate Services</span>
-        </div>
-        <div class="step-line" id="line-2"></div>
-        <div class="step-indicator-item" data-step="3">
-          <span class="step-num">3</span>
-          <span class="step-text">Get .env</span>
+
+        <!-- Main Card Container -->
+        <div class="tool-card-container">
+          <!-- Session Restore Banner -->
+          <div id="session-restore-banner" class="session-restore-banner" style="display: none;"></div>
+          
+          <!-- Quick Preset Configurations -->
+          <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; background: rgba(18, 18, 18, 0.4);">
+            <span style="font-weight: bold; color: var(--text-primary); display: block; margin-bottom: 8px;">⚡ Quick Presets (Click again to rotate integrations):</span>
+            <div class="preset-buttons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+              <button class="preset-btn" data-preset="ai-app">🤖 AI App</button>
+              <button class="preset-btn" data-preset="saas-stack">💳 SaaS Stack</button>
+              <button class="preset-btn" data-preset="python-backend">🐍 Python API</button>
+              <button class="preset-btn" data-preset="classic-mvc">🐘 Classic MVC</button>
+              <button class="preset-btn" data-preset="web3-dapp">🌐 Web3 dApp</button>
+              <button class="preset-btn" data-preset="devops-docker">🐳 DevOps Stack</button>
+              <button class="preset-btn" data-preset="firebase-app">🔥 Firebase App</button>
+              <button class="preset-btn" data-preset="mern-stack">🥞 MERN Stack</button>
+              <button class="preset-btn" data-preset="analytics-stack">📊 Analytics Stack</button>
+              <button class="preset-btn" data-preset="auth-system">🔐 Auth System</button>
+            </div>
+            
+            <div class="preset-options-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 12px; gap: 12px; border-top: 1px dashed var(--border-muted); padding-top: 10px;">
+              <div id="active-preset-badge" class="active-preset-badge jetbrains-font" style="display: none; font-size: 10px; color: var(--accent-color); background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); padding: 2px 6px; border-radius: 4px; transition: all 0.2s ease;"></div>
+              <div class="prod-vars-toggle-container" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+                <label class="switch-label" style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-muted); user-select: none;">
+                  <input type="checkbox" id="toggle-prod-vars" style="accent-color: var(--accent-color); cursor: pointer; width: 13px; height: 13px;">
+                  <span id="toggle-prod-label" style="transition: color 0.15s ease;">⚡ Include Production Variables (Advanced Mode)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- STEP 1 — FRAMEWORK SELECTION -->
+          <div id="step-1-card" class="step-card active">
+            <!-- Session Memory Welcome Banner -->
+            <div id="storage-welcome-banner" class="storage-welcome-banner" style="display: none;">
+              <!-- Populated dynamically via app.js -->
+            </div>
+
+            <div class="card-header">
+              <h2>Pick Your Framework</h2>
+              <p class="card-subtext">What are you building with? Pick your primary framework or runtime.</p>
+            </div>
+            
+            <div class="framework-grid" id="framework-grid" role="radiogroup" aria-label="Select framework">
+              <!-- Dynamically populated in app.js -->
+            </div>
+
+            <div class="card-footer-actions">
+              <button id="btn-step1-next" class="btn btn-primary" disabled>
+                Next <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2 — SERVICE SELECTION -->
+          <div id="step-2-card" class="step-card">
+            <div class="card-header">
+              <h2>Select Your Services</h2>
+              <p class="card-subtext">Which services are you integrating? Select all that apply — we'll generate the right keys for each.</p>
+            </div>
+
+            <!-- FEATURE 4: Search Input -->
+            <div class="search-wrapper">
+              <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="service-search-input" class="search-input" placeholder=" " aria-label="Search integration services">
+              <div class="search-placeholder-overlay jetbrains-font">
+                Search services... (e.g. Stripe, Redis, OpenAI)<span class="blinking-cursor">|</span>
+              </div>
+            </div>
+            
+            <div class="services-container" id="services-container">
+              <!-- Dynamically populated in app.js -->
+            </div>
+
+            <!-- Zero search results indicator -->
+            <div id="search-empty-state" class="search-empty-state" style="display: none;"></div>
+
+            <!-- FEATURE 2: Validation Warnings stacked -->
+            <div id="validation-warnings-container" class="validation-warnings-container"></div>
+
+            <div class="card-footer-actions">
+              <button id="btn-step2-back" class="btn btn-secondary">
+                ← Back
+              </button>
+              <button id="btn-step2-next" class="btn btn-primary">
+                Generate .env <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3 — GENERATED .env OUTPUT -->
+          <div id="step-3-card" class="step-card">
+            <div class="card-header">
+              <h2>Your .env File is Ready</h2>
+              <p class="card-subtext">Fill in your actual values. Never commit this file to Git.</p>
+            </div>
+            
+            <div class="output-container">
+              <!-- FEATURE 8: Multi-Environment Switcher -->
+              <div class="env-switcher-container">
+                <div class="env-switcher">
+                  <button id="env-btn-dev" class="env-btn active" data-env="development">[ development ]</button>
+                  <button id="env-btn-staging" class="env-btn" data-env="staging">[ staging ]</button>
+                  <button id="env-btn-production" class="env-btn" data-env="production">[ production ]</button>
+                </div>
+                <div id="env-transition-status" class="env-transition-status jetbrains-font" style="display: none;"></div>
+              </div>
+
+              <!-- FEATURE 1: Code Block Tabs Header -->
+              <div class="code-block-header">
+                <div class="tab-switcher">
+                  <button id="tab-btn-env" class="tab-btn active" data-tab="env">.env</button>
+                  <button id="tab-btn-example" class="tab-btn" data-tab="example">
+                    .env.example
+                    <span class="tab-tooltip">Safe to commit to Git. Share this with your team.</span>
+                  </button>
+                </div>
+                <div class="header-right-meta">
+                  <div id="env-badge" class="env-badge dev-badge">DEVELOPMENT</div>
+                </div>
+              </div>
+              
+              <div class="code-block-body">
+                <pre><code id="dotenv-code-render" class="jetbrains-font"></code></pre>
+              </div>
+
+              <!-- Sticky Code Action Buttons -->
+              <div class="code-actions">
+                <button id="btn-copy-env" class="btn btn-action" aria-label="Copy code block">
+                  <span class="btn-icon">📋</span> <span class="btn-text">Copy to Clipboard</span>
+                </button>
+                <button id="btn-download-env" class="btn btn-primary" aria-label="Download .env file">
+                  <span class="btn-icon">⬇️</span> <span class="btn-text">Download .env</span>
+                </button>
+                <button id="btn-generate-secrets" class="btn btn-action" aria-label="Generate all secrets">
+                  <span class="btn-icon">⚡</span> <span class="btn-text">Generate All Secrets</span>
+                </button>
+                <button id="btn-start-over" class="btn btn-secondary" aria-label="Reset and start over">
+                  ← Start Over
+                </button>
+              </div>
+              
+              <!-- Step 3 Trust Signifier & Shortcuts -->
+              <div style="margin-top: 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); opacity: 0.85; line-height: 1.6;">
+                🔒 100% Client-Side. Keystrokes are completely safe and processed strictly in-browser.<br>
+                <span style="color: #22c55e;">⌨️ Keyboard Shortcuts: [Ctrl+C] Copy block • [Esc] Start Fresh • [Alt+1/2/3] Env stages • [Alt+E/X] File tabs</span>
+              </div>
+              <div id="secrets-status-line" class="secrets-status-line jetbrains-font" style="display: none;"></div>
+            </div>
+
+            <!-- FEATURE 3: Shareable Stack URL Section -->
+            <div class="share-stack-section">
+              <label for="share-url-input" class="share-label">Share your stack config with your team →</label>
+              <div class="share-input-group">
+                <input type="text" id="share-url-input" class="share-input" readonly value="">
+                <button id="btn-share-copy" class="btn btn-primary btn-share-copy" aria-label="Copy share link">
+                  <span class="btn-text">📋 Copy Link</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pro Tips Section -->
+            <div class="pro-tips-section">
+              <h3 class="section-title">🔒 Production Security & Pro Tips</h3>
+              <div class="tips-grid">
+                <div class="tip-card">
+                  <span class="tip-prefix">[git]</span>
+                  <h4>Git ignore secret keys</h4>
+                  <p>Add <code>.env</code> to your <code>.gitignore</code> file immediately. Never push production credentials to remote repositories.</p>
+                </div>
+                <div class="tip-card">
+                  <span class="tip-prefix">[doc]</span>
+                  <h4>Maintain a template</h4>
+                  <p>Use a <code>.env.example</code> with dummy placeholder values. Commit this template to let your team members know which variables are required.</p>
+                </div>
+                <div class="tip-card">
+                  <span class="tip-prefix">[sec]</span>
+                  <h4>Server-side isolation</h4>
+                  <p>Never hardcode secrets in source files. Restrict client-accessible keys using appropriate environment variable prefixes.</p>
+                </div>
+                <div class="tip-card">
+                  <span class="tip-prefix">[key]</span>
+                  <h4>Key rotation</h4>
+                  <p>Set up automatic rotations for your API secrets, and replace them instantly if they are ever leaked or pushed online by accident.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Recommended Developer Resources (Monetization Preparation Hooks) -->
+            <div class="monetization-resources-section" style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed var(--border-muted);">
+              <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; text-align: left;">🔌 Recommended Infrastructure & Hosting</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Featured Partner]</span>
+                  <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Supabase Backend</h4>
+                  <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The open-source Firebase alternative. Instant Postgres database, Auth, and APIs.</p>
+                </a>
+                <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Hosting]</span>
+                  <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Vercel Platform</h4>
+                  <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">Deploy Next.js, React, and static sites with global edge acceleration and serverless scaling.</p>
+                </a>
+                <a href="https://render.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Cloud]</span>
+                  <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Render Cloud</h4>
+                  <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The easiest way to host Docker containers, web servers, databases, and cron tasks.</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Main Card Container -->
-      <div class="tool-card-container">
-        <!-- Session Restore Banner -->
-        <div id="session-restore-banner" class="session-restore-banner" style="display: none;"></div>
-        
-        <!-- Quick Preset Configurations -->
-        <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; background: rgba(18, 18, 18, 0.4);">
-          <span style="font-weight: bold; color: var(--text-primary); display: block; margin-bottom: 8px;">⚡ Quick Presets (Click again to rotate integrations):</span>
-          <div class="preset-buttons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
-            <button class="preset-btn" data-preset="ai-app">🤖 AI App</button>
-            <button class="preset-btn" data-preset="saas-stack">💳 SaaS Stack</button>
-            <button class="preset-btn" data-preset="python-backend">🐍 Python API</button>
-            <button class="preset-btn" data-preset="classic-mvc">🐘 Classic MVC</button>
-            <button class="preset-btn" data-preset="web3-dapp">🌐 Web3 dApp</button>
-            <button class="preset-btn" data-preset="devops-docker">🐳 DevOps Stack</button>
-            <button class="preset-btn" data-preset="firebase-app">🔥 Firebase App</button>
-            <button class="preset-btn" data-preset="mern-stack">🥞 MERN Stack</button>
-            <button class="preset-btn" data-preset="analytics-stack">📊 Analytics Stack</button>
-            <button class="preset-btn" data-preset="auth-system">🔐 Auth System</button>
+      <!-- Validator Workspace Section (Initially Hidden) -->
+      <div id="workspace-validator-section" style="display: none;">
+        <div class="tool-card-container validator-card-container" style="max-width: 1000px; margin: 0 auto;">
+          <div class="card-header">
+            <h2>Environment Configuration Validator & Fixer</h2>
+            <p class="card-subtext">Real-time local auditing for formatting slop, AI hallucinations, duplicate keys, and critical credential leaks. 100% secure client-side memory execution.</p>
           </div>
-          
-          <div class="preset-options-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 12px; gap: 12px; border-top: 1px dashed var(--border-muted); padding-top: 10px;">
-            <div id="active-preset-badge" class="active-preset-badge jetbrains-font" style="display: none; font-size: 10px; color: var(--accent-color); background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); padding: 2px 6px; border-radius: 4px; transition: all 0.2s ease;"></div>
-            <div class="prod-vars-toggle-container" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
-              <label class="switch-label" style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-muted); user-select: none;">
-                <input type="checkbox" id="toggle-prod-vars" style="accent-color: var(--accent-color); cursor: pointer; width: 13px; height: 13px;">
-                <span id="toggle-prod-label" style="transition: color 0.15s ease;">⚡ Include Production Variables (Advanced Mode)</span>
-              </label>
+
+          <div class="validator-grid" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- Left Column: Rich Editor Input Area -->
+            <div class="validator-panel-left" style="display: flex; flex-direction: column; gap: 8px;">
+              <label for="validator-input-area" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); font-weight: bold; text-align: left;">&gt;_ paste raw .env contents below:</label>
+              <textarea id="validator-input-area" class="jetbrains-font" placeholder="# Paste your messy or AI-generated .env setup here...&#10;PORT = 3000&#10;DATABASE_URL = postgresql://user:pwd@localhost:5432/my db&#10;OPENAI_API_KEY=sk-proj-mock123" style="width: 100%; height: 350px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-muted); border-radius: 8px; color: var(--text-primary); padding: 16px; font-size: 12px; line-height: 1.5; resize: vertical; outline: none; transition: border-color 0.15s ease;"></textarea>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); text-align: left;">🔒 Keystrokes are audited strictly inside your local browser sandbox. Absolutely zero network requests are made.</div>
+            </div>
+
+            <!-- Right Column: Diagnostics Alerts & Actions -->
+            <div class="validator-panel-right" style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="diagnostics-header-badge-row" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div id="badge-val-ok" class="val-badge badge-ok jetbrains-font" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; font-size: 11px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); color: #22c55e;">
+                  ● Parsed & Clear
+                </div>
+                <div id="badge-val-secrets" class="val-badge badge-secrets jetbrains-font" style="display: none; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; font-size: 11px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #ef4444; font-weight: bold;">
+                  ⚠️ Leaked Secrets Detected!
+                </div>
+                <div id="badge-val-alerts" class="val-badge badge-alerts jetbrains-font" style="display: none; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; font-size: 11px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #f59e0b;">
+                  ● Formatting/Syntax Alerts
+                </div>
+              </div>
+
+              <!-- Real-time diagnostic feed -->
+              <div class="diagnostic-feed-box" style="flex: 1; min-height: 180px; max-height: 220px; background: rgba(18,18,18,0.5); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; overflow-y: auto; text-align: left;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; color: var(--text-secondary); display: block; margin-bottom: 8px; border-bottom: 1px dashed var(--border-muted); padding-bottom: 4px;">🛠️ Real-time Diagnostic Report:</span>
+                <ul id="validator-alerts-list" class="jetbrains-font" style="list-style: none; padding: 0; margin: 0; font-size: 11px; display: flex; flex-direction: column; gap: 8px;">
+                  <li style="color: var(--text-muted); font-style: italic;">Paste content on the left to initialize scanner.</li>
+                </ul>
+              </div>
+
+              <!-- Action button controls -->
+              <div class="validator-actions-panel" style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <button id="btn-val-format" class="btn btn-action" style="padding: 10px; font-size: 11px;" disabled>
+                    ✨ Clean & Standardize
+                  </button>
+                  <button id="btn-val-example" class="btn btn-action" style="padding: 10px; font-size: 11px;" disabled>
+                    🔒 Generate .env.example
+                  </button>
+                </div>
+
+                <!-- Framework conversions row -->
+                <div class="val-framework-convert-row" style="margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border-muted); text-align: left;">
+                  <label style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-bottom: 6px; color: var(--text-muted);">🔄 framework prefix converter:</label>
+                  <div style="display: flex; gap: 8px;">
+                    <select id="val-framework-select" class="val-select jetbrains-font" style="flex: 1; background: var(--bg-surface); border: 1px solid var(--border-muted); color: var(--text-primary); border-radius: 6px; padding: 8px; font-size: 11px; outline: none; cursor: pointer;">
+                      <option value="nextjs">Next.js (NEXT_PUBLIC_)</option>
+                      <option value="vite">React/Vite (VITE_)</option>
+                      <option value="astro">Astro (PUBLIC_)</option>
+                      <option value="nuxtjs">Nuxt.js (NUXT_PUBLIC_)</option>
+                      <option value="none">Standardize (No prefix)</option>
+                    </select>
+                    <button id="btn-val-convert" class="btn btn-primary" style="padding: 8px 16px; font-size: 11px;" disabled>Convert</button>
+                  </div>
+                </div>
+
+                <!-- Platform Exporter Row -->
+                <div class="val-export-row" style="margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border-muted); text-align: left;">
+                  <label style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-bottom: 6px; color: var(--text-muted);">🚀 platform export utilities:</label>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                    <button class="btn btn-secondary btn-val-export" data-platform="docker" style="padding: 6px; font-size: 11px; text-align: left;" disabled>🐳 Docker Compose</button>
+                    <button class="btn btn-secondary btn-val-export" data-platform="vercel" style="padding: 6px; font-size: 11px; text-align: left;" disabled>▲ Vercel JSON</button>
+                    <button class="btn btn-secondary btn-val-export" data-platform="railway" style="padding: 6px; font-size: 11px; text-align: left;" disabled>🚂 Railway Variables</button>
+                    <button class="btn btn-secondary btn-val-export" data-platform="kubernetes" style="padding: 6px; font-size: 11px; text-align: left;" disabled>☸️ Kubernetes ConfigMap</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <!-- STEP 1 — FRAMEWORK SELECTION -->
-        <div id="step-1-card" class="step-card active">
-          <!-- Session Memory Welcome Banner -->
-          <div id="storage-welcome-banner" class="storage-welcome-banner" style="display: none;">
-            <!-- Populated dynamically via app.js -->
-          </div>
 
-          <div class="card-header">
-            <h2>Pick Your Framework</h2>
-            <p class="card-subtext">What are you building with? Pick your primary framework or runtime.</p>
-          </div>
-          
-          <div class="framework-grid" id="framework-grid" role="radiogroup" aria-label="Select framework">
-            <!-- Dynamically populated in app.js -->
-          </div>
-
-          <div class="card-footer-actions">
-            <button id="btn-step1-next" class="btn btn-primary" disabled>
-              Next <span class="arrow">→</span>
+          <!-- Validator Output Pre Block -->
+          <div id="validator-output-container" class="validator-output-container" style="display: none; margin-top: 24px; border-top: 1px solid var(--border-muted); padding-top: 16px; text-align: left;">
+            <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); margin-bottom: 8px;" id="val-output-title">Processed Output:</h3>
+            <div class="code-block-body" id="val-output-code-body" style="border-radius: 8px; overflow: hidden;">
+              <pre style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 8px; border: 1px solid var(--border-muted); max-height: 250px; overflow-y: auto; margin: 0;"><code id="validator-code-render" class="jetbrains-font" style="font-size: 11px; color: var(--text-primary); line-height: 1.6;"></code></pre>
+            </div>
+            <button id="btn-val-copy-output" class="btn btn-primary" style="margin-top: 12px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px;">
+              <span>📋 Copy Output to Clipboard</span>
             </button>
           </div>
         </div>
-
-        <!-- STEP 2 — SERVICE SELECTION -->
-        <div id="step-2-card" class="step-card">
-          <div class="card-header">
-            <h2>Select Your Services</h2>
-            <p class="card-subtext">Which services are you integrating? Select all that apply — we'll generate the right keys for each.</p>
-          </div>
-
-          <!-- FEATURE 4: Search Input -->
-          <div class="search-wrapper">
-            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="service-search-input" class="search-input" placeholder=" " aria-label="Search integration services">
-            <div class="search-placeholder-overlay jetbrains-font">
-              Search services... (e.g. Stripe, Redis, OpenAI)<span class="blinking-cursor">|</span>
-            </div>
-          </div>
-          
-          <div class="services-container" id="services-container">
-            <!-- Dynamically populated in app.js -->
-          </div>
-
-          <!-- Zero search results indicator -->
-          <div id="search-empty-state" class="search-empty-state" style="display: none;"></div>
-
-          <!-- FEATURE 2: Validation Warnings stacked -->
-          <div id="validation-warnings-container" class="validation-warnings-container"></div>
-
-          <div class="card-footer-actions">
-            <button id="btn-step2-back" class="btn btn-secondary">
-              ← Back
-            </button>
-            <button id="btn-step2-next" class="btn btn-primary">
-              Generate .env <span class="arrow">→</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3 — GENERATED .env OUTPUT -->
-        <div id="step-3-card" class="step-card">
-          <div class="card-header">
-            <h2>Your .env File is Ready</h2>
-            <p class="card-subtext">Fill in your actual values. Never commit this file to Git.</p>
-          </div>
-          
-          <div class="output-container">
-            <!-- FEATURE 8: Multi-Environment Switcher -->
-            <div class="env-switcher-container">
-              <div class="env-switcher">
-                <button id="env-btn-dev" class="env-btn active" data-env="development">[ development ]</button>
-                <button id="env-btn-staging" class="env-btn" data-env="staging">[ staging ]</button>
-                <button id="env-btn-production" class="env-btn" data-env="production">[ production ]</button>
-              </div>
-              <div id="env-transition-status" class="env-transition-status jetbrains-font" style="display: none;"></div>
-            </div>
-
-            <!-- FEATURE 1: Code Block Tabs Header -->
-            <div class="code-block-header">
-              <div class="tab-switcher">
-                <button id="tab-btn-env" class="tab-btn active" data-tab="env">.env</button>
-                <button id="tab-btn-example" class="tab-btn" data-tab="example">
-                  .env.example
-                  <span class="tab-tooltip">Safe to commit to Git. Share this with your team.</span>
-                </button>
-              </div>
-              <div class="header-right-meta">
-                <div id="env-badge" class="env-badge dev-badge">DEVELOPMENT</div>
-              </div>
-            </div>
-            
-            <div class="code-block-body">
-              <pre><code id="dotenv-code-render" class="jetbrains-font"></code></pre>
-            </div>
-
-            <!-- Sticky Code Action Buttons -->
-            <div class="code-actions">
-              <button id="btn-copy-env" class="btn btn-action" aria-label="Copy code block">
-                <span class="btn-icon">📋</span> <span class="btn-text">Copy to Clipboard</span>
-              </button>
-              <button id="btn-download-env" class="btn btn-primary" aria-label="Download .env file">
-                <span class="btn-icon">⬇️</span> <span class="btn-text">Download .env</span>
-              </button>
-              <button id="btn-generate-secrets" class="btn btn-action" aria-label="Generate all secrets">
-                <span class="btn-icon">⚡</span> <span class="btn-text">Generate All Secrets</span>
-              </button>
-              <button id="btn-start-over" class="btn btn-secondary" aria-label="Reset and start over">
-                ← Start Over
-              </button>
-            </div>
-            
-            <!-- Step 3 Trust Signifier & Shortcuts -->
-            <div style="margin-top: 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); opacity: 0.85; line-height: 1.6;">
-              🔒 100% Client-Side. Keystrokes are completely safe and processed strictly in-browser.<br>
-              <span style="color: #22c55e;">⌨️ Keyboard Shortcuts: [Ctrl+C] Copy block • [Esc] Start Fresh • [Alt+1/2/3] Env stages • [Alt+E/X] File tabs</span>
-            </div>
-            <div id="secrets-status-line" class="secrets-status-line jetbrains-font" style="display: none;"></div>
-          </div>
-
-          <!-- FEATURE 3: Shareable Stack URL Section -->
-          <div class="share-stack-section">
-            <label for="share-url-input" class="share-label">Share your stack config with your team →</label>
-            <div class="share-input-group">
-              <input type="text" id="share-url-input" class="share-input" readonly value="">
-              <button id="btn-share-copy" class="btn btn-primary btn-share-copy" aria-label="Copy share link">
-                <span class="btn-text">📋 Copy Link</span>
-              </button>
-            </div>
-          </div>
-
-
-
-          <!-- Pro Tips Section -->
-          <div class="pro-tips-section">
-            <h3 class="section-title">🔒 Production Security & Pro Tips</h3>
-            <div class="tips-grid">
-              <div class="tip-card">
-                <span class="tip-prefix">[git]</span>
-                <h4>Git ignore secret keys</h4>
-                <p>Add <code>.env</code> to your <code>.gitignore</code> file immediately. Never push production credentials to remote repositories.</p>
-              </div>
-              <div class="tip-card">
-                <span class="tip-prefix">[doc]</span>
-                <h4>Maintain a template</h4>
-                <p>Use a <code>.env.example</code> with dummy placeholder values. Commit this template to let your team members know which variables are required.</p>
-              </div>
-              <div class="tip-card">
-                <span class="tip-prefix">[sec]</span>
-                <h4>Server-side isolation</h4>
-                <p>Never hardcode secrets in source files. Restrict client-accessible keys using appropriate environment variable prefixes.</p>
-              </div>
-              <div class="tip-card">
-                <span class="tip-prefix">[key]</span>
-                <h4>Key rotation</h4>
-                <p>Set up automatic rotations for your API secrets, and replace them instantly if they are ever leaked or pushed online by accident.</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Recommended Developer Resources (Monetization Preparation Hooks) -->
-          <div class="monetization-resources-section" style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed var(--border-muted);">
-            <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; text-align: left;">🔌 Recommended Infrastructure & Hosting</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-              <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Featured Partner]</span>
-                <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Supabase Backend</h4>
-                <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The open-source Firebase alternative. Instant Postgres database, Auth, and APIs.</p>
-              </a>
-              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Hosting]</span>
-                <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Vercel Platform</h4>
-                <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">Deploy Next.js, React, and static sites with global edge acceleration and serverless scaling.</p>
-              </a>
-              <a href="https://render.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Cloud]</span>
-                <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Render Cloud</h4>
-                <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The easiest way to host Docker containers, web servers, databases, and cron tasks.</p>
+      </div>rs, web servers, databases, and cron tasks.</p>
               </a>
             </div>
           </div>
@@ -596,6 +695,7 @@
   <!-- App logic -->
   <script src="/stack-data.js"></script>
   <script src="/presets-core.js"></script>
+  <script src="/validator-core.js"></script>
   <script src="/compiler-core.js"></script>
   <script src="/app.js"></script>
   <script src="/animations.js"></script>
