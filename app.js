@@ -670,7 +670,11 @@ function handlePathRoute() {
   // Catch-all for views added by the redesign (kits, faq, how-it-works ...)
   document.querySelectorAll('.view.active-view').forEach(v => v.classList.remove('active-view'));
 
-  if (path === '/about') {
+  if ((path === '/kits' || path === '/kits/') && typeof KitPages !== 'undefined') {
+    KitPages.renderCatalog(document.getElementById('kits-content'));
+    document.getElementById('kits-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/about') {
     elements.aboutView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else if (path === '/privacy') {

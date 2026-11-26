@@ -229,13 +229,16 @@ const KitPages = {
   },
 
   renderCatalog(container) {
-    const live = KITS.filter(k => k.status === 'live').length;
+    const words = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+    const liveCount = KITS.filter(k => k.status === 'live').length;
+    const waitCount = KITS.length - liveCount;
+    const live = words[liveCount] || String(liveCount);
     const b = KIT_SETTINGS.bundle;
     container.innerHTML = `
       <section class="g-section g-page-head">
         ${Components.label('KITS')}
         <h1 class="g-h1">Kits for the flows AI gets wrong</h1>
-        <p class="g-lead">${live} live kits and one on the waitlist. Each one is an end-to-end Indian business flow with a test suite your agent has to pass.</p>
+        <p class="g-lead">${live} live kit${liveCount === 1 ? '' : 's'}${waitCount ? ` and ${(words[waitCount] || waitCount).toLowerCase()} on the waitlist` : ''}. Each one is an end-to-end Indian business flow with a test suite your agent has to pass.</p>
       </section>
       <section class="g-section-tight">
         ${Components.kitGrid(KITS)}
