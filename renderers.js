@@ -195,9 +195,9 @@ const Renderers = {
 
     routes.forEach(route => {
       let methodColor = 'var(--text-primary)';
-      if (route.method === 'POST') methodColor = '#3b82f6';
-      else if (route.method === 'GET') methodColor = '#10b981';
-      else if (route.method === 'DELETE') methodColor = '#ef4444';
+      if (route.method === 'POST') methodColor = 'var(--muted)';
+      else if (route.method === 'GET') methodColor = 'var(--accent)';
+      else if (route.method === 'DELETE') methodColor = 'var(--danger)';
       
       html += `<tr style="border-bottom: 1px solid var(--border-muted);">
         <td style="padding: 8px; font-weight: 600; color: ${methodColor};">${route.method}</td>

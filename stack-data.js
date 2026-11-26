@@ -1,4 +1,5 @@
-// Auto-generated Stack Data\nconst STACK_PAGES = [
+// Auto-generated Stack Data
+const STACK_PAGES = [
   {
     "slug": "nextjs-stripe-supabase",
     "title": "Next.js + Stripe + Supabase .env Template",
@@ -419,4 +420,4 @@
       }
     ]
   }
-];\n
+];

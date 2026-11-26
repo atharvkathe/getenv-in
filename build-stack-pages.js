@@ -101,13 +101,11 @@ const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 function buildSeoBlock(stack) {
   return `
       <!-- SEO Context Block for SSG Page -->
-      <div class="ssg-seo-context" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
-        <div class="blog-markdown" style="font-family:'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6; color: var(--text-muted);">
-          <h2 style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 20px;">About this Configuration</h2>
+      <div class="ssg-seo-context g-text" style="margin: 48px 0 0;">
+        <div class="blog-markdown" style="color: var(--muted);">
+          <h2 class="g-h3" style="margin-bottom: 16px;">About this configuration</h2>
           ${stack.content}
-          <div style="margin-top: 40px; text-align: center;">
-             <a href="/" class="btn btn-primary cta-btn">← Generate custom .env for another stack</a>
-          </div>
+          <p style="margin-top: 24px;"><a href="/env" class="g-btn g-btn-secondary">Generate a .env for another stack</a></p>
         </div>
       </div>
   `;
@@ -131,10 +129,12 @@ stacks.forEach(stack => {
   // 2. Replace Meta Description
   html = html.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${stack.desc}">`);
   
-  // 3. Replace H1
+  // 3. Headings: this page is about the stack, so the .env generator heading becomes the page's
+  //    only <h1>, and the kits hero headline is demoted to an <h2> (same styling).
+  html = html.replace(/<h1 id="hero-title"([^>]*)>([\s\S]*?)<\/h1>/, '<h2 id="hero-title"$1>$2</h2>');
   html = html.replace(
-    /<h1 id="hero-title">.*?<\/h1>/s, 
-    `<h1 id="hero-title">${stack.h1}</h1>`
+    /<h2 id="env-title" class="g-h2">[\s\S]*?<\/h2>/,
+    `<h1 id="env-title" class="g-h2">${stack.h1}</h1>`
   );
 
   // 4. Inject Preloaded State
@@ -148,29 +148,16 @@ stacks.forEach(stack => {
   <!-- Style sheet -->`;
   html = html.replace('<!-- Style sheet -->', preloadScript);
 
-  // 5. Append SEO block below the tool (but inside home-view)
-  // We'll replace the closing div of home-view and the start of howitworks-view
-  const targetReplace = '</div>\r\n\r\n    <!-- How It Works View -->';
-  const targetReplace2 = '</div>\n\n    <!-- How It Works View -->'; // Handle LF vs CRLF
-  
-  const injectBlock = buildSeoBlock(stack) + '\n    </div>\n\n    <!-- How It Works View -->';
-  
-  if (html.includes(targetReplace)) {
-    html = html.replace(targetReplace, injectBlock);
-  } else if (html.includes(targetReplace2)) {
-    html = html.replace(targetReplace2, injectBlock);
+  // 5. Append the SEO copy at the end of the .env generator section (marker comment in index.html)
+  const marker = '<!-- SSG:ENV-SECTION-END';
+  if (html.includes(marker)) {
+    html = html.replace(marker, buildSeoBlock(stack) + '\n        ' + marker);
   } else {
-    console.warn(`Could not find injection point for SEO block in ${stack.slug}`);
+    throw new Error(`index.html is missing the "${marker}" marker; cannot build stack/${stack.slug}`);
   }
 
-  // 6. Fix Asset Paths (styles.css -> /styles.css, app.js -> /app.js, favicon etc)
-  html = html.replace(/href="styles\.css"/g, 'href="/styles.css"');
-  html = html.replace(/src="presets-core\.js"/g, 'src="/presets-core.js"');
-  html = html.replace(/src="compiler-core\.js"/g, 'src="/compiler-core.js"');
-  html = html.replace(/src="app\.js"/g, 'src="/app.js"');
-  html = html.replace(/src="animations\.js"/g, 'src="/animations.js"');
-  html = html.replace(/src="stack-data\.js"/g, 'src="/stack-data.js"');
-  html = html.replace(/href="favicon\.svg"/g, 'href="/favicon.svg"');
+  // 6. Asset paths: make any remaining relative local src/href absolute so /stack/<slug>/ resolves them.
+  html = html.replace(/(src|href)="(?!\/|https?:|#|mailto:|data:)([\w.-]+\.(?:js|css|svg))"/g, '$1="/$2"');
   
   // Add canonical tag update
   html = html.replace(

@@ -315,4 +315,4 @@ const KnowledgeEngine = {
   }
 };
 
-module.exports = KnowledgeEngine;
+if (typeof module !== 'undefined' && module.exports) module.exports = KnowledgeEngine;

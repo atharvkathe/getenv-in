@@ -206,7 +206,7 @@ const WorkspaceController = {
             <h3 style="margin: 0 0 4px 0; font-size: 16px;">${proj.name}</h3>
             <span style="color: var(--text-muted); font-size: 12px;">${proj.type} • Updated ${proj.lastUpdated}</span>
           </div>
-          <span style="font-size: 11px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border-active); color: var(--accent-color); background: rgba(59, 130, 246, 0.1);">
+          <span style="font-size: 11px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border-active); color: var(--accent-color); background: color-mix(in srgb, var(--muted) 10%, transparent);">
             ${proj.status}
           </span>
         </div>

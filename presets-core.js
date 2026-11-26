@@ -4,7 +4,7 @@
 
 const PRESETS_DATA = {
   'ai-app': {
-    name: '🤖 AI App',
+    name: 'AI App',
     defaultFramework: 'nextjs',
     rotations: [
       {
@@ -73,7 +73,7 @@ const PRESETS_DATA = {
     ]
   },
   'saas-stack': {
-    name: '💳 SaaS Stack',
+    name: 'SaaS Stack',
     defaultFramework: 'nextjs',
     rotations: [
       {
@@ -139,7 +139,7 @@ const PRESETS_DATA = {
     ]
   },
   'python-backend': {
-    name: '🐍 Python API',
+    name: 'Python API',
     defaultFramework: 'fastapi',
     rotations: [
       {
@@ -209,7 +209,7 @@ const PRESETS_DATA = {
     ]
   },
   'classic-mvc': {
-    name: '🐘 Classic MVC',
+    name: 'Classic MVC',
     defaultFramework: 'laravel',
     rotations: [
       {
@@ -284,7 +284,7 @@ const PRESETS_DATA = {
     ]
   },
   'web3-dapp': {
-    name: '🌐 Web3 dApp',
+    name: 'Web3 dApp',
     defaultFramework: 'vite',
     rotations: [
       {
@@ -340,7 +340,7 @@ const PRESETS_DATA = {
     ]
   },
   'devops-docker': {
-    name: '🐳 DevOps / Docker Stack',
+    name: 'DevOps / Docker Stack',
     defaultFramework: 'nodejs',
     rotations: [
       {
@@ -400,7 +400,7 @@ const PRESETS_DATA = {
     ]
   },
   'firebase-app': {
-    name: '🔥 Firebase App',
+    name: 'Firebase App',
     defaultFramework: 'vite',
     rotations: [
       {
@@ -455,7 +455,7 @@ const PRESETS_DATA = {
     ]
   },
   'mern-stack': {
-    name: '🥞 MERN Stack',
+    name: 'MERN Stack',
     defaultFramework: 'vite',
     rotations: [
       {
@@ -511,7 +511,7 @@ const PRESETS_DATA = {
     ]
   },
   'analytics-stack': {
-    name: '📊 Analytics Stack',
+    name: 'Analytics Stack',
     defaultFramework: 'nextjs',
     rotations: [
       {
@@ -563,7 +563,7 @@ const PRESETS_DATA = {
     ]
   },
   'auth-system': {
-    name: '🔐 Auth System',
+    name: 'Auth System',
     defaultFramework: 'nextjs',
     rotations: [
       {

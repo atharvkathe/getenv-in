@@ -60,7 +60,7 @@ const STACK_PAGES = stacks.map(s => {
   };
 });
 
-const output = '// Auto-generated Stack Data\\nconst STACK_PAGES = ' + JSON.stringify(STACK_PAGES, null, 2) + ';\\n';
+const output = '// Auto-generated Stack Data\nconst STACK_PAGES = ' + JSON.stringify(STACK_PAGES, null, 2) + ';\n';
 
 fs.writeFileSync('stack-data.js', output, 'utf-8');
 console.log('stack-data.js generated successfully.');
