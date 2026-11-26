@@ -596,7 +596,7 @@
 
               <!-- Saved Blueprints -->
               <div class="card-secondary" style="padding: 16px;">
-                <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 6px; letter-spacing: 0.5px;">Saved System Blueprints</h3>
+                <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 6px; letter-spacing: 0.5px;">Saved Software Projects</h3>
                 <div id="workspace-blueprints-list" style="display: flex; flex-direction: column; gap: 10px;">
                   <!-- Dynamic saved blueprints list -->
                 </div>
@@ -662,25 +662,27 @@
             </div>
           </div>
 
-          <!-- Project Key Metrics -->
+          <!-- Project Health Metrics -->
           <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px;">
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Complexity</span>
-              <span id="ws-metric-complexity" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Planning</span>
+              <span id="ws-health-planning" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Estimated Cost</span>
-              <span id="ws-metric-cost" style="font-size: 18px; font-weight: bold; color: #22c55e; font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Architecture</span>
+              <span id="ws-health-architecture" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Est. Timeline</span>
-              <span id="ws-metric-timeline" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Deployment</span>
+              <span id="ws-health-deployment" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
-            <div class="blueprint-card" style="padding: 16px; text-align: center; grid-column: span 2;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 6px;">Completion Progress (<span id="ws-progress-val">0</span>%)</span>
-              <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-muted);">
-                <div id="ws-progress-bar" style="background: var(--accent-color); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
-              </div>
+            <div class="blueprint-card" style="padding: 16px; text-align: center;">
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Documentation</span>
+              <span id="ws-health-documentation" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
+            </div>
+            <div class="blueprint-card" style="padding: 16px; text-align: center;">
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Implementation</span>
+              <span id="ws-health-implementation" style="font-size: 18px; font-weight: bold; color: #22c55e; font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
           </div>
 
@@ -702,17 +704,18 @@
             <button class="btn btn-secondary" data-tab="resources" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Resources</button>
             <button class="btn btn-secondary" data-tab="notes" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Notes</button>
             <button class="btn btn-secondary" data-tab="tasks" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Tasks</button>
+            <button class="btn btn-secondary" data-tab="timeline" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Timeline</button>
           </div>
 
           <!-- Version History Control Pane -->
           <div class="blueprint-card" style="padding: 14px 20px; margin-bottom: 28px; flex-direction: row; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02);">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">Active Version:</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">Active Snapshot:</span>
               <select id="ws-version-select" class="ai-textarea" style="min-height: 32px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-active); background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 120px;">
               </select>
-              <button id="ws-btn-new-version" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Create New Version</button>
+              <button id="ws-btn-new-version" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Create New Snapshot</button>
             </div>
-            <button id="ws-btn-compare-versions" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Compare with Version...</button>
+            <button id="ws-btn-compare-versions" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Compare Snapshots...</button>
           </div>
 
           <!-- Tab Panels Container -->
@@ -720,40 +723,64 @@
             
             <!-- OVERVIEW PANEL -->
             <div class="ws-panel-view" id="ws-panel-overview" style="display: block;">
-              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
-                <div style="display: flex; flex-direction: column; gap: 20px;">
-                  <div class="blueprint-card" style="padding: 24px;">
-                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Executive Summary</h3>
-                    <p id="ws-overview-summary" style="margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 14px;"></p>
-                  </div>
-                  <div class="blueprint-card" style="padding: 24px;">
-                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">User Roles & Permissions</h3>
-                    <ul id="ws-overview-roles" class="bp-list" style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
-                  </div>
+              
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 1. Opportunity Assessment -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">1. Opportunity Assessment</h3>
+                  <ul id="ws-overview-opportunity" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
                 </div>
-                <!-- Implementation Assistant -->
-                <div class="blueprint-card" style="padding: 24px; border-color: var(--accent-color);">
-                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--accent-color);">Implementation Assistant</h3>
-                  <div style="display: flex; flex-direction: column; gap: 18px;" id="ws-assistant-content">
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">→ Next Recommended Step</span>
-                      <p id="ws-assistant-next" style="margin: 0; font-size: 13px; color: var(--text-primary); font-weight: 500;"></p>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">⚠️ Current Bottleneck</span>
-                      <p id="ws-assistant-bottleneck" style="margin: 0; font-size: 13px; color: #ef4444;"></p>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">📖 Recommended Guide</span>
-                      <a id="ws-assistant-guide" href="#" style="font-size: 13px; color: var(--accent-color); text-decoration: none;"></a>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">⚡ Recommended Generator</span>
-                      <a id="ws-assistant-gen" href="/generators" style="font-size: 13px; color: var(--text-primary); text-decoration: underline;"></a>
-                    </div>
-                  </div>
+                <!-- 2. Industry Intelligence -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">2. Industry Intelligence</h3>
+                  <div id="ws-overview-industry" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
                 </div>
               </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 3. Existing Market Landscape -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">3. Existing Market Landscape</h3>
+                  <div id="ws-overview-market" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+                <!-- 4. Business Workflow -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">4. Business Workflow</h3>
+                  <ul id="ws-overview-workflow" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 5. Automation Opportunities -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">5. Automation Opportunities</h3>
+                  <div id="ws-overview-automation" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+                <!-- 6. Revenue Model Suggestions -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">6. Revenue Model Suggestions</h3>
+                  <div id="ws-overview-revenue" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+                <!-- 7. Success Metrics -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">7. Success Metrics</h3>
+                  <ul id="ws-overview-metrics" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+                <!-- 9. Risks -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">9. Risks</h3>
+                  <ul id="ws-overview-risks" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+                <!-- 10. Future Opportunities -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">10. Future Opportunities</h3>
+                  <div id="ws-overview-future" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+              </div>
+
             </div>
 
             <!-- ARCHITECTURE PANEL -->
@@ -833,8 +860,20 @@
                 <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Implementation Tasks Checklist</h3>
                 <p style="font-size: 12px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Complete tasks below to track overall implementation progress. Checked tasks auto-save in local storage.</p>
                 
-                <div id="ws-tasks-checklist" style="display: flex; flex-direction: column; gap: 24px;">
+                <div id="ws-tasks-list" style="display: flex; flex-direction: column; gap: 24px;">
                   <!-- Checklists populated dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- TIMELINE PANEL -->
+            <div class="ws-panel-view" id="ws-panel-timeline" style="display: none;">
+              <div class="blueprint-card" style="padding: 24px;">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Project Evolution Timeline</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">A chronological log of all modifications, snapshots, and updates to this project workspace.</p>
+                
+                <div id="ws-timeline-list" style="display: flex; flex-direction: column; gap: 16px;">
+                  <!-- Timeline events populated dynamically -->
                 </div>
               </div>
             </div>
@@ -851,7 +890,7 @@
         
         <div class="dashboard-header" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
           <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <h1 id="blueprint-title" style="margin: 0; font-size: 28px; font-weight: 700; color: var(--text-primary);">Project Implementation Blueprint</h1>
+            <h1 id="blueprint-title" style="margin: 0; font-size: 28px; font-weight: 700; color: var(--text-primary);">Software Project Workspace</h1>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;" class="export-actions">
               <button id="btn-save-workspace" class="btn btn-primary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--accent-color); color: #000;">Save to Workspace</button>
               <button id="btn-export-pdf" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px;">PDF</button>
@@ -862,129 +901,125 @@
             </div>
           </div>
           
-          <!-- 1. Executive Summary -->
+          <!-- 1. Opportunity Assessment -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--accent-color); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">1. Executive Summary</h3>
-            <p id="bp-exec-summary" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></p>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--accent-color); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">1. Opportunity Assessment</h3>
+            <ul id="bp-opportunity" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
           </div>
           
-          <!-- 2. Business Problem Analysis -->
+          <!-- 2. Industry Intelligence -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">2. Business Problem Analysis</h3>
-            <div id="bp-business-problem" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">2. Industry Intelligence</h3>
+            <div id="bp-industry" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
           </div>
 
-          <!-- 3. Target User Journey -->
+          <!-- 3. Existing Market Landscape -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">3. Target User Journey</h3>
-            <ul id="bp-user-journey" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">3. Existing Market Landscape</h3>
+            <div id="bp-market-landscape" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
           </div>
 
-          <!-- 4. Revenue Opportunities -->
+          <!-- 4. Business Workflow -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">4. Revenue Opportunities</h3>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">4. Business Workflow</h3>
+            <ul id="bp-workflow" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+          </div>
+          
+          <!-- 5. Automation Opportunities -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">5. Automation Opportunities</h3>
+            <div id="bp-automation" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+          </div>
+          
+          <!-- 6. Revenue Model Suggestions -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">6. Revenue Model Suggestions</h3>
             <div id="bp-revenue-model" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+          </div>
+
+          <!-- 7. Success Metrics -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">7. Success Metrics</h3>
+            <ul id="bp-success-metrics" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
           </div>
         </div>
         
         <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
           
-          <!-- 5. Suggested Tech Stack -->
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">8. Technical Planning</h2>
+          </div>
+
+          <!-- 8.1 Suggested Tech Stack -->
           <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">5. Suggested Tech Stack</h3>
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.1 Architecture & Stack</h3>
             <div id="bp-stack" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;"></div>
-          </div>
- 
-          <!-- 6. Folder Structure -->
-          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">6. Folder Structure</h3>
-            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-folder-structure" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 1.4;"></code></pre>
-          </div>
- 
-          <!-- 7. Database Schema -->
-          <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">7. Database Schema (DDL)</h3>
-            <pre style="margin: 0; background: #000; padding: 14px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
-          </div>
- 
-          <!-- 8. Database Tables -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8. Database Tables</h3>
-            <div id="bp-db-tables-list" style="overflow-x: auto; font-size: 12px;"></div>
-          </div>
- 
-          <!-- 9. Entity Relationships -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">9. Entity Relationships</h3>
-            <div id="bp-erd-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
-          </div>
- 
-          <!-- 10. API Route Plan -->
-          <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">10. API Route Plan</h3>
-            <div id="bp-api-route-plan" style="overflow-x: auto; font-size: 12px;"></div>
-          </div>
- 
-          <!-- 11. Authentication Flow -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">11. Authentication Flow</h3>
-            <ul id="bp-auth-flow-steps" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 12. User Roles -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">12. User Roles</h3>
-            <ul id="bp-user-roles-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 13. Environment Variables -->
-          <div class="card-primary architect-priority-section" style="grid-column: span 1; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">13. Environment Variables</h3>
-            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-env-vars-block" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); line-height: 1.4;"></code></pre>
-          </div>
- 
-          <!-- 14. Deployment Strategy -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">14. Deployment Strategy</h3>
-            <ul id="bp-deployment-strategy-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 15. Infrastructure Cost Estimate -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">15. Infrastructure Cost</h3>
-            <div id="bp-infra-costs-table" style="overflow-x: auto; font-size: 12px;"></div>
-          </div>
- 
-          <!-- 16. Development Phases -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 2; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">16. Development Phases</h3>
-            <div id="bp-development-timeline" class="bp-roadmap" style="font-size: 12px;"></div>
-          </div>
- 
-          <!-- 17. MVP Scope -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">17. MVP Scope</h3>
-            <ul id="bp-mvp-scope-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 18. Future Scaling Plan -->
-          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">18. Future Scaling Plan</h3>
-            <ul id="bp-scaling-plan-list" class="bp-list" style="margin: 0; padding-left: 14px; color: var(--text-secondary); font-size: 11px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 19. Recommended SaaS APIs -->
-          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">19. Recommended SaaS APIs</h3>
-            <ul id="bp-third-party-list" class="bp-list" style="margin: 0; padding-left: 14px; color: var(--text-secondary); font-size: 11px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 20. System Architecture Diagram -->
-          <div class="card-reference architect-low-section" style="grid-column: span 2; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">20. System Architecture Diagram</h3>
             <div id="bp-system-arch-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
           </div>
  
+          <!-- 8.2 Folder Structure -->
+          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.2 Folder Structure</h3>
+            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-folder-structure" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 1.4;"></code></pre>
+          </div>
+ 
+          <!-- 8.3 Database Schema -->
+          <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.3 Database (Schema & Tables)</h3>
+            <pre style="margin: 0; background: #000; padding: 14px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto; margin-bottom: 16px;"><code id="bp-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
+            <div id="bp-db-tables-list" style="overflow-x: auto; font-size: 12px;"></div>
+          </div>
+ 
+          <!-- 8.4 Entity Relationships -->
+          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.4 Entity Relationships</h3>
+            <div id="bp-erd-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
+          </div>
+ 
+          <!-- 8.5 API Route Plan -->
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.5 API Route Plan</h3>
+            <div id="bp-api-route-plan" style="overflow-x: auto; font-size: 12px;"></div>
+          </div>
+ 
+          <!-- 8.6 Authentication Flow -->
+          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.6 Authentication Flow</h3>
+            <ul id="bp-auth-flow-steps" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
+            <h3 style="margin-top: 16px; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">User Roles</h3>
+            <ul id="bp-user-roles-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
+          </div>
+ 
+          <!-- 8.7 Environment Variables -->
+          <div class="card-primary architect-priority-section" style="grid-column: span 1; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.7 Environment Variables</h3>
+            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-env-vars-block" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); line-height: 1.4;"></code></pre>
+          </div>
+ 
+          <!-- 8.8 Deployment Strategy & Infrastructure -->
+          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.8 Deployment Strategy</h3>
+            <ul id="bp-deployment-strategy-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5; margin-bottom: 16px;"></ul>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">Infrastructure Cost</h3>
+            <div id="bp-infra-costs-table" style="overflow-x: auto; font-size: 12px;"></div>
+          </div>
+          
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">9. Risks</h2>
+          </div>
+          
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <ul id="bp-risks" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+          </div>
+
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">10. Future Opportunities</h2>
+          </div>
+          
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <div id="bp-future" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+          </div>
+
         </div>
         
         <div class="blog-cta-box" style="margin-top: 48px; text-align: center; border: 1px solid var(--border-muted); border-radius: 12px; padding: 32px;">
@@ -1190,7 +1225,13 @@
   
   <script src="data-generators.js"></script>
   <script src="data-templates.js"></script>
-  <script src="data-blueprints.js"></script>
+  <script src="models.js"></script>
+  <script src="utils.js"></script>
+  <script src="storage.js"></script>
+  <script src="renderers.js"></script>
+  <script src="knowledge-engine.js"></script>
+  <script src="blueprint-engine.js"></script>
+  <script src="workspace.js"></script>
   <script src="stack-data.js"></script>
   <script src="presets-core.js"></script>
   <script src="compiler-core.js"></script>

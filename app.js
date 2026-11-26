@@ -914,59 +914,29 @@ function simulateAIGeneration() {
     }, step.delay);
   });
 
-  // 2. Generate Mock Data based on heuristics
+    // 2. Generate Mock Data based on heuristics
   setTimeout(() => {
-    // Rely on data-blueprints.js to generate rich HTML output
-    const htmlOutput = typeof BLUEPRINT_HEURISTICS !== 'undefined' ? 
-      BLUEPRINT_HEURISTICS.generateHTML(prompt) : null;
+    // Generate structured JSON snapshot
+    const snapshot = typeof BlueprintEngine !== 'undefined' ? 
+      BlueprintEngine.generateSnapshot(prompt) : null;
 
-    if (htmlOutput) {
-      // Safely populate DOM elements
-      const safeSetHtml = (id, html) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-      };
+    if (snapshot) {
+      window.lastGeneratedSnapshot = snapshot;
+      window.lastGeneratedPrompt = prompt;
       
-      safeSetHtml('bp-exec-summary', htmlOutput.execSummary);
-      safeSetHtml('bp-business-problem', htmlOutput.businessProblem);
-      safeSetHtml('bp-user-journey', htmlOutput.userJourney);
-      safeSetHtml('bp-revenue-model', htmlOutput.revenueModel);
-      safeSetHtml('bp-stack', htmlOutput.techStack);
-      
-      const bpFolder = document.getElementById('bp-folder-structure');
-      if (bpFolder) bpFolder.textContent = htmlOutput.folderStructure;
-      
-      const bpDbSchema = document.getElementById('bp-db-schema');
-      if (bpDbSchema) bpDbSchema.textContent = htmlOutput.dbSchema;
-      
-      safeSetHtml('bp-db-tables-list', htmlOutput.dbTables);
-      
-      const erdEl = document.getElementById('bp-erd-diagram');
-      if (erdEl) {
-        erdEl.removeAttribute('data-processed');
-        erdEl.setAttribute('data-code', htmlOutput.erdDiagram);
-        erdEl.innerHTML = `<div class="mermaid" style="display: flex; justify-content: center;">${htmlOutput.erdDiagram}</div>`;
+      // Calculate stack badges for UI display
+      const badges = [];
+      const category = BlueprintEngine.getCategory(prompt);
+      if (category === 'ai-saas') {
+         badges.push('Next.js', 'PostgreSQL', 'Tailwind CSS', 'OpenAI', 'Pinecone', 'Stripe');
+      } else {
+         badges.push('React', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS');
       }
-      
-      safeSetHtml('bp-api-route-plan', htmlOutput.apiRoutePlan);
-      safeSetHtml('bp-auth-flow-steps', htmlOutput.authFlow);
-      safeSetHtml('bp-user-roles-list', htmlOutput.userRoles);
-      
-      const bpEnvVars = document.getElementById('bp-env-vars-block');
-      if (bpEnvVars) bpEnvVars.textContent = htmlOutput.envVariables;
-      
-      safeSetHtml('bp-deployment-strategy-list', htmlOutput.deploymentStrategy);
-      safeSetHtml('bp-infra-costs-table', htmlOutput.infraCost);
-      safeSetHtml('bp-development-timeline', htmlOutput.devPhases);
-      safeSetHtml('bp-mvp-scope-list', htmlOutput.mvpScope);
-      safeSetHtml('bp-scaling-plan-list', htmlOutput.scalingPlan);
-      safeSetHtml('bp-third-party-list', htmlOutput.thirdPartyServices);
-      
-      const archEl = document.getElementById('bp-system-arch-diagram');
-      if (archEl) {
-        archEl.removeAttribute('data-processed');
-        archEl.setAttribute('data-code', htmlOutput.archDiagram);
-        archEl.innerHTML = `<div class="mermaid" style="display: flex; justify-content: center;">${htmlOutput.archDiagram}</div>`;
+      snapshot.architecture.stack = badges;
+
+      // Render the UI using the JSON object
+      if (typeof Renderers !== 'undefined') {
+        Renderers.renderBlueprint(snapshot);
       }
     }
     
