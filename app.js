@@ -670,9 +670,27 @@ function handlePathRoute() {
   // Catch-all for views added by the redesign (kits, faq, how-it-works ...)
   document.querySelectorAll('.view.active-view').forEach(v => v.classList.remove('active-view'));
 
+  const kitDetailMatch = path.match(/^\/kits\/([a-z0-9-]+)\/?$/);
   if ((path === '/kits' || path === '/kits/') && typeof KitPages !== 'undefined') {
     KitPages.renderCatalog(document.getElementById('kits-content'));
     document.getElementById('kits-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (kitDetailMatch && typeof KitPages !== 'undefined') {
+    const found = KitPages.renderDetail(document.getElementById('kit-detail-content'), kitDetailMatch[1]);
+    if (!found) {
+      history.replaceState(null, '', '/kits');
+      handlePathRoute();
+      return;
+    }
+    document.getElementById('kit-detail-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/how-it-works' && typeof KitPages !== 'undefined') {
+    KitPages.renderHowItWorks(document.getElementById('howitworks-content'));
+    document.getElementById('howitworks-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/faq' && typeof KitPages !== 'undefined') {
+    KitPages.renderFaq(document.getElementById('faq-content'));
+    document.getElementById('faq-view').classList.add('active-view');
     window.scrollTo({ top: 0 });
   } else if (path === '/about') {
     elements.aboutView.classList.add('active-view');
@@ -847,9 +865,6 @@ function handlePathRoute() {
       handlePathRoute();
       return;
     }
-  } else if (path === '/how-it-works' && elements.howItWorksView) {
-    elements.howItWorksView.classList.add('active-view');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     // Home (kits homepage). "/env" is the same page, scrolled to the free .env generator (section 6).
     const isEnvRoute = path === '/env';

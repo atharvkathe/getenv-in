@@ -178,6 +178,37 @@ async function main() {
     events.filter(e => e.kind === 'exception').forEach(e => { console.log(`FAIL [generator] exception: ${e.text}`); failures++; });
   }
 
+  // Functional test: kit pages (legal note, placeholder buy button, waitlist form validation).
+  if (process.env.FLOW_KITS) {
+    events = [];
+    const step = async (expr, wait = 0) => { const r = await send('Runtime.evaluate', { expression: expr, returnByValue: true, awaitPromise: true }); if (wait) await sleep(wait); return r.result.value; };
+    const go = async p => { await send('Page.navigate', { url: BASE + p }); await sleep(1800); };
+    const checks = {};
+
+    await go('/kits/gst-invoice-engine');
+    checks['GST page shows "not legal or tax advice"'] = await step(`/not legal or tax advice/i.test(document.querySelector('#kit-detail-view .g-notice')?.textContent || '')`);
+    await step(`document.querySelector('#kit-detail-view [data-buy-placeholder]').click()`, 300);
+    checks['placeholder buy button explains checkout is not live'] = await step(`/Checkout opens soon/.test(document.querySelector('#kit-detail-view .kit-buy .g-form-status').textContent)`);
+    checks['URL unchanged after placeholder buy click'] = await step(`location.pathname === '/kits/gst-invoice-engine'`);
+
+    await go('/kits/india-subscription-saas');
+    checks['Subscription page has no legal note'] = await step(`!document.querySelector('#kit-detail-view .g-notice')`);
+
+    await go('/kits/dpdp-ready-app');
+    checks['DPDP page shows "not legal or tax advice"'] = await step(`/not legal or tax advice/i.test(document.querySelector('#kit-detail-view .g-notice')?.textContent || '')`);
+    checks['DPDP page has waitlist form, no buy button'] = await step(`!!document.querySelector('#kit-detail-view form[data-waitlist]') && !document.querySelector('#kit-detail-view [data-buy-placeholder], #kit-detail-view a[href*="rzp"]')`);
+    await step(`(() => { const f = document.querySelector('form[data-waitlist]'); f.querySelector('input').value = 'not-an-email'; f.requestSubmit(); })()`, 300);
+    checks['waitlist rejects invalid email'] = await step(`document.querySelector('form[data-waitlist] input').getAttribute('aria-invalid') === 'true'`);
+    await step(`(() => { const f = document.querySelector('form[data-waitlist]'); f.querySelector('input').value = 'dev@example.com'; f.requestSubmit(); })()`, 300);
+    checks['waitlist (no backend) says signups are not open yet'] = await step(`/open soon/i.test(document.querySelector('form[data-waitlist] .g-form-status').textContent)`);
+
+    await go('/kits/does-not-exist');
+    checks['unknown kit slug redirects to /kits'] = await step(`location.pathname === '/kits' && document.getElementById('kits-view').classList.contains('active-view')`);
+
+    Object.entries(checks).forEach(([k, v]) => { console.log(`${v ? 'ok  ' : 'FAIL'} [kits] ${k}`); if (!v) failures++; });
+    events.filter(e => e.kind === 'exception').forEach(e => { console.log(`FAIL [kits] exception: ${e.text}`); failures++; });
+  }
+
   ws.close();
   browser.kill();
   try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) { /* Windows may lock files briefly */ }
