@@ -1,36 +1,10 @@
 /* ==========================================================================
    CSS RESET & CORE VARIABLES
    ========================================================================== */
+/* Colour + font tokens live in theme.css (the single theme file).
+   The legacy names used below (--bg-base, --accent-color, --text-primary ...)
+   are defined there as aliases of the DESIGN.md tokens. */
 :root {
-  /* Premium Dark Theme Palette */
-  --bg-base: #080808;
-  --bg-surface: #121212;
-  --bg-surface-hover: #161616;
-  --bg-code: #0b0b0b;
-  
-  /* Borders & Dividers */
-  --border-muted: #1c1c1c;
-  --border-active: #2a2a2a;
-  
-  /* Terminal Green Accent & Glows */
-  --accent-color: #22c55e;
-  --accent-glow: rgba(34, 197, 94, 0.06);
-  --accent-glow-strong: rgba(34, 197, 94, 0.12);
-  --accent-focus-ring: rgba(34, 197, 94, 0.25);
-  
-  /* Typography Colors */
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-  --text-dark: #080808;
-  
-  /* Syntax Highlighting Tokens */
-  --syntax-comment: #52525b;
-  --syntax-name: #22c55e;
-  --syntax-operator: #e4e4e7;
-  --syntax-value: #f59e0b; /* Warm Orange-Yellow */
-  --syntax-meta: #71717a;
-
   /* Layout Constants */
   --header-height: 64px;
   --max-width: 1100px;
@@ -67,11 +41,11 @@ body {
   background: var(--bg-base);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1c1c1c;
+  background: var(--surface-2);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a2a2a;
+  background: var(--border);
 }
 
 /* Monospace Utilities */
@@ -87,7 +61,7 @@ body {
   top: 0;
   z-index: 1000;
   height: var(--header-height);
-  background: rgba(8, 8, 8, 0.85);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-muted);
@@ -199,7 +173,7 @@ body {
 
 .ai-hero h1 {
   font-size: 48px;
-  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 12px;
@@ -225,7 +199,7 @@ body {
   font-size: 11px;
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-secondary);
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   border: 1px solid var(--border-muted);
   padding: 4px 10px;
   border-radius: 4px;
@@ -238,7 +212,7 @@ body {
   border: 1px solid var(--border-active);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(34, 197, 94, 0.1);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--bg) 50%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   margin: 32px auto 0;
   text-align: left;
@@ -246,7 +220,7 @@ body {
 
 .ai-input-container:focus-within {
   border-color: var(--accent-color);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-color), 0 0 24px var(--accent-glow-strong);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--bg) 50%, transparent), 0 0 0 1px var(--accent-color), 0 0 24px var(--accent-glow-strong);
 }
 
 .ai-textarea {
@@ -271,7 +245,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  background: rgba(0,0,0,0.2);
+  background: color-mix(in srgb, var(--bg) 20%, transparent);
   border-top: 1px solid var(--border-muted);
 }
 
@@ -294,7 +268,7 @@ body {
 .suggestion-chip:hover {
   color: var(--accent-color);
   border-color: var(--accent-color);
-  background: rgba(34, 197, 94, 0.05);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
 
 .btn-glow {
@@ -309,7 +283,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--text) 20%, transparent) 0%, transparent 60%);
   opacity: 0;
   transform: scale(0.5);
   transition: opacity 0.3s, transform 0.3s;
@@ -327,7 +301,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(8, 8, 8, 0.95);
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
   backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
@@ -343,11 +317,11 @@ body {
   border: 1px solid var(--border-active);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.8), 0 0 0 1px var(--accent-focus-ring);
+  box-shadow: 0 24px 48px color-mix(in srgb, var(--bg) 80%, transparent), 0 0 0 1px var(--accent-focus-ring);
 }
 
 .loader-header {
-  background: #1a1a1a;
+  background: var(--surface-2);
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -368,9 +342,9 @@ body {
   border-radius: 50%;
 }
 
-.mac-dots span:nth-child(1) { background: #ff5f56; }
-.mac-dots span:nth-child(2) { background: #ffbd2e; }
-.mac-dots span:nth-child(3) { background: #27c93f; }
+.mac-dots span:nth-child(1) { background: var(--danger); }
+.mac-dots span:nth-child(2) { background: var(--warning); }
+.mac-dots span:nth-child(3) { background: var(--success); }
 
 .loader-output {
   padding: 24px;
@@ -452,7 +426,7 @@ body {
 }
 
 .bp-list li::before {
-  content: '▹';
+  content: 'â–¹';
   position: absolute;
   left: 0;
   color: var(--accent-color);
@@ -543,8 +517,8 @@ body {
 }
 
 .step-indicator-item.active .step-num {
-  background-color: rgba(34, 197, 94, 0.05);
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.15);
+  background-color: color-mix(in srgb, var(--accent) 5%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 .step-indicator-item.completed .step-num {
@@ -680,7 +654,7 @@ body {
 
 .btn-primary:hover:not(:disabled) {
   opacity: 0.95;
-  box-shadow: 0 0 16px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -688,9 +662,9 @@ body {
 }
 
 .btn-primary:disabled {
-  background-color: #141414;
-  color: #4b5563;
-  border-color: #1c1c1c;
+  background-color: var(--surface);
+  color: var(--muted);
+  border-color: var(--border);
   cursor: not-allowed;
 }
 
@@ -711,14 +685,14 @@ body {
 }
 
 .btn-action {
-  background-color: #141414;
-  border: 1px solid #222;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   color: var(--text-secondary);
 }
 
 .btn-action:hover {
-  border-color: #333;
-  background-color: #1c1c1c;
+  border-color: var(--border);
+  background-color: var(--surface-2);
   color: var(--text-primary);
 }
 
@@ -735,11 +709,11 @@ body {
 }
 
 /* ==========================================================================
-   FEATURE 5 — REMEMBER LAST STACK (WELCOME BANNER)
+   FEATURE 5 â€” REMEMBER LAST STACK (WELCOME BANNER)
    ========================================================================== */
 .storage-welcome-banner {
-  background-color: rgba(34, 197, 94, 0.03);
-  border: 1px solid rgba(34, 197, 94, 0.25);
+  background-color: color-mix(in srgb, var(--accent) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
   border-radius: 8px;
   padding: 12px 18px;
   margin-bottom: 24px;
@@ -818,8 +792,8 @@ body {
    FEATURE: SESSION PERSISTENCE (RESTORE BANNER)
    ========================================================================== */
 .session-restore-banner {
-  background-color: rgba(34, 197, 94, 0.03);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  background-color: color-mix(in srgb, var(--accent) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   border-radius: 8px;
   padding: 10px 16px;
   margin-bottom: 20px;
@@ -829,7 +803,7 @@ body {
   gap: 16px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  color: #22c55e;
+  color: var(--accent);
   animation: fadeIn 0.3s ease;
 }
 
@@ -839,9 +813,9 @@ body {
 }
 
 .session-restore-banner .btn-fresh-start {
-  color: #ef4444;
+  color: var(--danger);
   background: transparent;
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent);
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
@@ -853,8 +827,8 @@ body {
 }
 
 .session-restore-banner .btn-fresh-start:hover {
-  background-color: rgba(239, 68, 68, 0.08);
-  border-color: rgba(239, 68, 68, 0.5);
+  background-color: color-mix(in srgb, var(--danger) 8%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 50%, transparent);
 }
 
 /* ==========================================================================
@@ -879,24 +853,24 @@ body {
 }
 
 .preset-btn:hover {
-  border-color: rgba(34, 197, 94, 0.45);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   color: var(--accent-color);
-  background-color: rgba(34, 197, 94, 0.04);
+  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
   transform: translateY(-1px);
 }
 
 .preset-btn.active {
   border-color: var(--accent-color);
   color: var(--accent-color);
-  background-color: rgba(34, 197, 94, 0.08);
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.12);
+  background-color: color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent);
   font-weight: bold;
 }
 
 #toggle-prod-vars:checked + #toggle-prod-label {
   color: var(--accent-color);
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 /* Premium Code block compiling shimmer anim */
@@ -924,13 +898,13 @@ body {
 }
 
 .resource-ad-card:hover {
-  border-color: rgba(34, 197, 94, 0.35) !important;
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent) !important;
   background-color: var(--bg-surface-hover) !important;
   transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   STEP 1 — FRAMEWORK CARD GRID
+   STEP 1 â€” FRAMEWORK CARD GRID
    ========================================================================== */
 .framework-grid {
   display: grid;
@@ -955,15 +929,15 @@ body {
 }
 
 .framework-card:hover {
-  border-color: #262626;
+  border-color: var(--border);
   background-color: var(--bg-surface-hover);
-  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.02), 0 0 0 1px rgba(34, 197, 94, 0.04);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 2%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 4%, transparent);
   transform: translateY(-2px);
 }
 
 .framework-card.selected {
   border-color: var(--accent-color);
-  background-color: rgba(34, 197, 94, 0.04);
+  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
   box-shadow: 0 0 0 1px var(--accent-color), 0 4px 24px var(--accent-glow-strong);
 }
 
@@ -990,7 +964,7 @@ body {
 }
 
 /* ==========================================================================
-   FEATURE 4 — SEARCH BAR IN STEP 2
+   FEATURE 4 â€” SEARCH BAR IN STEP 2
    ========================================================================== */
 .search-wrapper {
   position: relative;
@@ -1008,7 +982,7 @@ body {
 
 .search-input {
   width: 100%;
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   border: 1px solid var(--border-muted);
   color: var(--text-primary);
   font-family: inherit;
@@ -1021,7 +995,7 @@ body {
 
 .search-input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 1px var(--accent-color), 0 0 12px rgba(34, 197, 94, 0.05);
+  box-shadow: 0 0 0 1px var(--accent-color), 0 0 12px color-mix(in srgb, var(--accent) 5%, transparent);
 }
 
 .search-empty-state {
@@ -1032,11 +1006,11 @@ body {
   border: 1px dashed var(--border-muted);
   border-radius: 8px;
   margin: 16px 0;
-  background-color: rgba(255, 255, 255, 0.005);
+  background-color: color-mix(in srgb, var(--text) 0.5%, transparent);
 }
 
 /* ==========================================================================
-   STEP 2 — SERVICES LIST
+   STEP 2 â€” SERVICES LIST
    ========================================================================== */
 .services-container {
   display: flex;
@@ -1073,12 +1047,12 @@ body {
   border: 1px solid var(--accent-color);
   border-radius: 4px;
   padding: 1px 6px;
-  background-color: rgba(34, 197, 94, 0.05);
+  background-color: color-mix(in srgb, var(--accent) 5%, transparent);
   text-transform: lowercase;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 6px rgba(34, 197, 94, 0.1);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 10%, transparent);
   letter-spacing: normal;
 }
 
@@ -1104,15 +1078,15 @@ body {
 }
 
 .service-checkbox-card:hover:not(.disabled) {
-  border-color: #262626;
+  border-color: var(--border);
   background-color: var(--bg-surface-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.02);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 2%, transparent);
 }
 
 .service-checkbox-card.checked {
   border-color: var(--accent-color);
-  background-color: rgba(34, 197, 94, 0.04);
+  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
   box-shadow: 0 0 0 1px var(--accent-color), 0 4px 16px var(--accent-glow);
 }
 
@@ -1173,7 +1147,7 @@ body {
 .service-checkbox-card.disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   border-style: dashed;
 }
 
@@ -1192,9 +1166,9 @@ body {
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%) translateY(4px);
-  background-color: #18181b;
-  border: 1px solid #27272a;
-  color: #e4e4e7;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 11px;
@@ -1205,7 +1179,7 @@ body {
   opacity: 0;
   transition: opacity 0.15s ease, transform 0.15s ease;
   z-index: 10;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--bg) 40%, transparent);
 }
 
 .service-checkbox-card.disabled::after {
@@ -1216,7 +1190,7 @@ body {
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: #18181b transparent transparent transparent;
+  border-color: var(--border) transparent transparent transparent;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s ease;
@@ -1233,7 +1207,7 @@ body {
 }
 
 /* ==========================================================================
-   FEATURE 2 — SMART VALIDATION WARNINGS
+   FEATURE 2 â€” SMART VALIDATION WARNINGS
    ========================================================================== */
 .validation-warnings-container {
   display: flex;
@@ -1243,8 +1217,8 @@ body {
 }
 
 .warning-banner {
-  background-color: rgba(245, 158, 11, 0.03);
-  border: 1px solid rgba(245, 158, 11, 0.25);
+  background-color: color-mix(in srgb, var(--warning) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warning) 25%, transparent);
   border-radius: 8px;
   padding: 12px 16px;
   display: flex;
@@ -1252,7 +1226,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   font-size: 12px;
-  color: #f59e0b; /* Amber */
+  color: var(--warning); /* Amber */
   animation: slide-down 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1276,7 +1250,7 @@ body {
 .btn-warning-close {
   background: transparent;
   border: none;
-  color: rgba(245, 158, 11, 0.6);
+  color: color-mix(in srgb, var(--warning) 60%, transparent);
   font-size: 16px;
   cursor: pointer;
   transition: color 0.15s ease;
@@ -1285,11 +1259,11 @@ body {
 }
 
 .btn-warning-close:hover {
-  color: #f59e0b;
+  color: var(--warning);
 }
 
 /* ==========================================================================
-   STEP 3 — CODE BLOCK & TAB SWITCHER
+   STEP 3 â€” CODE BLOCK & TAB SWITCHER
    ========================================================================== */
 .output-container {
   display: flex;
@@ -1304,7 +1278,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #0d0d0d;
+  background-color: var(--bg);
   padding: 8px 18px;
   border-bottom: 1px solid var(--border-muted);
 }
@@ -1312,8 +1286,8 @@ body {
 /* FEATURE 1: Code Tabs Pill Buttons */
 .tab-switcher {
   display: flex;
-  background-color: #121212;
-  border: 1px solid #1f1f1f;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   padding: 3px;
   border-radius: 6px;
   gap: 2px;
@@ -1338,9 +1312,9 @@ body {
 }
 
 .tab-btn.active {
-  background-color: #1a1a1a;
+  background-color: var(--surface-2);
   color: var(--accent-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--bg) 40%, transparent);
 }
 
 /* Tooltip trigger */
@@ -1351,9 +1325,9 @@ body {
   bottom: 130%;
   left: 50%;
   transform: translateX(-50%) translateY(4px);
-  background-color: #18181b;
-  border: 1px solid #27272a;
-  color: #e4e4e7;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 11px;
@@ -1365,7 +1339,7 @@ body {
   font-weight: 400;
   z-index: 100;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--bg) 50%, transparent);
 }
 
 .tab-btn:hover .tab-tooltip {
@@ -1379,7 +1353,7 @@ body {
   font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
-  background-color: #141414;
+  background-color: var(--surface);
   padding: 2px 6px;
   border-radius: 4px;
 }
@@ -1392,21 +1366,21 @@ body {
   position: relative;
   background-color: var(--bg-code);
   scrollbar-width: thin;
-  scrollbar-color: #22c55e #1a1a1a;
+  scrollbar-color: var(--accent) var(--surface-2);
 }
 
 .code-block-body::-webkit-scrollbar {
   width: 4px;
 }
 .code-block-body::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--surface-2);
 }
 .code-block-body::-webkit-scrollbar-thumb {
-  background: #22c55e;
+  background: var(--border-strong);
   border-radius: 0px;
 }
 .code-block-body::-webkit-scrollbar-thumb:hover {
-  background: #22c55e;
+  background: var(--border-strong);
 }
 
 .code-block-body pre {
@@ -1446,7 +1420,7 @@ body {
 
 /* Prefixed environment inline description warning */
 .token-prefix-note {
-  color: #3b82f6; /* Premium soft blue */
+  color: var(--muted); /* Premium soft blue */
   opacity: 0.85;
 }
 
@@ -1456,7 +1430,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   flex-wrap: wrap;
 }
 
@@ -1465,7 +1439,7 @@ body {
 }
 
 /* ==========================================================================
-   FEATURE 3 — SHAREABLE STACK URL
+   FEATURE 3 â€” SHAREABLE STACK URL
    ========================================================================== */
 .share-stack-section {
   margin-top: 24px;
@@ -1489,7 +1463,7 @@ body {
 
 .share-input {
   flex-grow: 1;
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   border: 1px solid var(--border-muted);
   color: var(--text-secondary);
   font-family: 'JetBrains Mono', monospace;
@@ -1501,7 +1475,7 @@ body {
 
 .share-input:focus {
   color: var(--text-primary);
-  border-color: #262626;
+  border-color: var(--border);
 }
 
 .btn-share-copy {
@@ -1515,10 +1489,10 @@ body {
 .adsense-placeholder {
   margin: 28px 0;
   padding: 12px;
-  border: 1px dashed #1c1c1c;
+  border: 1px dashed var(--border);
   border-radius: 8px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.01);
+  background-color: color-mix(in srgb, var(--text) 1%, transparent);
 }
 
 .ads-label {
@@ -1565,7 +1539,7 @@ body {
 }
 
 .tip-card {
-  background-color: #0c0c0c;
+  background-color: var(--bg);
   border: 1px solid var(--border-muted);
   border-radius: 8px;
   padding: 16px 20px;
@@ -1576,7 +1550,7 @@ body {
 }
 
 .tip-card:hover {
-  border-color: #222;
+  border-color: var(--border);
 }
 
 .tip-icon {
@@ -1586,8 +1560,8 @@ body {
 .tip-prefix {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.7rem;
-  color: #22c55e;
-  border: 1px solid #22c55e;
+  color: var(--accent);
+  border: 1px solid var(--accent);
   padding: 2px 6px;
   margin-bottom: 8px;
   display: inline-block;
@@ -1608,7 +1582,7 @@ body {
 .tip-card code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  background-color: #1c1c1c;
+  background-color: var(--surface-2);
   padding: 1px 4px;
   border-radius: 3px;
   color: var(--accent-color);
@@ -1660,14 +1634,14 @@ body {
 .how-step code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  background-color: #121212;
+  background-color: var(--surface);
   padding: 1px 4px;
   border-radius: 3px;
   color: var(--text-primary);
 }
 
 /* ==========================================================================
-   FEATURE 6 — BLOG SECTION & POSTS
+   FEATURE 6 â€” BLOG SECTION & POSTS
    ========================================================================== */
 .blog-container {
   max-width: 960px;
@@ -1701,10 +1675,10 @@ body {
 }
 
 .blog-card:hover {
-  border-color: #2a2a2a;
+  border-color: var(--border);
   background-color: var(--bg-surface-hover);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.03);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 3%, transparent);
 }
 
 .blog-card h3 {
@@ -1745,7 +1719,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--text-muted);
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   padding: 2px 6px;
   border-radius: 4px;
   border: 1px solid var(--border-muted);
@@ -1822,7 +1796,7 @@ body {
 }
 
 .blog-article-body pre {
-  background-color: #0b0b0b;
+  background-color: var(--bg);
   border: 1px solid var(--border-muted);
   border-radius: 8px;
   padding: 16px 20px;
@@ -1834,7 +1808,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   color: var(--accent-color);
-  background-color: #0e0e0e;
+  background-color: var(--bg);
   padding: 2px 6px;
   border-radius: 4px;
 }
@@ -1848,7 +1822,7 @@ body {
 
 /* Call-to-action block inside guides */
 .blog-cta-box {
-  background-color: rgba(34, 197, 94, 0.01);
+  background-color: color-mix(in srgb, var(--accent) 1%, transparent);
   border: 1px solid var(--border-muted);
   border-left: 3px solid var(--accent-color);
   border-radius: 8px;
@@ -1912,7 +1886,7 @@ body {
 .page-content code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
-  background-color: #121212;
+  background-color: var(--surface);
   padding: 2px 6px;
   border-radius: 4px;
   color: var(--accent-color);
@@ -1935,7 +1909,7 @@ body {
 .footer {
   margin-top: auto;
   border-top: 1px solid var(--border-muted);
-  background-color: #070707;
+  background-color: var(--bg);
 }
 
 .footer-container {
@@ -1972,7 +1946,7 @@ body {
 }
 
 .divider {
-  color: #1c1c1c;
+  color: var(--surface-2);
 }
 
 /* ==========================================================================
@@ -2003,8 +1977,8 @@ img, svg {
 }
 
 .menu-toggle:hover {
-  background-color: rgba(34, 197, 94, 0.1);
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .mobile-menu {
@@ -2012,7 +1986,7 @@ img, svg {
   top: var(--header-height);
   left: 0;
   width: 100%;
-  background-color: rgba(8, 8, 8, 0.98);
+  background-color: color-mix(in srgb, var(--bg) 98%, transparent);
   border-bottom: 1px solid var(--border-muted);
   max-height: 0;
   overflow: hidden;
@@ -2038,7 +2012,7 @@ img, svg {
   font-weight: 500;
   color: var(--text-secondary) !important;
   text-decoration: none;
-  border-bottom: 1px solid rgba(28, 28, 28, 0.5);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
   transition: color 0.15s ease, padding-left 0.15s ease;
 }
 
@@ -2206,7 +2180,7 @@ img, svg {
     display: inline-block !important; /* Ensure logo text is NEVER hidden */
   }
   .mobile-menu {
-    background-color: rgba(8, 8, 8, 1) !important;
+    background-color: var(--bg) !important;
   }
   .mobile-nav-links {
     padding: 16px 20px !important;
@@ -2454,9 +2428,12 @@ img, svg {
    TERMINAL AESTHETIC UPGRADES
    ========================================================================== */
 
-/* 1. Monospace Fonts Overhaul */
-* {
-  font-family: 'JetBrains Mono', 'Courier New', 'Courier', monospace !important;
+/* 1. Fonts: the redesign uses the DESIGN.md type system from theme.css
+   (Space Grotesk headings, IBM Plex Sans body, JetBrains Mono for code/labels/numbers).
+   The old global `* { font-family: JetBrains Mono !important }` override was removed. */
+pre, code, kbd, .code-block-body, .framework-name, .service-label, .step-num,
+.env-btn, .tab-btn, .env-badge, .stat-badge, .preset-btn, .share-input {
+  font-family: var(--font-mono);
 }
 
 /* Typography Hierarchy */
@@ -2467,21 +2444,14 @@ img, svg {
   letter-spacing: -0.01em !important;
 }
 
-h2 {
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.01em !important;
-}
-
 .framework-name, .service-label {
   font-size: 0.85rem !important;
   font-weight: 500 !important;
 }
 
-p, li, .page-content p {
-  font-size: 0.95rem !important;
-  font-weight: 400 !important;
-  line-height: 1.6 !important;
+.page-content p {
+  font-size: var(--fs-16);
+  line-height: 1.6;
 }
 
 .step-text, 
@@ -2508,20 +2478,20 @@ p, li, .page-content p {
   height: 6px !important;
 }
 ::-webkit-scrollbar-track {
-  background: #080808 !important;
+  background: var(--bg) !important;
 }
 ::-webkit-scrollbar-thumb {
-  background: #22c55e !important;
-  border-radius: 0px !important; /* sharp, not rounded — terminal style */
+  background: var(--border-strong) !important;
+  border-radius: 0px !important; /* sharp, not rounded â€” terminal style */
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4ade80 !important;
+  background: var(--muted) !important;
 }
 
 /* 3. Selection Color */
 ::selection {
-  background: #22c55e !important;
-  color: #080808 !important;
+  background: var(--accent) !important;
+  color: var(--accent-ink) !important;
 }
 
 /* 4. Removing Hand Pointers (Terminal Cursor Vibe) */
@@ -2547,7 +2517,7 @@ p, li, .page-content p {
 }
 
 .blinking-cursor {
-  color: #22c55e !important;
+  color: var(--accent) !important;
   animation: blink 1s step-end infinite !important;
   display: inline-block !important;
   margin-left: 2px !important;
@@ -2582,7 +2552,7 @@ p, li, .page-content p {
   position: fixed !important;
   inset: 0 !important;
   z-index: 9999 !important;
-  background-color: #080808 !important;
+  background-color: var(--bg) !important;
   display: flex;
   align-items: center !important;
   justify-content: center !important;
@@ -2595,7 +2565,7 @@ p, li, .page-content p {
   max-width: 500px !important;
   padding: 24px !important;
   text-align: left !important;
-  color: #22c55e !important;
+  color: var(--accent) !important;
   font-size: 14px !important;
   line-height: 1.8 !important;
 }
@@ -2607,7 +2577,7 @@ p, li, .page-content p {
 /* 7. Step Transitions console flashing */
 @keyframes flash-green-anim {
   0%, 100% { background-color: transparent; box-shadow: none; }
-  50% { background-color: rgba(34, 197, 94, 0.4); box-shadow: 0 0 20px #22c55e; color: #080808; }
+  50% { background-color: color-mix(in srgb, var(--accent) 40%, transparent); box-shadow: 0 0 20px var(--accent); color: var(--accent-ink); }
 }
 
 .flash-green {
@@ -2628,7 +2598,7 @@ p, li, .page-content p {
   left: 0 !important;
   width: 100% !important;
   height: 2px !important;
-  background: #22c55e !important;
+  background: var(--accent) !important;
   opacity: 0 !important;
   pointer-events: none !important;
   z-index: 0 !important;
@@ -2642,18 +2612,18 @@ p, li, .page-content p {
   0% {
     top: 0%;
     opacity: 0.3;
-    box-shadow: 0 0 8px #22c55e;
+    box-shadow: 0 0 8px var(--accent);
   }
   100% {
     top: 100%;
     opacity: 0.05;
-    box-shadow: 0 0 8px #22c55e;
+    box-shadow: 0 0 8px var(--accent);
   }
 }
 
 .framework-card:hover, .service-checkbox-card:hover:not(.disabled) {
-  border-color: #22c55e !important;
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.15) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 15%, transparent) !important;
 }
 
 /* 9. Button Shift & '>' Hover prefix */
@@ -2674,7 +2644,7 @@ p, li, .page-content p {
 
 .btn:hover:not(:disabled) {
   transform: translateX(3px) !important;
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.15) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 15%, transparent) !important;
 }
 
 .btn:hover:not(:disabled)::before {
@@ -2700,7 +2670,7 @@ p, li, .page-content p {
 .blog-terminal-header {
   font-family: 'JetBrains Mono', monospace !important;
   font-size: 11px !important;
-  color: rgba(74, 222, 128, 0.6) !important;
+  color: color-mix(in srgb, var(--accent) 60%, transparent) !important;
   margin-bottom: 12px !important;
   line-height: 1.5 !important;
   text-align: left !important;
@@ -2709,7 +2679,7 @@ p, li, .page-content p {
 /* 12. Feature 7: Inline Secret Generator Button & Brightness */
 .btn-inline-gen {
   background: transparent;
-  border: 1px solid var(--accent-color); /* #22c55e */
+  border: 1px solid var(--accent-color);
   color: var(--accent-color);
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -2726,8 +2696,8 @@ p, li, .page-content p {
 }
 
 .btn-inline-gen:hover {
-  background: rgba(34, 197, 94, 0.15);
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .btn-inline-gen::after {
@@ -2736,9 +2706,9 @@ p, li, .page-content p {
   bottom: 130%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #18181b;
-  border: 1px solid #27272a;
-  color: #e4e4e7;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 6px 10px;
   border-radius: 4px;
   font-size: 10px;
@@ -2752,7 +2722,7 @@ p, li, .page-content p {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--bg) 50%, transparent);
   text-shadow: none;
 }
 
@@ -2763,8 +2733,8 @@ p, li, .page-content p {
 }
 
 .token-value.generated {
-  color: #fbbf24 !important; /* brighter warm yellow */
-  text-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+  color: var(--warning) !important; /* brighter warm yellow */
+  text-shadow: 0 0 8px color-mix(in srgb, var(--warning) 40%, transparent);
   font-weight: 600;
 }
 
@@ -2791,7 +2761,7 @@ p, li, .page-content p {
 
 .env-btn {
   background: transparent;
-  border: 1px solid #1f1f1f;
+  border: 1px solid var(--border);
   color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
@@ -2803,14 +2773,14 @@ p, li, .page-content p {
 }
 
 .env-btn:hover {
-  border-color: #2a2a2a;
+  border-color: var(--border);
   color: var(--text-secondary);
 }
 
 .env-btn.active {
-  border-color: var(--accent-color); /* #22c55e */
+  border-color: var(--accent-color);
   color: var(--accent-color);
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.12);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .env-transition-status {
@@ -2836,21 +2806,21 @@ p, li, .page-content p {
 }
 
 .env-badge.dev-badge {
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  color: rgba(74, 222, 128, 0.8);
-  background: rgba(34, 197, 94, 0.05);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  color: color-mix(in srgb, var(--accent) 80%, transparent);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
 }
 
 .env-badge.staging-badge {
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: rgba(245, 158, 11, 0.8);
-  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid color-mix(in srgb, var(--warning) 30%, transparent);
+  color: color-mix(in srgb, var(--warning) 80%, transparent);
+  background: color-mix(in srgb, var(--warning) 5%, transparent);
 }
 
 .env-badge.prod-badge {
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  color: rgba(239, 68, 68, 0.9);
-  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  color: color-mix(in srgb, var(--danger) 90%, transparent);
+  background: color-mix(in srgb, var(--danger) 5%, transparent);
 }
 
 /* 14. Accessibility / prefers-reduced-motion */
@@ -2892,7 +2862,7 @@ p, li, .page-content p {
   margin-top: -12px !important;
   border-radius: 50% !important;
   border: 1.5px solid transparent !important;
-  border-top-color: #22c55e !important;
+  border-top-color: var(--accent) !important;
   opacity: 0 !important;
   transition: opacity 200ms ease !important;
   pointer-events: none !important;
@@ -2930,8 +2900,8 @@ body.cursor-loading #cursor-pointer::after {
 .figma-click-ripple {
   position: fixed !important;
   border-radius: 50% !important;
-  background-color: rgba(34, 197, 94, 0.35) !important;
-  border: 1px solid rgba(34, 197, 94, 0.5) !important;
+  background-color: color-mix(in srgb, var(--accent) 35%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent) !important;
   pointer-events: none !important;
   z-index: 999997 !important;
   transform: translate(-50%, -50%) !important;
@@ -2951,28 +2921,8 @@ body.cursor-loading #cursor-pointer::after {
   }
 }
 
-/* Hide default browser cursor on desktop only */
-@media (hover: hover) and (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
-}
-
-/* Hide completely on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  #cursor-pointer { display: none !important; }
-  * { cursor: auto !important; }
-}
-
-/* Keep touch device default pointer backup */
-@media (hover: none), (pointer: coarse) {
-  #cursor-pointer {
-    display: none !important;
-  }
-  * {
-    cursor: auto !important;
-  }
-}
+/* The custom Figma-style cursor was removed in the redesign (DESIGN.md Â§7: subtle motion only).
+   The native cursor is used everywhere; #cursor-pointer no longer exists in the markup. */
 
 
 
@@ -2993,24 +2943,24 @@ body.cursor-loading #cursor-pointer::after {
   }
   
   body {
-    background: #fff !important;
-    color: #000 !important;
+    background: var(--text) !important;
+    color: var(--accent-ink) !important;
     font-size: 11pt !important;
   }
   
   .architect-dashboard {
     padding: 0 !important;
-    background: #fff !important;
+    background: var(--text) !important;
   }
   
   .dashboard-header {
-    border-bottom: 2px solid #000 !important;
+    border-bottom: 2px solid var(--bg) !important;
     padding-bottom: 20px !important;
     margin-bottom: 30px !important;
   }
   
   #blueprint-title {
-    color: #000 !important;
+    color: var(--accent-ink) !important;
     font-size: 24pt !important;
   }
   
@@ -3019,29 +2969,29 @@ body.cursor-loading #cursor-pointer::after {
   }
   
   .blueprint-card {
-    background: #fff !important;
-    border: 1px solid #ccc !important;
+    background: var(--text) !important;
+    border: 1px solid var(--text) !important;
     break-inside: avoid !important;
     margin-bottom: 20px !important;
-    color: #000 !important;
+    color: var(--accent-ink) !important;
     box-shadow: none !important;
   }
   
   .blueprint-card h3 {
-    color: #000 !important;
-    border-bottom: 1px solid #eee !important;
+    color: var(--accent-ink) !important;
+    border-bottom: 1px solid var(--text) !important;
   }
   
   .stat-badge {
-    border: 1px solid #666 !important;
-    color: #000 !important;
+    border: 1px solid var(--muted) !important;
+    color: var(--accent-ink) !important;
     background: transparent !important;
   }
   
   pre {
-    background: #f5f5f5 !important;
-    border: 1px solid #ddd !important;
-    color: #000 !important;
+    background: var(--text) !important;
+    border: 1px solid var(--text) !important;
+    color: var(--accent-ink) !important;
     white-space: pre-wrap !important;
   }
   
@@ -3058,16 +3008,16 @@ body.cursor-loading #cursor-pointer::after {
    HIGH-DENSITY & MULTI-HIERARCHY CARD FRAMEWORK
    ========================================================================== */
 .card-primary {
-  background: rgba(10, 10, 10, 0.95);
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
   border: 1px solid var(--border-active);
   border-radius: 8px;
   padding: 18px 20px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--bg) 40%, transparent);
 }
 .card-primary:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .card-secondary {
@@ -3082,7 +3032,7 @@ body.cursor-loading #cursor-pointer::after {
 }
 
 .card-reference {
-  background: rgba(5, 5, 5, 0.6);
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
   border: 1px dashed var(--border-muted);
   border-radius: 4px;
   padding: 10px 12px;
@@ -3092,7 +3042,7 @@ body.cursor-loading #cursor-pointer::after {
   transition: all 0.12s ease;
 }
 .card-reference:hover {
-  background: rgba(10, 10, 10, 0.8);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
   border-style: solid;
   border-color: var(--border-active);
 }
@@ -3122,13 +3072,13 @@ body.cursor-loading #cursor-pointer::after {
 /* Priority visual groupings for Architect */
 .architect-priority-section {
   border-left: 3px solid var(--accent-color);
-  background: rgba(34, 197, 94, 0.02);
+  background: color-mix(in srgb, var(--accent) 2%, transparent);
   margin-bottom: 24px;
   border-radius: 0 8px 8px 0;
 }
 .architect-medium-section {
-  border-left: 3px solid #3b82f6; /* Info Blue */
-  background: rgba(59, 130, 246, 0.01);
+  border-left: 3px solid var(--muted); /* Info Blue */
+  background: color-mix(in srgb, var(--muted) 1%, transparent);
   margin-bottom: 20px;
   border-radius: 0 6px 6px 0;
 }

@@ -307,7 +307,7 @@ function showToastNotification(message) {
   
   const toast = document.createElement('div');
   toast.className = 'toast-message jetbrains-font';
-  toast.style.cssText = 'background: #121212; border: 1px solid #22c55e; color: #22c55e; font-size: 11px; padding: 10px 16px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; transform: translateY(8px); transition: all 0.3s ease;';
+  toast.style.cssText = 'background: var(--surface); border: 1px solid var(--accent); color: var(--accent); font-size: 11px; padding: 10px 16px; border-radius: 6px; box-shadow: 0 4px 12px color-mix(in srgb, var(--bg) 50%, transparent); opacity: 0; transform: translateY(8px); transition: all 0.3s ease;';
   toast.textContent = message;
   
   toastContainer.appendChild(toast);
@@ -667,8 +667,32 @@ function handlePathRoute() {
   if (elements.howItWorksView) elements.howItWorksView.classList.remove('active-view');
   if (elements.blogView) elements.blogView.classList.remove('active-view');
   if (elements.blogPostView) elements.blogPostView.classList.remove('active-view');
-  
-  if (path === '/about') {
+  // Catch-all for views added by the redesign (kits, faq, how-it-works ...)
+  document.querySelectorAll('.view.active-view').forEach(v => v.classList.remove('active-view'));
+
+  const kitDetailMatch = path.match(/^\/kits\/([a-z0-9-]+)\/?$/);
+  if ((path === '/kits' || path === '/kits/') && typeof KitPages !== 'undefined') {
+    KitPages.renderCatalog(document.getElementById('kits-content'));
+    document.getElementById('kits-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (kitDetailMatch && typeof KitPages !== 'undefined') {
+    const found = KitPages.renderDetail(document.getElementById('kit-detail-content'), kitDetailMatch[1]);
+    if (!found) {
+      history.replaceState(null, '', '/kits');
+      handlePathRoute();
+      return;
+    }
+    document.getElementById('kit-detail-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/how-it-works' && typeof KitPages !== 'undefined') {
+    KitPages.renderHowItWorks(document.getElementById('howitworks-content'));
+    document.getElementById('howitworks-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/faq' && typeof KitPages !== 'undefined') {
+    KitPages.renderFaq(document.getElementById('faq-content'));
+    document.getElementById('faq-view').classList.add('active-view');
+    window.scrollTo({ top: 0 });
+  } else if (path === '/about') {
     elements.aboutView.classList.add('active-view');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else if (path === '/privacy') {
@@ -743,11 +767,18 @@ function handlePathRoute() {
         <div class="blog-cta-box" style="margin-top: 50px;">
           <h3>Ready to configure your stack?</h3>
           <p>Generate a professional, fully commented .env file for ${activeStack.name} instantly.</p>
-          <a href="/" class="btn btn-primary cta-btn">Generate custom .env →</a>
+          <a href="/env" class="btn btn-primary cta-btn">Generate custom .env →</a>
         </div>
       `;
       elements.stackView.classList.add('active-view');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (window.PRELOADED_STATE) {
+      // Pre-rendered stack page (stack/<slug>/index.html from build-stack-pages.js): it is a
+      // generator landing page, so show the homepage scrolled to the pre-filled .env generator.
+      elements.homeView.classList.add('active-view');
+      if (typeof KitPages !== 'undefined') KitPages.renderHome();
+      const envSection = document.getElementById('env-generator');
+      if (envSection) requestAnimationFrame(() => envSection.scrollIntoView({ block: 'start' }));
     } else {
       history.replaceState(null, '', '/');
       handlePathRoute();
@@ -794,7 +825,7 @@ function handlePathRoute() {
           <article class="blog-article-body">
             <h1>${activePost.title}</h1>
             <div class="blog-meta" style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-muted); margin-bottom:28px;">
-              <span>Guides & Tutorial</span> • <span class="read-time-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--accent-color); padding: 2px 6px; border-radius: 4px; font-weight: 500;">${activePost.readTime}</span>
+              <span>Guides & Tutorial</span> • <span class="read-time-badge" style="background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent-color); padding: 2px 6px; border-radius: 4px; font-weight: 500;">${activePost.readTime}</span>
             </div>
             <div class="blog-markdown">
               ${activePost.content}
@@ -819,10 +850,10 @@ function handlePathRoute() {
           </div>
 
           <!-- Dynamic Green CTA Box -->
-          <div class="blog-cta-box" style="border: 1px solid rgba(34, 197, 94, 0.3) !important; background-color: rgba(34, 197, 94, 0.03) !important; border-left: 4px solid var(--accent-color) !important; margin-top: 40px; padding: 24px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px;">
+          <div class="blog-cta-box" style="border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent) !important; background-color: color-mix(in srgb, var(--accent) 3%, transparent) !important; border-left: 4px solid var(--accent-color) !important; margin-top: 40px; padding: 24px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px;">
             <h3 style="color: var(--accent-color); margin: 0; font-size: 16px; font-weight: 600;">Generate your .env file instantly →</h3>
             <p style="color: var(--text-secondary); margin: 0; font-size: 13px; line-height: 1.5;">Compile a professional, commented config template perfectly adjusted to your framework and services. 100% browser-side, zero logins required.</p>
-            <a href="/" class="btn btn-primary cta-btn" style="align-self: flex-start; margin-top: 4px;">Generate your .env →</a>
+            <a href="/env" class="btn btn-primary cta-btn" style="align-self: flex-start; margin-top: 4px;">Generate your .env →</a>
           </div>
         </div>
       `;
@@ -834,16 +865,28 @@ function handlePathRoute() {
       handlePathRoute();
       return;
     }
-  } else if (path === '/how-it-works') {
-    if (elements.howItWorksView) elements.howItWorksView.classList.add('active-view');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-    document.title = '.env File Generator — Free dotenv Template for Next.js, React, Django & 20+ Frameworks';
+    // Home (kits homepage). "/env" is the same page, scrolled to the free .env generator (section 6).
+    const isEnvRoute = path === '/env';
     let metaDesc = document.querySelector('meta[name="description"]');
-    if(metaDesc) metaDesc.setAttribute('content', 'Generate production-ready .env files instantly. Pick your framework and services — get complete environment variable templates with explanations for Next.js, React, Django, Laravel and 100+ services. Free, no login required.');
-    
+    if (isEnvRoute) {
+      document.title = '.env File Generator — Free dotenv Template for Next.js, React, Django & 20+ Frameworks | getenv.in';
+      if (metaDesc) metaDesc.setAttribute('content', 'Generate production-ready .env files instantly. Pick your framework and services — get complete environment variable templates with explanations for Next.js, React, Django, Laravel and 100+ services. Free, no login required.');
+    } else {
+      document.title = 'getenv — Proven AI coding environments for Indian software | getenv.in';
+      if (metaDesc) metaDesc.setAttribute('content', 'Drop-in kits for Claude Code, Cursor and Codex that make your AI agent build Razorpay UPI Autopay subscriptions, GST invoicing and WhatsApp bots correctly, and prove it by passing a test suite. Plus a free .env generator.');
+    }
+
     elements.homeView.classList.add('active-view');
+    if (typeof KitPages !== 'undefined') KitPages.renderHome();
     restoreSessionState();
+
+    if (isEnvRoute) {
+      const envHead = document.querySelector('#env-generator .g-section-head');
+      if (envHead) requestAnimationFrame(() => envHead.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    } else {
+      window.scrollTo({ top: 0 });
+    }
   }
   updateHowItWorksVisibility();
 }
@@ -914,59 +957,29 @@ function simulateAIGeneration() {
     }, step.delay);
   });
 
-  // 2. Generate Mock Data based on heuristics
+    // 2. Generate Mock Data based on heuristics
   setTimeout(() => {
-    // Rely on data-blueprints.js to generate rich HTML output
-    const htmlOutput = typeof BLUEPRINT_HEURISTICS !== 'undefined' ? 
-      BLUEPRINT_HEURISTICS.generateHTML(prompt) : null;
+    // Generate structured JSON snapshot
+    const snapshot = typeof BlueprintEngine !== 'undefined' ? 
+      BlueprintEngine.generateSnapshot(prompt) : null;
 
-    if (htmlOutput) {
-      // Safely populate DOM elements
-      const safeSetHtml = (id, html) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-      };
+    if (snapshot) {
+      window.lastGeneratedSnapshot = snapshot;
+      window.lastGeneratedPrompt = prompt;
       
-      safeSetHtml('bp-exec-summary', htmlOutput.execSummary);
-      safeSetHtml('bp-business-problem', htmlOutput.businessProblem);
-      safeSetHtml('bp-user-journey', htmlOutput.userJourney);
-      safeSetHtml('bp-revenue-model', htmlOutput.revenueModel);
-      safeSetHtml('bp-stack', htmlOutput.techStack);
-      
-      const bpFolder = document.getElementById('bp-folder-structure');
-      if (bpFolder) bpFolder.textContent = htmlOutput.folderStructure;
-      
-      const bpDbSchema = document.getElementById('bp-db-schema');
-      if (bpDbSchema) bpDbSchema.textContent = htmlOutput.dbSchema;
-      
-      safeSetHtml('bp-db-tables-list', htmlOutput.dbTables);
-      
-      const erdEl = document.getElementById('bp-erd-diagram');
-      if (erdEl) {
-        erdEl.removeAttribute('data-processed');
-        erdEl.setAttribute('data-code', htmlOutput.erdDiagram);
-        erdEl.innerHTML = `<div class="mermaid" style="display: flex; justify-content: center;">${htmlOutput.erdDiagram}</div>`;
+      // Calculate stack badges for UI display
+      const badges = [];
+      const category = BlueprintEngine.getCategory(prompt);
+      if (category === 'ai-saas') {
+         badges.push('Next.js', 'PostgreSQL', 'Tailwind CSS', 'OpenAI', 'Pinecone', 'Stripe');
+      } else {
+         badges.push('React', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS');
       }
-      
-      safeSetHtml('bp-api-route-plan', htmlOutput.apiRoutePlan);
-      safeSetHtml('bp-auth-flow-steps', htmlOutput.authFlow);
-      safeSetHtml('bp-user-roles-list', htmlOutput.userRoles);
-      
-      const bpEnvVars = document.getElementById('bp-env-vars-block');
-      if (bpEnvVars) bpEnvVars.textContent = htmlOutput.envVariables;
-      
-      safeSetHtml('bp-deployment-strategy-list', htmlOutput.deploymentStrategy);
-      safeSetHtml('bp-infra-costs-table', htmlOutput.infraCost);
-      safeSetHtml('bp-development-timeline', htmlOutput.devPhases);
-      safeSetHtml('bp-mvp-scope-list', htmlOutput.mvpScope);
-      safeSetHtml('bp-scaling-plan-list', htmlOutput.scalingPlan);
-      safeSetHtml('bp-third-party-list', htmlOutput.thirdPartyServices);
-      
-      const archEl = document.getElementById('bp-system-arch-diagram');
-      if (archEl) {
-        archEl.removeAttribute('data-processed');
-        archEl.setAttribute('data-code', htmlOutput.archDiagram);
-        archEl.innerHTML = `<div class="mermaid" style="display: flex; justify-content: center;">${htmlOutput.archDiagram}</div>`;
+      snapshot.architecture.stack = badges;
+
+      // Render the UI using the JSON object
+      if (typeof Renderers !== 'undefined') {
+        Renderers.renderBlueprint(snapshot);
       }
     }
     
@@ -1004,9 +1017,12 @@ document.querySelectorAll('.suggestion-chip').forEach(chip => {
 const btnNewBlueprint = document.getElementById('btn-new-blueprint');
 if (btnNewBlueprint) {
   btnNewBlueprint.addEventListener('click', () => {
-    history.pushState(null, '', '/');
-    handlePathRoute();
-    if (elements.aiInputTextarea) elements.aiInputTextarea.value = '';
+    // The idea input now lives at the top of /architect (the homepage is the kits page).
+    if (elements.aiInputTextarea) {
+      elements.aiInputTextarea.value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      elements.aiInputTextarea.focus({ preventScroll: true });
+    }
   });
 }
 
@@ -1163,10 +1179,10 @@ function renderTemplatesGrid() {
     const isFav = workspaceState.favoriteTemplates && workspaceState.favoriteTemplates.includes(t.slug);
     return `
       <div class="blueprint-card" style="padding: 24px; display: flex; flex-direction: column; height: 100%; border-color: ${t.premium ? 'var(--accent-color)' : 'var(--border-muted)'}; position: relative; overflow: hidden;">
-        <button class="favorite-star-btn" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 16px; cursor: pointer; color: ${isFav ? '#eab308' : 'var(--text-muted)'}; z-index: 10;" onclick="event.preventDefault(); event.stopPropagation(); toggleFavoriteTemplate('${t.slug}');">
+        <button class="favorite-star-btn" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 16px; cursor: pointer; color: ${isFav ? 'var(--warning)' : 'var(--text-muted)'}; z-index: 10;" onclick="event.preventDefault(); event.stopPropagation(); toggleFavoriteTemplate('${t.slug}');">
           ${isFav ? '★' : '☆'}
         </button>
-        ${t.premium ? '<div style="position: absolute; top: -1px; left: -1px; background: var(--accent-color); color: #000; font-size: 10px; font-weight: bold; padding: 4px 12px; border-bottom-right-radius: 8px;">PREMIUM</div>' : ''}
+        ${t.premium ? '<div style="position: absolute; top: -1px; left: -1px; background: var(--accent-color); color: var(--accent-ink); font-size: 10px; font-weight: bold; padding: 4px 12px; border-bottom-right-radius: 8px;">PREMIUM</div>' : ''}
         <h3 style="margin-top: ${t.premium ? '16px' : '0'}; font-size: 18px; color: var(--text-primary); margin-bottom: 8px; border: none; padding: 0;">${t.title}</h3>
         <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">${t.desc}</p>
         
@@ -1180,7 +1196,7 @@ function renderTemplatesGrid() {
         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed var(--border-muted); padding-top: 16px; margin-bottom: 20px;">
           <div>
             <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px;">Difficulty</span>
-            <span style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: ${t.complexity === 'Advanced' ? '#ef4444' : (t.complexity === 'Intermediate' ? '#eab308' : '#22c55e')};">${t.complexity}</span>
+            <span style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: ${t.complexity === 'Advanced' ? 'var(--danger)' : (t.complexity === 'Intermediate' ? 'var(--warning)' : 'var(--accent)')};">${t.complexity}</span>
           </div>
           <div>
             <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px;">Est. Build Time</span>
@@ -1198,15 +1214,14 @@ function renderGeneratorsGrid() {
   if (!elements.generatorsGrid) return;
   if (typeof GENERATORS_DB === 'undefined') return;
   
-  elements.generatorsGrid.innerHTML = GENERATORS_DB.map(g => `
-    <div class="blueprint-card" style="padding: 24px; display: flex; flex-direction: column; height: 100%; cursor: ${g.status === 'active' ? 'pointer' : 'default'}; opacity: ${g.status === 'active' ? '1' : '0.6'}; transition: transform 0.2s, border-color 0.2s;" onmouseenter="if('${g.status}'==='active'){this.style.borderColor='var(--accent-color)'; this.style.transform='translateY(-2px)';}" onmouseleave="this.style.borderColor='var(--border-muted)'; this.style.transform='translateY(0)';">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-        <span style="font-size: 32px; line-height: 1;">${g.icon}</span>
-        <span class="stat-badge" style="${g.status === 'active' ? 'color: var(--accent-color); border-color: var(--accent-color); background: rgba(34,197,94,0.1);' : ''}">${g.status === 'active' ? 'ACTIVE' : 'SOON'}</span>
-      </div>
-      <h3 style="font-size: 16px; color: var(--text-primary); margin-bottom: 8px; border: none; padding: 0;">${g.name}</h3>
-      <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.5; margin-bottom: 0;">${g.description}</p>
-    </div>
+  // Only working generators are listed ("coming soon" placeholders are hidden, see PRODUCT.md §6).
+  // The .env generator lives on the homepage at /env.
+  elements.generatorsGrid.innerHTML = GENERATORS_DB.filter(g => g.status === 'active').map(g => `
+    <a href="${g.id === 'env-generator' ? '/env' : '/generators'}" class="kit-card">
+      <h3 class="kit-card-name">${g.name}</h3>
+      <p class="kit-card-problem">${g.description}</p>
+      <span class="kit-card-link">Open →</span>
+    </a>
   `).join('');
 }
 
@@ -1385,16 +1400,8 @@ if (btnExportPdf) {
 /* ==========================================================================
    PROJECT WORKSPACE ENGINE (RETENTION WORKSPACE)
    ========================================================================== */
-let workspaceState = {
-  projects: [],
-  drafts: [],
-  savedBlueprints: [],
-  favoriteTemplates: [],
-  recentGenerators: [],
-  exports: [],
-  activeProjectId: null,
-  activeTab: 'overview'
-};
+// `workspaceState` is declared once in storage.js (loaded earlier, shared global scope).
+// Re-declaring it here with `let` throws a SyntaxError and stops all of app.js from running.
 // Initialize workspace state from local storage
 function initWorkspace() {
   const stored = localStorage.getItem('getenv_workspace');
@@ -1710,7 +1717,7 @@ function renderProjectsHomepage() {
         <div class="card-secondary" style="cursor: pointer; margin-bottom: 8px;" onclick="event.preventDefault(); loadProjectToWorkspace('${p.id}');">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-weight: bold; color: var(--text-primary); font-size: 13px;">${p.name}</span>
-            <span class="stat-badge" style="background: rgba(34,197,94,0.1); color: var(--accent-color); font-size: 9px; padding: 2px 6px;">${p.status}</span>
+            <span class="stat-badge" style="background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent-color); font-size: 9px; padding: 2px 6px;">${p.status}</span>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">
             <span>Stack: ${p.stack.slice(0, 2).join(' + ')}</span>
@@ -1799,7 +1806,7 @@ function renderProjectsHomepage() {
         return `
           <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border-muted);">
             <a href="/templates/${slug}" style="color: var(--text-primary); text-decoration: none;" onclick="event.preventDefault(); history.pushState(null,'','/templates/${slug}'); handlePathRoute();">★ ${title}</a>
-            <button class="btn btn-secondary" style="padding: 2px 6px; font-size: 9px; height: auto; color: #ef4444; border-color: rgba(239,68,68,0.2);" onclick="event.preventDefault(); toggleFavoriteTemplate('${slug}');">Remove</button>
+            <button class="btn btn-secondary" style="padding: 2px 6px; font-size: 9px; height: auto; color: var(--danger); border-color: color-mix(in srgb, var(--danger) 20%, transparent);" onclick="event.preventDefault(); toggleFavoriteTemplate('${slug}');">Remove</button>
           </div>
         `;
       }).join('');
@@ -1842,7 +1849,7 @@ function renderProjectsHomepage() {
       `;
     } else {
       exportsContainer.innerHTML = workspaceState.exports.map(exp => `
-        <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 4px;">
+        <div style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); display: flex; justify-content: space-between; border-bottom: 1px dashed color-mix(in srgb, var(--text) 5%, transparent); padding-bottom: 4px;">
           <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;">[${exp.time}] ${exp.title}</span>
           <span style="color: var(--accent-color); font-weight: bold;">${exp.format}</span>
         </div>
@@ -2459,17 +2466,17 @@ function renderSEOHubPage(type, slug) {
         <h2>1. Pros & Cons Analysis</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
           <div>
-            <h4 style="color: #22c55e; margin-bottom: 8px;">Pros</h4>
+            <h4 style="color: var(--accent); margin-bottom: 8px;">Pros</h4>
             <ul>${pageData.pros.map(p => `<li>${p}</li>`).join('')}</ul>
           </div>
           <div>
-            <h4 style="color: #ef4444; margin-bottom: 8px;">Cons</h4>
+            <h4 style="color: var(--danger); margin-bottom: 8px;">Cons</h4>
             <ul>${pageData.cons.map(c => `<li>${c}</li>`).join('')}</ul>
           </div>
         </div>
 
         <h2>2. Recommended Target Architecture</h2>
-        <div class="mermaid" style="background: #000; padding: 16px; border: 1px solid var(--border-muted); border-radius: 8px; display: flex; justify-content: center; margin-bottom: 24px;">
+        <div class="mermaid" style="background: var(--bg); padding: 16px; border: 1px solid var(--border-muted); border-radius: 8px; display: flex; justify-content: center; margin-bottom: 24px;">
           ${pageData.diagram.trim()}
         </div>
 
@@ -2503,8 +2510,8 @@ function renderSEOHubPage(type, slug) {
         <pre><code class="bash">${pageData.envVars.trim()}</code></pre>
 
         <h2>3. Common Development Mistakes</h2>
-        <div style="border-left: 4px solid #ef4444; background: rgba(239,68,68,0.05); padding: 14px; border-radius: 0 6px 6px 0; margin-bottom: 24px;">
-          <p style="margin: 0; color: #f87171; font-size: 13px; line-height: 1.5;">${pageData.mistakes}</p>
+        <div style="border-left: 4px solid var(--danger); background: color-mix(in srgb, var(--danger) 5%, transparent); padding: 14px; border-radius: 0 6px 6px 0; margin-bottom: 24px;">
+          <p style="margin: 0; color: var(--danger); font-size: 13px; line-height: 1.5;">${pageData.mistakes}</p>
         </div>
 
         <h2>4. Best Practices</h2>
@@ -2728,7 +2735,7 @@ function handleSiteWideQuery() {
   resultsContainer.innerHTML = matches.map(item => `
     <div class="blueprint-card" style="padding: 20px; border-color: var(--border-muted); transition: border-color 0.2s;" onmouseenter="this.style.borderColor='var(--accent-color)';" onmouseleave="this.style.borderColor='var(--border-muted)';">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span class="stat-badge" style="font-size: 9px; font-family: 'JetBrains Mono', monospace; border-color: var(--accent-color); color: var(--accent-color); background: rgba(34,197,94,0.05);">${item.tag.toUpperCase()}</span>
+        <span class="stat-badge" style="font-size: 9px; font-family: 'JetBrains Mono', monospace; border-color: var(--accent-color); color: var(--accent-color); background: color-mix(in srgb, var(--accent) 5%, transparent);">${item.tag.toUpperCase()}</span>
         <a href="${item.link}" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: auto;" onclick="event.preventDefault(); history.pushState(null, '', '${item.link}'); handlePathRoute();">View Details ➔</a>
       </div>
       <h3 style="margin: 0; font-size: 16px; color: var(--text-primary); border: none; padding: 0; font-weight: 600;">${item.title}</h3>

@@ -17,42 +17,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Meta Tags -->
-  <title>.env File Generator — Free dotenv Template for Next.js, React, Django & More | getenv.in</title>
-  <meta name="description" content="Generate production-ready .env files instantly. Pick your framework (Next.js, React, Django, Laravel) and services (Stripe, Supabase, OpenAI) — get a complete environment variables template with inline docs. Free, no login required.">
-  <meta name="keywords" content="env file generator, dotenv generator, environment variables template, nextjs env setup, react env file, django env variables, stripe env variables, supabase env setup, generate dotenv file online, free env generator">
+  <title>getenv — Proven AI coding environments for Indian software | getenv.in</title>
+  <meta name="description" content="Drop-in kits for Claude Code, Cursor and Codex that make your AI agent build Razorpay UPI Autopay subscriptions, GST invoicing and WhatsApp bots correctly, and prove it by passing a test suite. Plus a free .env generator.">
+  <meta name="keywords" content="claude code kit, ai coding environment, razorpay subscriptions upi autopay, gst invoice engine, whatsapp cloud api bot, dpdp compliance, env file generator, dotenv generator">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.getenv.in/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content=".env File Generator — Free dotenv Template Generator"/>
-  <meta property="og:description" content="Generate production-ready .env files instantly. 20+ frameworks, 100+ services. Free forever."/>
+  <meta property="og:title" content="getenv — Not prompts. Proven environments."/>
+  <meta property="og:description" content="AI agents get Indian payments, GST and WhatsApp logic wrong. getenv kits fix that, with tests your agent has to pass."/>
   <meta property="og:url" content="https://www.getenv.in"/>
   <meta property="og:type" content="website"/>
   <meta property="og:image" content="https://www.getenv.in/og-image.png"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content=".env File Generator"/>
-  <meta name="twitter:description" content="Generate production-ready .env files instantly. Free forever."/>
+  <meta name="twitter:title" content="getenv — Not prompts. Proven environments."/>
+  <meta name="twitter:description" content="Drop-in kits that make AI coding agents build Indian payment, GST and WhatsApp flows correctly."/>
   <meta name="twitter:image" content="https://www.getenv.in/og-image.png"/>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts (font families are set as tokens in theme.css) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- Style sheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": ".env File Generator",
-    "url": "https://www.getenv.in",
+    "name": ".env File Generator by getenv.in",
+    "url": "https://www.getenv.in/env",
     "description": "Generate production-ready .env files for Next.js, React, Django, Laravel and 20+ frameworks with 100+ service integrations",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -95,196 +95,138 @@
       },
       {
         "@type": "Question",
-        "name": "Are my environment variable secrets stored or sent to a server?",
+        "name": "Is the .env generator still free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, getenv.in is a 100% serverless, client-side developer utility. All credentials, secret generations, and configuration mapping are processed strictly inside your local browser memory sandbox and never sent over the network."
+          "text": "Yes. The .env generator stays free, runs entirely in your browser, and nothing you select is sent to a server."
         }
       }
     ]
   }
   </script>
-  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="/animations.css">
+  <!-- Theme tokens (single source of colours + fonts), then redesign components -->
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/kits.css">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" href="/favicon.svg">
 </head>
 <body>
 
-  <!-- FEATURE: Terminal Boot Sequence Overlay -->
-  <div id="boot-overlay" class="boot-overlay">
-    <div class="boot-content jetbrains-font">
-      <div id="boot-line-1" class="boot-line"></div>
-      <div id="boot-line-2" class="boot-line"></div>
-      <div id="boot-line-3" class="boot-line"></div>
-      <div id="boot-line-4" class="boot-line"></div>
-      <div id="boot-line-5" class="boot-line"></div>
-    </div>
-  </div>
+  <a class="sr-only" href="#main">Skip to content</a>
 
   <!-- Sticky Header -->
   <header class="header">
     <div class="header-container">
-      <div class="logo-wrapper" style="position: relative; display: flex; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 4px;" class="logo-container">
-          <a href="/" class="logo" id="logo-link" aria-label="Go to homepage" style="pointer-events: auto; display: flex; align-items: center; gap: 4px;">
-            <span class="logo-text">.env Generator
-              <span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: calc(0.6rem + 5px); color: #888888; line-height: 1; margin-top: 2px; text-align: left;">getenv.in</span>
-            </span>
-            <span class="pulse-dot"></span>
-          </a>
-          <div id="logo-trigger" style="cursor: pointer; padding: 4px 6px 4px 2px; display: flex; align-items: center; color: var(--accent-color); font-size: 8px; user-select: none;" aria-label="Toggle brand dropdown">
-            ▼
+      <a href="/" class="logo" id="logo-link" aria-label="getenv.in home">
+        <span class="logo-mark" aria-hidden="true">$</span><span>getenv<span class="logo-tld">.in</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="/kits" class="nav-link">Kits</a>
+        <a href="/how-it-works" class="nav-link">How it works</a>
+        <a href="/env" class="nav-link">.env generator</a>
+        <a href="/faq" class="nav-link">FAQ</a>
+        <details class="nav-more">
+          <summary class="nav-link">More tools</summary>
+          <div class="nav-more-menu">
+            <a href="/architect">AI Architect</a>
+            <a href="/templates">Templates</a>
+            <a href="/workspace">Workspace</a>
+            <a href="/resources">Guides</a>
+            <a href="/search">Search</a>
           </div>
-        </div>
-        
-        <!-- Brand Dropdown (Expanding Ecosystem Signposts) -->
-        <div id="brand-dropdown" class="brand-dropdown jetbrains-font" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #121212; border: 1px solid var(--border-muted); border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 8px 0; min-width: 200px; z-index: 999999; font-size: 13px;">
-          <a href="/" class="brand-dropdown-item active" style="display: block; padding: 10px 18px; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--border-muted);">● .env Generator</a>
-          <div class="brand-dropdown-item disabled" style="padding: 10px 18px; color: var(--text-muted); cursor: not-allowed; display: flex; justify-content: space-between; align-items: center;">
-            <span>○ JWT Decoder</span>
-            <span style="font-size: 8px; background: rgba(34,197,94,0.1); padding: 2px 4px; border-radius: 3px; color: #22c55e; font-weight: bold; letter-spacing: 0.5px;">SOON</span>
-          </div>
-          <div class="brand-dropdown-item disabled" style="padding: 10px 18px; color: var(--text-muted); cursor: not-allowed; display: flex; justify-content: space-between; align-items: center;">
-            <span>○ JSON Formatter</span>
-            <span style="font-size: 8px; background: rgba(34,197,94,0.1); padding: 2px 4px; border-radius: 3px; color: #22c55e; font-weight: bold; letter-spacing: 0.5px;">SOON</span>
-          </div>
-          <div class="brand-dropdown-item disabled" style="padding: 10px 18px; color: var(--text-muted); cursor: not-allowed; display: flex; justify-content: space-between; align-items: center;">
-            <span>○ Curl Generator</span>
-            <span style="font-size: 8px; background: rgba(34,197,94,0.1); padding: 2px 4px; border-radius: 3px; color: #22c55e; font-weight: bold; letter-spacing: 0.5px;">SOON</span>
-          </div>
-        </div>
-      </div>
-      
-      <nav class="nav-links">
-        <a href="/workspace" class="nav-link">Workspace</a>
-        <a href="/architect" class="nav-link">Architect</a>
-        <a href="/templates" class="nav-link">Templates</a>
-        <a href="/generators" class="nav-link">Generators</a>
-        <a href="/resources" class="nav-link">Resources</a>
-        <a href="/search" class="nav-link">Search</a>
+        </details>
       </nav>
 
       <div class="header-actions">
-        <button id="menu-toggle" class="menu-toggle jetbrains-font" aria-expanded="false" aria-label="Toggle navigation">[ menu ]</button>
+        <a href="/kits" class="g-btn g-btn-primary header-cta">Browse kits</a>
+        <button id="menu-toggle" class="menu-toggle jetbrains-font" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation">[ menu ]</button>
       </div>
     </div>
-    
+
     <!-- Mobile dropdown menu -->
     <div id="mobile-menu" class="mobile-menu">
-      <nav class="mobile-nav-links">
-        <a href="/workspace" class="mobile-nav-link">Workspace</a>
-        <a href="/architect" class="mobile-nav-link">Architect</a>
+      <nav class="mobile-nav-links" aria-label="Mobile">
+        <a href="/kits" class="mobile-nav-link">Kits</a>
+        <a href="/how-it-works" class="mobile-nav-link">How it works</a>
+        <a href="/env" class="mobile-nav-link">.env generator</a>
+        <a href="/faq" class="mobile-nav-link">FAQ</a>
+        <span class="mobile-nav-group">More tools</span>
+        <a href="/architect" class="mobile-nav-link">AI Architect</a>
         <a href="/templates" class="mobile-nav-link">Templates</a>
-        <a href="/generators" class="mobile-nav-link">Generators</a>
-        <a href="/resources" class="mobile-nav-link">Resources</a>
+        <a href="/workspace" class="mobile-nav-link">Workspace</a>
+        <a href="/resources" class="mobile-nav-link">Guides</a>
         <a href="/search" class="mobile-nav-link">Search</a>
       </nav>
     </div>
   </header>
 
   <!-- Main Content Container -->
-  <main class="main-wrapper">
+  <main class="main-wrapper" id="main">
     
     <!-- Home View -->
     <div id="home-view" class="view active-view">
-      
-      <!-- Hero Section (AI Architect Input) -->
-      <section class="hero-section ai-hero">
-        <h1 id="hero-title">Describe your app idea.</h1>
-        <p class="subheadline" id="hero-subheadline">Get a complete technical blueprint in seconds. Architecture, database schema, tech stack, and deployment strategy.</p>
-        
-        <div class="ai-input-container">
-          <textarea id="ai-architect-input" class="ai-textarea jetbrains-font" placeholder="I want to build a marketplace for local chefs using Next.js and Supabase..."></textarea>
-          <div class="ai-input-footer">
-            <div class="ai-suggestions jetbrains-font">
-              <span class="suggestion-chip">SaaS Starter</span>
-              <span class="suggestion-chip">AI Wrapper</span>
-              <span class="suggestion-chip">Web3 dApp</span>
-            </div>
-            <button id="btn-generate-blueprint" class="btn btn-primary btn-glow">
-              <span class="btn-text">Generate Blueprint</span>
-              <span class="btn-icon">✨</span>
-            </button>
-          </div>
+
+      <!-- 1. Hero (DESIGN.md §6) -->
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="g-label">// Not prompts. Proven environments.</p>
+        <h1 id="hero-title" class="hero-title">AI agents write code fast. They get Indian payments, GST and WhatsApp logic wrong.</h1>
+        <p class="hero-sub"><strong>getenv kits fix that.</strong> Drop-in environments for Claude Code, Cursor and Codex. Your agent builds the whole flow and has to pass the kit's tests before it's done.</p>
+        <div class="g-actions">
+          <a href="/kits" class="g-btn g-btn-primary">Browse kits</a>
+          <a href="/env" class="g-btn g-btn-secondary">Free .env generator</a>
         </div>
-        
-        <!-- Premium Developer Trust Signals -->
-        <div class="trust-metadata-bar" id="hero-trust-bar" style="margin: 24px auto 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 600px;">
-          <span>🤖 AI-Powered</span>
-          <span>•</span>
-          <span>⚡ Instant Blueprints</span>
-          <span>•</span>
-          <span>🚀 Free & Local</span>
-        </div>
+        <div id="hero-terminal" class="hero-terminal"><!-- Components.terminalCard --></div>
       </section>
 
-      <!-- Terminal Loading Overlay (Hidden by default) -->
-      <div id="ai-loading-overlay" class="ai-loading-overlay" style="display: none;">
-        <div class="terminal-loader jetbrains-font">
-          <div class="loader-header">
-            <div class="mac-dots"><span></span><span></span><span></span></div>
-            <span>architect.exe</span>
-          </div>
-          <div id="loader-output" class="loader-output">
-            > initializing architect...
-          </div>
+      <!-- 2. Problem -->
+      <section class="g-section" aria-labelledby="problem-title">
+        <div class="g-section-head">
+          <p class="g-label">// The problem</p>
+          <h2 id="problem-title" class="g-h2">The happy path works. The Indian edge cases don't.</h2>
         </div>
-      </div>
-      
-      <!-- Phase 6: Trust Building (Social Proof) -->
-      <div class="page-container" style="max-width: 1000px; margin: 64px auto; padding-top: 48px; border-top: 1px dashed var(--border-muted);">
-        <h2 style="text-align: center; font-size: 20px; margin-bottom: 32px; color: var(--text-primary);">Join 10,000+ developers planning software differently</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-          
-          <div class="blueprint-card" style="padding: 24px;">
-            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); border-bottom: 1px solid var(--border-muted); padding-bottom: 12px; margin-bottom: 16px;">🔥 Trending Architectures</h3>
-            <ul class="bp-list" style="margin: 0; padding: 0; list-style: none;">
-              <li style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;"><span style="color: var(--text-primary);">Next.js + Supabase + Stripe</span><span class="stat-badge">3.2k this week</span></li>
-              <li style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;"><span style="color: var(--text-primary);">React + Firebase + Node</span><span class="stat-badge">1.8k this week</span></li>
-              <li style="display: flex; justify-content: space-between; align-items: center;"><span style="color: var(--text-primary);">Django + Postgres + Redis</span><span class="stat-badge">950 this week</span></li>
-            </ul>
-          </div>
+        <div id="home-problems"><!-- Components.problemCards --></div>
+      </section>
 
-          <div class="blueprint-card" style="padding: 24px;">
-            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); border-bottom: 1px solid var(--border-muted); padding-bottom: 12px; margin-bottom: 16px;">⏱️ Recently Planned</h3>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <span style="display: block; color: var(--text-primary); font-size: 14px; margin-bottom: 4px;">B2B Logistics Dashboard</span>
-                  <span style="font-size: 11px; color: var(--text-muted);">2 minutes ago by Anonymous</span>
-                </div>
-                <span class="stat-badge" style="background: rgba(34,197,94,0.1); color: var(--accent-color); border: none;">View</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <span style="display: block; color: var(--text-primary); font-size: 14px; margin-bottom: 4px;">EdTech Video Platform</span>
-                  <span style="font-size: 11px; color: var(--text-muted);">15 minutes ago by Anonymous</span>
-                </div>
-                <span class="stat-badge" style="background: rgba(34,197,94,0.1); color: var(--accent-color); border: none;">View</span>
-              </div>
-            </div>
-          </div>
-          
+      <!-- 3. Free vs Kit -->
+      <section class="g-section" aria-labelledby="fvk-title">
+        <div class="g-section-head">
+          <p class="g-label">// Free vs kit</p>
+          <h2 id="fvk-title" class="g-h2">We don't sell what's already free</h2>
+          <p class="g-muted">Generic CLAUDE.md files and single-API skills are everywhere. A kit is a full business flow, glued across services, with tests that prove your agent built it right.</p>
         </div>
-      </div>
-    </div>
+        <div id="home-fvk"><!-- Components.freeVsKitTable --></div>
+      </section>
 
-    <!-- Generators View (Old Home View + Phase 4 Ecosystem) -->
-    <div id="generators-view" class="view page-view">
-      <div class="page-container" style="max-width: 1000px; margin: 0 auto;">
-        <h1 class="page-title">Developer Generators</h1>
-        <p class="blog-subtext" style="text-align: center; margin-bottom: 40px;">Essential tools to scaffold your infrastructure instantly.</p>
-        
-        <!-- Top Generators Grid (Dynamically Populated) -->
-        <div id="generators-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 64px;">
-          <!-- Loaded via app.js -> data-generators.js -->
+      <!-- 4. Kits grid -->
+      <section class="g-section" aria-labelledby="kits-title">
+        <div class="g-section-head">
+          <p class="g-label">// Kits</p>
+          <h2 id="kits-title" class="g-h2">Launch kits</h2>
+          <p class="g-muted">Three live kits and one on the waitlist. One-time price, 6 months of updates.</p>
         </div>
+        <div id="home-kits"><!-- Components.kitGrid --></div>
+        <a href="/kits" class="g-more-link">See all kits and the bundle →</a>
+      </section>
 
-        <div style="border-top: 1px dashed var(--border-muted); padding-top: 48px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
-          <h2 style="font-size: 20px; margin: 0;">Original .env Generator</h2>
-          <span class="stat-badge">Stable v2.0</span>
+      <!-- 5. How it works -->
+      <section class="g-section" aria-labelledby="hiw-title">
+        <div class="g-section-head">
+          <p class="g-label">// How it works</p>
+          <h2 id="hiw-title" class="g-h2">Buy. Drop it in. Let the tests decide.</h2>
         </div>
+        <div id="home-steps"><!-- Components.steps --></div>
+        <a href="/how-it-works" class="g-more-link">Install details →</a>
+      </section>
 
+      <!-- 6. Free .env generator (existing tool, logic unchanged) -->
+      <section class="g-section env-section" id="env-generator" aria-labelledby="env-title">
+        <div class="g-section-head">
+          <p class="g-label">// Free tool</p>
+          <h2 id="env-title" class="g-h2">Free .env generator</h2>
+          <p class="g-muted">Pick a framework and services, get a commented .env and .env.example. Runs entirely in your browser. Nothing you select is sent anywhere.</p>
+        </div>
       <!-- Step Indicator -->
       <div class="step-indicator" id="step-indicator" role="navigation" aria-label="Progress">
         <div class="step-indicator-item active" data-step="1">
@@ -309,27 +251,27 @@
         <div id="session-restore-banner" class="session-restore-banner" style="display: none;"></div>
         
         <!-- Quick Preset Configurations -->
-        <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; background: rgba(18, 18, 18, 0.4);">
-          <span style="font-weight: bold; color: var(--text-primary); display: block; margin-bottom: 8px;">⚡ Quick Presets (Click again to rotate integrations):</span>
+        <div class="preset-configurations-bar" style="margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); border: 1px solid var(--border-muted); border-radius: 8px; padding: 12px; background: color-mix(in srgb, var(--surface) 40%, transparent);">
+          <span style="font-weight: bold; color: var(--text-primary); display: block; margin-bottom: 8px;">Quick Presets (Click again to rotate integrations):</span>
           <div class="preset-buttons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
-            <button class="preset-btn" data-preset="ai-app">🤖 AI App</button>
-            <button class="preset-btn" data-preset="saas-stack">💳 SaaS Stack</button>
-            <button class="preset-btn" data-preset="python-backend">🐍 Python API</button>
-            <button class="preset-btn" data-preset="classic-mvc">🐘 Classic MVC</button>
-            <button class="preset-btn" data-preset="web3-dapp">🌐 Web3 dApp</button>
-            <button class="preset-btn" data-preset="devops-docker">🐳 DevOps Stack</button>
-            <button class="preset-btn" data-preset="firebase-app">🔥 Firebase App</button>
-            <button class="preset-btn" data-preset="mern-stack">🥞 MERN Stack</button>
-            <button class="preset-btn" data-preset="analytics-stack">📊 Analytics Stack</button>
-            <button class="preset-btn" data-preset="auth-system">🔐 Auth System</button>
+            <button class="preset-btn" data-preset="ai-app">AI App</button>
+            <button class="preset-btn" data-preset="saas-stack">SaaS Stack</button>
+            <button class="preset-btn" data-preset="python-backend">Python API</button>
+            <button class="preset-btn" data-preset="classic-mvc">Classic MVC</button>
+            <button class="preset-btn" data-preset="web3-dapp">Web3 dApp</button>
+            <button class="preset-btn" data-preset="devops-docker">DevOps Stack</button>
+            <button class="preset-btn" data-preset="firebase-app">Firebase App</button>
+            <button class="preset-btn" data-preset="mern-stack">MERN Stack</button>
+            <button class="preset-btn" data-preset="analytics-stack">Analytics Stack</button>
+            <button class="preset-btn" data-preset="auth-system">Auth System</button>
           </div>
           
           <div class="preset-options-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 12px; gap: 12px; border-top: 1px dashed var(--border-muted); padding-top: 10px;">
-            <div id="active-preset-badge" class="active-preset-badge jetbrains-font" style="display: none; font-size: 10px; color: var(--accent-color); background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); padding: 2px 6px; border-radius: 4px; transition: all 0.2s ease;"></div>
+            <div id="active-preset-badge" class="active-preset-badge jetbrains-font" style="display: none; font-size: 10px; color: var(--accent-color); background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); padding: 2px 6px; border-radius: 4px; transition: all 0.2s ease;"></div>
             <div class="prod-vars-toggle-container" style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
               <label class="switch-label" style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-muted); user-select: none;">
                 <input type="checkbox" id="toggle-prod-vars" style="accent-color: var(--accent-color); cursor: pointer; width: 13px; height: 13px;">
-                <span id="toggle-prod-label" style="transition: color 0.15s ease;">⚡ Include Production Variables (Advanced Mode)</span>
+                <span id="toggle-prod-label" style="transition: color 0.15s ease;">Include Production Variables (Advanced Mode)</span>
               </label>
             </div>
           </div>
@@ -436,13 +378,13 @@
             <!-- Sticky Code Action Buttons -->
             <div class="code-actions">
               <button id="btn-copy-env" class="btn btn-action" aria-label="Copy code block">
-                <span class="btn-icon">📋</span> <span class="btn-text">Copy to Clipboard</span>
+                <span class="btn-icon" aria-hidden="true"></span> <span class="btn-text">Copy to Clipboard</span>
               </button>
               <button id="btn-download-env" class="btn btn-primary" aria-label="Download .env file">
-                <span class="btn-icon">⬇️</span> <span class="btn-text">Download .env</span>
+                <span class="btn-icon" aria-hidden="true"></span> <span class="btn-text">Download .env</span>
               </button>
               <button id="btn-generate-secrets" class="btn btn-action" aria-label="Generate all secrets">
-                <span class="btn-icon">⚡</span> <span class="btn-text">Generate All Secrets</span>
+                <span class="btn-icon" aria-hidden="true"></span> <span class="btn-text">Generate All Secrets</span>
               </button>
               <button id="btn-start-over" class="btn btn-secondary" aria-label="Reset and start over">
                 ← Start Over
@@ -451,8 +393,8 @@
             
             <!-- Step 3 Trust Signifier & Shortcuts -->
             <div style="margin-top: 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); opacity: 0.85; line-height: 1.6;">
-              🔒 100% Client-Side. Keystrokes are completely safe and processed strictly in-browser.<br>
-              <span style="color: #22c55e;">⌨️ Keyboard Shortcuts: [Ctrl+C] Copy block • [Esc] Start Fresh • [Alt+1/2/3] Env stages • [Alt+E/X] File tabs</span>
+              100% Client-Side. Keystrokes are completely safe and processed strictly in-browser.<br>
+              <span style="color: var(--muted);">Keyboard shortcuts: [Ctrl+C] Copy block • [Esc] Start Fresh • [Alt+1/2/3] Env stages • [Alt+E/X] File tabs</span>
             </div>
             <div id="secrets-status-line" class="secrets-status-line jetbrains-font" style="display: none;"></div>
           </div>
@@ -463,7 +405,7 @@
             <div class="share-input-group">
               <input type="text" id="share-url-input" class="share-input" readonly value="">
               <button id="btn-share-copy" class="btn btn-primary btn-share-copy" aria-label="Copy share link">
-                <span class="btn-text">📋 Copy Link</span>
+                <span class="btn-text">Copy Link</span>
               </button>
             </div>
           </div>
@@ -472,7 +414,7 @@
 
           <!-- Pro Tips Section -->
           <div class="pro-tips-section">
-            <h3 class="section-title">🔒 Production Security & Pro Tips</h3>
+            <h3 class="section-title">Production Security & Pro Tips</h3>
             <div class="tips-grid">
               <div class="tip-card">
                 <span class="tip-prefix">[git]</span>
@@ -499,20 +441,20 @@
           
           <!-- Recommended Developer Resources (Monetization Preparation Hooks) -->
           <div class="monetization-resources-section" style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed var(--border-muted);">
-            <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; text-align: left;">🔌 Recommended Infrastructure & Hosting</h3>
+            <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; text-align: left;">Recommended Infrastructure & Hosting</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
               <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Featured Partner]</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); display: block; margin-bottom: 4px;">[Featured Partner]</span>
                 <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Supabase Backend</h4>
                 <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The open-source Firebase alternative. Instant Postgres database, Auth, and APIs.</p>
               </a>
               <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Hosting]</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); display: block; margin-bottom: 4px;">[Hosting]</span>
                 <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Vercel Platform</h4>
                 <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">Deploy Next.js, React, and static sites with global edge acceleration and serverless scaling.</p>
               </a>
               <a href="https://render.com" target="_blank" rel="noopener noreferrer" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: 8px; padding: 14px; text-decoration: none; display: block; transition: all 0.15s ease; text-align: left;" class="resource-ad-card">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22c55e; display: block; margin-bottom: 4px;">[Cloud]</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); display: block; margin-bottom: 4px;">[Cloud]</span>
                 <h4 style="font-size: 13px; color: var(--text-primary); margin: 0 0 4px 0;">Render Cloud</h4>
                 <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">The easiest way to host Docker containers, web servers, databases, and cron tasks.</p>
               </a>
@@ -521,6 +463,38 @@
         </div>
 
         </div>
+        <!-- SSG:ENV-SECTION-END (build-stack-pages.js injects stack copy here) -->
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="g-section" aria-labelledby="faq-title">
+        <div class="g-section-head">
+          <p class="g-label">// FAQ</p>
+          <h2 id="faq-title" class="g-h2">Questions</h2>
+        </div>
+        <div id="home-faq"><!-- Components.faqList --></div>
+        <a href="/faq" class="g-more-link">All questions →</a>
+      </section>
+
+      <!-- 8. Final CTA -->
+      <section class="g-section g-final" aria-labelledby="final-title">
+        <h2 id="final-title" class="g-h2">Stop re-explaining GST to your agent.</h2>
+        <p class="g-muted">Pick a kit, drop it in, and let the tests decide when it's done.</p>
+        <div class="g-actions"><a href="/kits" class="g-btn g-btn-primary">Browse kits</a></div>
+      </section>
+    </div>
+
+    <!-- Generators View (Old Home View + Phase 4 Ecosystem) -->
+    <div id="generators-view" class="view page-view">
+      <div class="page-container" style="max-width: 1000px; margin: 0 auto;">
+        <h1 class="page-title">Developer Generators</h1>
+        <p class="blog-subtext" style="text-align: center; margin-bottom: 40px;">Essential tools to scaffold your infrastructure instantly.</p>
+        
+        <!-- Top Generators Grid (Dynamically Populated) -->
+        <div id="generators-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 64px;">
+          <!-- Loaded via app.js -> data-generators.js -->
+        </div>
+
 
       </div>
     </div>
@@ -596,7 +570,7 @@
 
               <!-- Saved Blueprints -->
               <div class="card-secondary" style="padding: 16px;">
-                <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 6px; letter-spacing: 0.5px;">Saved System Blueprints</h3>
+                <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 6px; letter-spacing: 0.5px;">Saved Software Projects</h3>
                 <div id="workspace-blueprints-list" style="display: flex; flex-direction: column; gap: 10px;">
                   <!-- Dynamic saved blueprints list -->
                 </div>
@@ -639,7 +613,7 @@
             <div>
               <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
                 <h1 id="ws-project-name" style="margin: 0; font-size: 28px; font-weight: 700; color: var(--text-primary);">Project Dashboard</h1>
-                <span id="ws-project-type" class="stat-badge" style="background: rgba(34,197,94,0.1); color: var(--accent-color); font-size: 11px;"></span>
+                <span id="ws-project-type" class="stat-badge" style="background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent-color); font-size: 11px;"></span>
               </div>
               <p style="margin: 0; color: var(--text-muted); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
                 Created: <span id="ws-project-created"></span> | Updated: <span id="ws-project-updated"></span>
@@ -648,7 +622,7 @@
             
             <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
               <!-- Project Status Selector -->
-              <select id="ws-project-status" class="ai-textarea" style="min-height: 38px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-active); background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+              <select id="ws-project-status" class="ai-textarea" style="min-height: 38px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-active); background: var(--bg); color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
                 <option value="Planning">Planning</option>
                 <option value="Architecture Complete">Architecture Complete</option>
                 <option value="Development Started">Development Started</option>
@@ -662,25 +636,27 @@
             </div>
           </div>
 
-          <!-- Project Key Metrics -->
+          <!-- Project Health Metrics -->
           <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px;">
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Complexity</span>
-              <span id="ws-metric-complexity" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Planning</span>
+              <span id="ws-health-planning" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Estimated Cost</span>
-              <span id="ws-metric-cost" style="font-size: 18px; font-weight: bold; color: #22c55e; font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Architecture</span>
+              <span id="ws-health-architecture" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
             <div class="blueprint-card" style="padding: 16px; text-align: center;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Est. Timeline</span>
-              <span id="ws-metric-timeline" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">-</span>
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Deployment</span>
+              <span id="ws-health-deployment" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
-            <div class="blueprint-card" style="padding: 16px; text-align: center; grid-column: span 2;">
-              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 6px;">Completion Progress (<span id="ws-progress-val">0</span>%)</span>
-              <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-muted);">
-                <div id="ws-progress-bar" style="background: var(--accent-color); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
-              </div>
+            <div class="blueprint-card" style="padding: 16px; text-align: center;">
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Documentation</span>
+              <span id="ws-health-documentation" style="font-size: 18px; font-weight: bold; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">0%</span>
+            </div>
+            <div class="blueprint-card" style="padding: 16px; text-align: center;">
+              <span style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 4px;">Implementation</span>
+              <span id="ws-health-implementation" style="font-size: 18px; font-weight: bold; color: var(--accent); font-family: 'JetBrains Mono', monospace;">0%</span>
             </div>
           </div>
 
@@ -702,17 +678,18 @@
             <button class="btn btn-secondary" data-tab="resources" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Resources</button>
             <button class="btn btn-secondary" data-tab="notes" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Notes</button>
             <button class="btn btn-secondary" data-tab="tasks" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Tasks</button>
+            <button class="btn btn-secondary" data-tab="timeline" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 12px; height: auto;">Timeline</button>
           </div>
 
           <!-- Version History Control Pane -->
-          <div class="blueprint-card" style="padding: 14px 20px; margin-bottom: 28px; flex-direction: row; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02);">
+          <div class="blueprint-card" style="padding: 14px 20px; margin-bottom: 28px; flex-direction: row; justify-content: space-between; align-items: center; background: color-mix(in srgb, var(--text) 2%, transparent);">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">Active Version:</span>
-              <select id="ws-version-select" class="ai-textarea" style="min-height: 32px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-active); background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 120px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);">Active Snapshot:</span>
+              <select id="ws-version-select" class="ai-textarea" style="min-height: 32px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border-active); background: var(--bg); color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 120px;">
               </select>
-              <button id="ws-btn-new-version" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Create New Version</button>
+              <button id="ws-btn-new-version" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Create New Snapshot</button>
             </div>
-            <button id="ws-btn-compare-versions" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Compare with Version...</button>
+            <button id="ws-btn-compare-versions" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px; height: 32px;">Compare Snapshots...</button>
           </div>
 
           <!-- Tab Panels Container -->
@@ -720,47 +697,71 @@
             
             <!-- OVERVIEW PANEL -->
             <div class="ws-panel-view" id="ws-panel-overview" style="display: block;">
-              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
-                <div style="display: flex; flex-direction: column; gap: 20px;">
-                  <div class="blueprint-card" style="padding: 24px;">
-                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Executive Summary</h3>
-                    <p id="ws-overview-summary" style="margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 14px;"></p>
-                  </div>
-                  <div class="blueprint-card" style="padding: 24px;">
-                    <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">User Roles & Permissions</h3>
-                    <ul id="ws-overview-roles" class="bp-list" style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
-                  </div>
+              
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 1. Opportunity Assessment -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">1. Opportunity Assessment</h3>
+                  <ul id="ws-overview-opportunity" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
                 </div>
-                <!-- Implementation Assistant -->
-                <div class="blueprint-card" style="padding: 24px; border-color: var(--accent-color);">
-                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--accent-color);">Implementation Assistant</h3>
-                  <div style="display: flex; flex-direction: column; gap: 18px;" id="ws-assistant-content">
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">→ Next Recommended Step</span>
-                      <p id="ws-assistant-next" style="margin: 0; font-size: 13px; color: var(--text-primary); font-weight: 500;"></p>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">⚠️ Current Bottleneck</span>
-                      <p id="ws-assistant-bottleneck" style="margin: 0; font-size: 13px; color: #ef4444;"></p>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">📖 Recommended Guide</span>
-                      <a id="ws-assistant-guide" href="#" style="font-size: 13px; color: var(--accent-color); text-decoration: none;"></a>
-                    </div>
-                    <div>
-                      <span style="display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px;">⚡ Recommended Generator</span>
-                      <a id="ws-assistant-gen" href="/generators" style="font-size: 13px; color: var(--text-primary); text-decoration: underline;"></a>
-                    </div>
-                  </div>
+                <!-- 2. Industry Intelligence -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">2. Industry Intelligence</h3>
+                  <div id="ws-overview-industry" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
                 </div>
               </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 3. Existing Market Landscape -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">3. Existing Market Landscape</h3>
+                  <div id="ws-overview-market" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+                <!-- 4. Business Workflow -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">4. Business Workflow</h3>
+                  <ul id="ws-overview-workflow" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- 5. Automation Opportunities -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">5. Automation Opportunities</h3>
+                  <div id="ws-overview-automation" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+                <!-- 6. Revenue Model Suggestions -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">6. Revenue Model Suggestions</h3>
+                  <div id="ws-overview-revenue" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+                <!-- 7. Success Metrics -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">7. Success Metrics</h3>
+                  <ul id="ws-overview-metrics" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+                <!-- 9. Risks -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">9. Risks</h3>
+                  <ul id="ws-overview-risks" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+                </div>
+                <!-- 10. Future Opportunities -->
+                <div class="blueprint-card" style="padding: 24px;">
+                  <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">10. Future Opportunities</h3>
+                  <div id="ws-overview-future" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
+                </div>
+              </div>
+
             </div>
 
             <!-- ARCHITECTURE PANEL -->
             <div class="ws-panel-view" id="ws-panel-architecture" style="display: none;">
               <div class="blueprint-card" style="padding: 24px;">
                 <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">System Architecture Diagram</h3>
-                <div id="ws-arch-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; margin-bottom: 24px;"></div>
+                <div id="ws-arch-diagram" class="mermaid-diagram-placeholder" style="background: var(--bg); padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; margin-bottom: 24px;"></div>
               </div>
             </div>
 
@@ -769,7 +770,7 @@
               <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
                 <div class="blueprint-card" style="padding: 24px;">
                   <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Database Schema (DDL)</h3>
-                  <pre style="margin: 0; background: #000; padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; overflow-x: auto;"><code id="ws-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
+                  <pre style="margin: 0; background: var(--bg); padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; overflow-x: auto;"><code id="ws-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
                 </div>
                 <div class="blueprint-card" style="padding: 24px;">
                   <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Tables Directory</h3>
@@ -790,7 +791,7 @@
             <div class="ws-panel-view" id="ws-panel-env" style="display: none;">
               <div class="blueprint-card" style="padding: 24px;">
                 <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Environment Variables</h3>
-                <pre style="margin: 0; background: #000; padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; overflow-x: auto;"><code id="ws-env-vars" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
+                <pre style="margin: 0; background: var(--bg); padding: 16px; border: 1px solid var(--border-muted); border-radius: 6px; overflow-x: auto;"><code id="ws-env-vars" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
               </div>
             </div>
 
@@ -833,8 +834,20 @@
                 <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Implementation Tasks Checklist</h3>
                 <p style="font-size: 12px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Complete tasks below to track overall implementation progress. Checked tasks auto-save in local storage.</p>
                 
-                <div id="ws-tasks-checklist" style="display: flex; flex-direction: column; gap: 24px;">
+                <div id="ws-tasks-list" style="display: flex; flex-direction: column; gap: 24px;">
                   <!-- Checklists populated dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- TIMELINE PANEL -->
+            <div class="ws-panel-view" id="ws-panel-timeline" style="display: none;">
+              <div class="blueprint-card" style="padding: 24px;">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 14px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Project Evolution Timeline</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">A chronological log of all modifications, snapshots, and updates to this project workspace.</p>
+                
+                <div id="ws-timeline-list" style="display: flex; flex-direction: column; gap: 16px;">
+                  <!-- Timeline events populated dynamically -->
                 </div>
               </div>
             </div>
@@ -848,12 +861,50 @@
     <!-- Project Architect View -->
     <div id="architect-view" class="view page-view" style="padding-top: 100px; padding-bottom: 80px;">
       <div class="page-container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+
+        <!-- AI Architect input (moved here from the old homepage) -->
+        <div class="architect-input">
+          <p class="g-label">// AI project architect</p>
+          <h1 class="g-h2">Describe your app idea</h1>
+          <p class="g-muted">Get a technical blueprint: architecture, database schema, tech stack and deployment plan. Runs locally in your browser.</p>
+      <!-- Hero Section (AI Architect Input) -->
+      <div class="ai-input-container">
+          <textarea id="ai-architect-input" class="ai-textarea jetbrains-font" placeholder="I want to build a marketplace for local chefs using Next.js and Supabase..."></textarea>
+          <div class="ai-input-footer">
+            <div class="ai-suggestions jetbrains-font">
+              <span class="suggestion-chip">SaaS Starter</span>
+              <span class="suggestion-chip">AI Wrapper</span>
+              <span class="suggestion-chip">Web3 dApp</span>
+            </div>
+            <button id="btn-generate-blueprint" class="btn btn-primary btn-glow">
+              <span class="btn-text">Generate Blueprint</span>
+              
+            </button>
+          </div>
+        </div>
+        
+        
+
+      <!-- Terminal Loading Overlay (Hidden by default) -->
+      <div id="ai-loading-overlay" class="ai-loading-overlay" style="display: none;">
+        <div class="terminal-loader jetbrains-font">
+          <div class="loader-header">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <span>architect.exe</span>
+          </div>
+          <div id="loader-output" class="loader-output">
+            > initializing architect...
+          </div>
+        </div>
+      </div>
+        </div>
+
         
         <div class="dashboard-header" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
           <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <h1 id="blueprint-title" style="margin: 0; font-size: 28px; font-weight: 700; color: var(--text-primary);">Project Implementation Blueprint</h1>
+            <h2 id="blueprint-title" style="margin: 0; font-size: 28px; font-weight: 700; color: var(--text-primary);">Software Project Workspace</h2>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;" class="export-actions">
-              <button id="btn-save-workspace" class="btn btn-primary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--accent-color); color: #000;">Save to Workspace</button>
+              <button id="btn-save-workspace" class="btn btn-primary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--accent-color); color: var(--accent-ink);">Save to Workspace</button>
               <button id="btn-export-pdf" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px;">PDF</button>
               <button id="btn-export-md" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px;">Markdown</button>
               <button id="btn-export-notion" class="btn btn-secondary" style="font-family: 'JetBrains Mono', monospace; font-size: 13px;">Notion</button>
@@ -862,129 +913,125 @@
             </div>
           </div>
           
-          <!-- 1. Executive Summary -->
+          <!-- 1. Opportunity Assessment -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--accent-color); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">1. Executive Summary</h3>
-            <p id="bp-exec-summary" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></p>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--accent-color); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">1. Opportunity Assessment</h3>
+            <ul id="bp-opportunity" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
           </div>
           
-          <!-- 2. Business Problem Analysis -->
+          <!-- 2. Industry Intelligence -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">2. Business Problem Analysis</h3>
-            <div id="bp-business-problem" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">2. Industry Intelligence</h3>
+            <div id="bp-industry" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
           </div>
 
-          <!-- 3. Target User Journey -->
+          <!-- 3. Existing Market Landscape -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">3. Target User Journey</h3>
-            <ul id="bp-user-journey" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">3. Existing Market Landscape</h3>
+            <div id="bp-market-landscape" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
           </div>
 
-          <!-- 4. Revenue Opportunities -->
+          <!-- 4. Business Workflow -->
           <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">4. Revenue Opportunities</h3>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">4. Business Workflow</h3>
+            <ul id="bp-workflow" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
+          </div>
+          
+          <!-- 5. Automation Opportunities -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">5. Automation Opportunities</h3>
+            <div id="bp-automation" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+          </div>
+          
+          <!-- 6. Revenue Model Suggestions -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">6. Revenue Model Suggestions</h3>
             <div id="bp-revenue-model" style="color: var(--text-secondary); line-height: 1.6; margin: 0; font-size: 13px;"></div>
+          </div>
+
+          <!-- 7. Success Metrics -->
+          <div class="card-primary architect-priority-section" style="width: 100%; box-sizing: border-box; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">7. Success Metrics</h3>
+            <ul id="bp-success-metrics" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
           </div>
         </div>
         
         <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
           
-          <!-- 5. Suggested Tech Stack -->
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">8. Technical Planning</h2>
+          </div>
+
+          <!-- 8.1 Suggested Tech Stack -->
           <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">5. Suggested Tech Stack</h3>
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.1 Architecture & Stack</h3>
             <div id="bp-stack" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;"></div>
+            <div id="bp-system-arch-diagram" class="mermaid-diagram-placeholder" style="background: var(--bg); padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
           </div>
  
-          <!-- 6. Folder Structure -->
+          <!-- 8.2 Folder Structure -->
           <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">6. Folder Structure</h3>
-            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-folder-structure" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 1.4;"></code></pre>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.2 Folder Structure</h3>
+            <pre style="margin: 0; background: var(--bg); padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-folder-structure" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 1.4;"></code></pre>
           </div>
  
-          <!-- 7. Database Schema -->
+          <!-- 8.3 Database Schema -->
           <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">7. Database Schema (DDL)</h3>
-            <pre style="margin: 0; background: #000; padding: 14px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
-          </div>
- 
-          <!-- 8. Database Tables -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8. Database Tables</h3>
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.3 Database (Schema & Tables)</h3>
+            <pre style="margin: 0; background: var(--bg); padding: 14px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto; margin-bottom: 16px;"><code id="bp-db-schema" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); line-height: 1.5;"></code></pre>
             <div id="bp-db-tables-list" style="overflow-x: auto; font-size: 12px;"></div>
           </div>
  
-          <!-- 9. Entity Relationships -->
+          <!-- 8.4 Entity Relationships -->
           <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">9. Entity Relationships</h3>
-            <div id="bp-erd-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.4 Entity Relationships</h3>
+            <div id="bp-erd-diagram" class="mermaid-diagram-placeholder" style="background: var(--bg); padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
           </div>
  
-          <!-- 10. API Route Plan -->
-          <div class="card-primary architect-priority-section" style="grid-column: span 2; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">10. API Route Plan</h3>
+          <!-- 8.5 API Route Plan -->
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.5 API Route Plan</h3>
             <div id="bp-api-route-plan" style="overflow-x: auto; font-size: 12px;"></div>
           </div>
  
-          <!-- 11. Authentication Flow -->
+          <!-- 8.6 Authentication Flow -->
           <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">11. Authentication Flow</h3>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.6 Authentication Flow</h3>
             <ul id="bp-auth-flow-steps" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 12. User Roles -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">12. User Roles</h3>
+            <h3 style="margin-top: 16px; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">User Roles</h3>
             <ul id="bp-user-roles-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
           </div>
  
-          <!-- 13. Environment Variables -->
+          <!-- 8.7 Environment Variables -->
           <div class="card-primary architect-priority-section" style="grid-column: span 1; padding: 20px;">
-            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">13. Environment Variables</h3>
-            <pre style="margin: 0; background: #000; padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-env-vars-block" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); line-height: 1.4;"></code></pre>
+            <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 13px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.7 Environment Variables</h3>
+            <pre style="margin: 0; background: var(--bg); padding: 10px; border: 1px solid var(--border-muted); border-radius: 4px; overflow-x: auto;"><code id="bp-env-vars-block" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-primary); line-height: 1.4;"></code></pre>
           </div>
  
-          <!-- 14. Deployment Strategy -->
+          <!-- 8.8 Deployment Strategy & Infrastructure -->
           <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">14. Deployment Strategy</h3>
-            <ul id="bp-deployment-strategy-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
-          </div>
- 
-          <!-- 15. Infrastructure Cost Estimate -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">15. Infrastructure Cost</h3>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">8.8 Deployment Strategy</h3>
+            <ul id="bp-deployment-strategy-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5; margin-bottom: 16px;"></ul>
+            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">Infrastructure Cost</h3>
             <div id="bp-infra-costs-table" style="overflow-x: auto; font-size: 12px;"></div>
           </div>
- 
-          <!-- 16. Development Phases -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 2; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">16. Development Phases</h3>
-            <div id="bp-development-timeline" class="bp-roadmap" style="font-size: 12px;"></div>
+          
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">9. Risks</h2>
           </div>
- 
-          <!-- 17. MVP Scope -->
-          <div class="card-secondary architect-medium-section" style="grid-column: span 1; padding: 16px;">
-            <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 12px; color: var(--text-primary); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">17. MVP Scope</h3>
-            <ul id="bp-mvp-scope-list" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 12px; line-height: 1.5;"></ul>
+          
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <ul id="bp-risks" class="bp-list" style="margin: 0; padding-left: 16px; color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></ul>
           </div>
- 
-          <!-- 18. Future Scaling Plan -->
-          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">18. Future Scaling Plan</h3>
-            <ul id="bp-scaling-plan-list" class="bp-list" style="margin: 0; padding-left: 14px; color: var(--text-secondary); font-size: 11px; line-height: 1.5;"></ul>
+
+          <div style="grid-column: span 3; margin-top: 24px;">
+             <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary); border-bottom: 1px dashed var(--border-muted); padding-bottom: 12px;">10. Future Opportunities</h2>
           </div>
- 
-          <!-- 19. Recommended SaaS APIs -->
-          <div class="card-reference architect-low-section" style="grid-column: span 1; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">19. Recommended SaaS APIs</h3>
-            <ul id="bp-third-party-list" class="bp-list" style="margin: 0; padding-left: 14px; color: var(--text-secondary); font-size: 11px; line-height: 1.5;"></ul>
+          
+          <div class="card-primary architect-priority-section" style="grid-column: span 3; padding: 20px;">
+            <div id="bp-future" style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;"></div>
           </div>
- 
-          <!-- 20. System Architecture Diagram -->
-          <div class="card-reference architect-low-section" style="grid-column: span 2; padding: 14px;">
-            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 11px; color: var(--text-muted); border: none; padding: 0; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;">20. System Architecture Diagram</h3>
-            <div id="bp-system-arch-diagram" class="mermaid-diagram-placeholder" style="background: #000; padding: 8px; border: 1px solid var(--border-muted); border-radius: 4px;"></div>
-          </div>
- 
+
         </div>
         
         <div class="blog-cta-box" style="margin-top: 48px; text-align: center; border: 1px solid var(--border-muted); border-radius: 12px; padding: 32px;">
@@ -1007,7 +1054,7 @@
         <div class="filters-container" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 48px; width: 100%;">
           <input type="text" id="templates-search" placeholder="Search templates (e.g. Next.js, Stripe, OpenAI)..." class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
           
-          <select id="templates-filter-category" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
+          <select id="templates-filter-category" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: var(--bg); color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
             <option value="">All Categories</option>
             <option value="AI SaaS">AI SaaS</option>
             <option value="Marketplaces">Marketplaces</option>
@@ -1020,14 +1067,14 @@
             <option value="Dashboards">Dashboards</option>
           </select>
           
-          <select id="templates-filter-complexity" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
+          <select id="templates-filter-complexity" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: var(--bg); color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
             <option value="">All Complexities</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
           </select>
           
-          <select id="templates-filter-stack" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: #000; color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
+          <select id="templates-filter-stack" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); width: 100%; background: var(--bg); color: var(--text-primary); cursor: pointer; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px;">
             <option value="">All Stacks</option>
             <option value="Next.js">Next.js</option>
             <option value="React">React</option>
@@ -1050,8 +1097,8 @@
         </div>
 
         <!-- Premium Marketplace Hook (Upgrade Path) -->
-        <div style="background: linear-gradient(135deg, rgba(34,197,94,0.05), rgba(0,0,0,0)); border: 1px solid var(--border-muted); border-radius: 12px; padding: 48px 32px; text-align: center; margin-top: 64px; margin-bottom: 32px;">
-          <h2 style="color: #fff; font-size: 24px; margin-bottom: 12px; font-weight: 600;">Premium Blueprints <span class="stat-badge" style="background: var(--accent-color); color: #000; margin-left: 8px;">Coming Soon</span></h2>
+        <div style="background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent); border: 1px solid var(--border-muted); border-radius: 12px; padding: 48px 32px; text-align: center; margin-top: 64px; margin-bottom: 32px;">
+          <h2 style="color: var(--text); font-size: 24px; margin-bottom: 12px; font-weight: 600;">Premium Blueprints <span class="stat-badge" style="background: var(--accent-color); color: var(--accent-ink); margin-left: 8px;">Coming Soon</span></h2>
           <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 24px; font-size: 14px; line-height: 1.6;">Need enterprise-grade architecture? Get fully coded boilerplate templates built with Next.js, Supabase, Stripe, and Docker. Join the waitlist for early access.</p>
           <div style="display: flex; gap: 8px; justify-content: center; max-width: 400px; margin: 0 auto;">
             <input type="email" placeholder="Email address" class="ai-textarea" style="min-height: 44px; padding: 10px 16px; border-radius: 6px; border: 1px solid var(--border-active); font-family: 'JetBrains Mono', monospace; font-size: 14px;">
@@ -1097,6 +1144,7 @@
 
     <!-- FEATURE 6: Blog Post View -->
     <div id="blog-post-view" class="view page-view">
+      <!-- SSG:BLOG-POST-START (build-blog-pages.js replaces this region) -->
       <div class="blog-post-container">
         <a href="/blog" class="back-link">← Back to Blog</a>
         
@@ -1110,15 +1158,36 @@
         <div class="blog-cta-box">
           <h3>Ready to configure your stack?</h3>
           <p>Generate a professional, fully commented .env file for your exact framework in seconds.</p>
-          <a href="/" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
+          <a href="/env" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
         </div>
       </div>
+      <!-- SSG:BLOG-POST-END -->
+    </div>
+
+    <!-- Kits catalog (/kits) — rendered by KitPages.renderCatalog from kits-data.js -->
+    <div id="kits-view" class="view page-view">
+      <div id="kits-content"></div>
+    </div>
+
+    <!-- Kit detail (/kits/:slug) — KitPages.renderDetail -->
+    <div id="kit-detail-view" class="view page-view">
+      <div id="kit-detail-content"></div>
+    </div>
+
+    <!-- How it works (/how-it-works) — KitPages.renderHowItWorks -->
+    <div id="howitworks-view" class="view page-view">
+      <div id="howitworks-content"></div>
+    </div>
+
+    <!-- FAQ (/faq) — KitPages.renderFaq -->
+    <div id="faq-view" class="view page-view">
+      <div id="faq-content"></div>
     </div>
 
     <!-- Stack Landing Page View -->
     <div id="stack-view" class="view page-view">
       <div class="blog-post-container">
-        <a href="/" class="back-link">← Back to Generator</a>
+        <a href="/env" class="back-link">← Back to .env generator</a>
         <article id="stack-article-content" class="blog-article-body">
           <!-- Loaded dynamically via app.js -->
         </article>
@@ -1128,13 +1197,13 @@
     <!-- About View -->
     <div id="about-view" class="view page-view">
       <div class="page-container">
-        <h1 class="page-title">About this tool</h1>
+        <h1 class="page-title">About getenv.in</h1>
         <div class="page-content font-inter">
-          <p>Every developer has wasted precious time copy-pasting API keys, looking up dashboard URLs, and manually typing environment variables. Starting a new project should be instant, not a scavenger hunt for config formats.</p>
-          <p>This tool was built to solve that problem. By selecting your stack and services, you get a clean, ready-to-use <code>.env</code> file complete with inline documentation, official API URLs, and proper prefix compliance for your specific framework.</p>
-          <p>It's designed to be keyboard-friendly, super lightweight, and completely private. We don't save your selections, and everything runs in your local browser sandbox. Simple, clean, developer experience first.</p>
+          <p>AI coding agents write code fast, but they get Indian business flows wrong: UPI Autopay mandates, GST place of supply, WhatsApp session windows. getenv kits are drop-in environments that give your agent the rules, the edge cases and a test suite it has to pass.</p>
+          <p>getenv started as a free <code>.env</code> generator, and that tool stays free. Pick your stack and services and you get a clean, ready-to-use <code>.env</code> file with inline documentation, official API URLs and the right prefixes for your framework.</p>
+          <p>Both are built to be lightweight and private: no accounts, and the generator runs entirely in your browser.</p>
         </div>
-        <a href="/" class="btn btn-secondary back-to-home">← Back to Generator</a>
+        <a href="/kits" class="btn btn-secondary back-to-home">Browse kits →</a>
       </div>
     </div>
 
@@ -1143,59 +1212,85 @@
       <div class="page-container">
         <h1 class="page-title">Privacy Policy</h1>
         <div class="page-content font-inter">
-          <p class="accent-glow-text">We take privacy seriously. In fact, we don't even have a database.</p>
-          <p>Everything inside this application is executed strictly on the client-side inside your browser sandbox. None of your selections, variables, frameworks, or keystrokes are transmitted over the network, processed on our servers, or shared with third parties.</p>
-          <p>No tracking databases, no tracking cookies, and no key-logging. You are fully secure to populate your credentials in your code editor knowing this tool remains 100% server-less and local.</p>
+          <p class="accent-glow-text">No accounts. We collect only the email we need.</p>
+          <p>The free tools (the .env generator, AI Architect, templates and workspace) run entirely in your browser. Your selections, variables and generated secrets are not sent to our servers. Workspace data is stored in your own browser's local storage.</p>
+          <p>When you buy a kit, payment is handled by Razorpay, and we receive the email address needed to deliver your download link or GitHub invite. When you join a waitlist, we store only your email and the kit you asked about.</p>
         </div>
-        <a href="/" class="btn btn-secondary back-to-home">← Back to Generator</a>
+        <a href="/" class="btn btn-secondary back-to-home">← Back to home</a>
       </div>
     </div>
 
   </main>
 
-  <!-- Sticky Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <span class="footer-left">
-        Built for developers, by developers.<br>
-        <span style="display:block; font-family:'JetBrains Mono', monospace; font-size:0.7rem; margin-top:5px; color:var(--text-muted);">© 2026 getenv.in — All rights reserved.</span>
-      </span>
-      <div class="footer-right">
-        <a href="/blog" class="footer-link">Blog</a>
-        <span class="divider">•</span>
-        <a href="/about" class="footer-link">About</a>
-        <span class="divider">•</span>
-        <a href="/privacy" class="footer-link">Privacy Policy</a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <a href="/" class="logo" aria-label="getenv.in home"><span class="logo-mark" aria-hidden="true">$</span><span>getenv<span class="logo-tld">.in</span></span></a>
+        <p>Not prompts. Proven environments. Kits that make AI coding agents build Indian software correctly.</p>
+      </div>
+      <nav aria-label="Kits">
+        <h2>Kits</h2>
+        <ul>
+          <li><a href="/kits">All kits</a></li>
+          <li><a href="/kits/india-subscription-saas">Subscription SaaS</a></li>
+          <li><a href="/kits/gst-invoice-engine">GST Invoice Engine</a></li>
+          <li><a href="/kits/whatsapp-lead-bot">WhatsApp Lead Bot</a></li>
+          <li><a href="/kits/dpdp-ready-app">DPDP-Ready App</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="/how-it-works">How it works</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Free tools">
+        <h2>Free tools</h2>
+        <ul>
+          <li><a href="/env">.env generator</a></li>
+          <li><a href="/architect">AI Architect</a></li>
+          <li><a href="/templates">Templates</a></li>
+          <li><a href="/workspace">Workspace</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Resources">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="/blog">Guides</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer-legal">
+        <span>© 2026 getenv.in</span>
+        <span>GST and DPDP kits are implementation help, not legal or tax advice.</span>
       </div>
     </div>
   </footer>
 
-  <!-- Custom Figma-Style Cursor Elements -->
-  <div id="cursor-pointer" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999; will-change: transform;">
-    <svg width="20" height="20" viewBox="0 0 20 20">
-      <path 
-        d="M 0 0 L 0 14 L 4 10 L 8 18 L 10 17 L 6 9 L 11 9 Z"
-        fill="white"
-        stroke="black"
-        stroke-width="1.5"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </div>
-
-
-  <!-- App logic & Data Ecosystem -->
+  <!-- App logic & Data Ecosystem (absolute paths so deep SPA routes like /kits/x resolve) -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.5.0/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: false, theme: 'dark' });</script>
-  
-  <script src="data-generators.js"></script>
-  <script src="data-templates.js"></script>
-  <script src="data-blueprints.js"></script>
-  <script src="stack-data.js"></script>
-  <script src="presets-core.js"></script>
-  <script src="compiler-core.js"></script>
-  <script src="seo-content-db.js"></script>
-  <script src="app.js"></script>
-  <script src="animations.js"></script>
+  <script>if (window.mermaid) mermaid.initialize({ startOnLoad: false, theme: 'dark' });</script>
+
+  <script src="/data-generators.js"></script>
+  <script src="/data-templates.js"></script>
+  <script src="/models.js"></script>
+  <script src="/utils.js"></script>
+  <script src="/storage.js"></script>
+  <script src="/renderers.js"></script>
+  <script src="/knowledge-engine.js"></script>
+  <script src="/blueprint-engine.js"></script>
+  <script src="/workspace.js"></script>
+  <script src="/stack-data.js"></script>
+  <script src="/presets-core.js"></script>
+  <script src="/kits-data.js"></script>
+  <script src="/components.js"></script>
+  <script src="/compiler-core.js"></script>
+  <script src="/seo-content-db.js"></script>
+  <script src="/app.js"></script>
+  <script src="/animations.js"></script>
 </body>
 </html>

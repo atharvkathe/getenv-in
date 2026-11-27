@@ -452,7 +452,7 @@ const ssgSeoBlock = (post, prevPost, nextPost) => `
         <article class="blog-article-body">
           <h1>${post.title}</h1>
           <div class="blog-meta" style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-muted); margin-bottom:28px;">
-            <span>Guides & Tutorial</span> • <span class="read-time-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--accent-color); padding: 2px 6px; border-radius: 4px; font-weight: 500;">${post.readTime}</span>
+            <span>Guides & Tutorial</span> • <span class="read-time-badge" style="background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent-color); padding: 2px 6px; border-radius: 4px; font-weight: 500;">${post.readTime}</span>
           </div>
           <div class="blog-markdown">
             ${post.content}
@@ -477,10 +477,10 @@ const ssgSeoBlock = (post, prevPost, nextPost) => `
         </div>
 
         <!-- Dynamic Green CTA Box -->
-        <div class="blog-cta-box" style="border: 1px solid rgba(34, 197, 94, 0.3) !important; background-color: rgba(34, 197, 94, 0.03) !important; border-left: 4px solid var(--accent-color) !important; margin-top: 40px; padding: 24px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px;">
+        <div class="blog-cta-box" style="border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent) !important; background-color: color-mix(in srgb, var(--accent) 3%, transparent) !important; border-left: 4px solid var(--accent-color) !important; margin-top: 40px; padding: 24px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px;">
           <h3 style="color: var(--accent-color); margin: 0; font-size: 16px; font-weight: 600;">Generate your .env file instantly →</h3>
           <p style="color: var(--text-secondary); margin: 0; font-size: 13px; line-height: 1.5;">Compile a professional, commented config template perfectly adjusted to your framework and services. 100% browser-side, zero logins required.</p>
-          <a href="/" class="btn btn-primary cta-btn" style="align-self: flex-start; margin-top: 4px;">Generate your .env →</a>
+          <a href="/env" class="btn btn-primary cta-btn" style="align-self: flex-start; margin-top: 4px;">Generate your .env →</a>
         </div>
       </div>
 `;
@@ -527,38 +527,15 @@ BLOG_POSTS.forEach((post, index) => {
   
   const injectMarkup = ssgSeoBlock(post, prevPost, nextPost);
   
-  // Locate the blog-post-view element and replace its dynamic target
-  const blogPostViewTarget = `<div id="blog-post-view" class="view page-view">
-      <div class="blog-post-container">
-        <a href="/blog" class="back-link">← Back to Blog</a>
-        
-        <article id="blog-article-content" class="blog-article-body">
-          <!-- Loaded dynamically via app.js -->
-        </article>
-        
-        <!-- CTA Box -->
-        <div class="blog-cta-box">
-          <h3>Ready to configure your stack?</h3>
-          <p>Generate a professional, fully commented .env file for your exact framework in seconds.</p>
-          <a href="/" class="btn btn-primary cta-btn">Generate your .env file instantly →</a>
-        </div>
-      </div>
-    </div>`;
+  // Replace the region between the SSG markers in index.html and make the view active
+  const region = /(<div id="blog-post-view" class="view page-view)(">\s*<!-- SSG:BLOG-POST-START[^>]*-->)[\s\S]*?(<!-- SSG:BLOG-POST-END -->)/;
+  if (!region.test(html)) {
+    throw new Error('index.html is missing the SSG:BLOG-POST-START/END markers; cannot build blog pages');
+  }
+  html = html.replace(region, (m, open, start, end) => `${open} active-view${start}\n${injectMarkup}\n      ${end}`);
 
-  const blogPostViewReplacement = `<div id="blog-post-view" class="view page-view active-view">
-      ${injectMarkup}
-    </div>`;
-
-  html = html.replace(blogPostViewTarget, blogPostViewReplacement);
-
-  // 6. Fix Asset Paths for Absolute references
-  html = html.replace(/href="styles\.css"/g, 'href="/styles.css"');
-  html = html.replace(/src="presets-core\.js"/g, 'src="/presets-core.js"');
-  html = html.replace(/src="compiler-core\.js"/g, 'src="/compiler-core.js"');
-  html = html.replace(/src="app\.js"/g, 'src="/app.js"');
-  html = html.replace(/src="animations\.js"/g, 'src="/animations.js"');
-  html = html.replace(/src="stack-data\.js"/g, 'src="/stack-data.js"');
-  html = html.replace(/href="favicon\.svg"/g, 'href="/favicon.svg"');
+  // 6. Asset paths: make any remaining relative local src/href absolute so /blog/<slug>/ resolves them.
+  html = html.replace(/(src|href)="(?!\/|https?:|#|mailto:|data:)([\w.-]+\.(?:js|css|svg))"/g, '$1="/$2"');
 
   fs.writeFileSync(path.join(postDir, 'index.html'), html, 'utf-8');
   console.log(`Generated physical blog page: blog/${post.slug}/index.html`);

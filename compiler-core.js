@@ -1245,7 +1245,8 @@ const elements = {
   aboutView: document.getElementById('about-view'),
   privacyView: document.getElementById('privacy-view'),
   stackView: document.getElementById('stack-view'),
-  
+  blogPostView: document.getElementById('blog-post-view'),
+
   // Containers
   blogGrid: document.getElementById('blog-grid'),
   blogArticleContent: document.getElementById('blog-article-content'),
@@ -1310,8 +1311,10 @@ function init() {
     state.step = 3;
     
     // Slight timeout to let DOM settle before running generation logic
+    // (Previously called an undefined handleGenerate(); compile step 3 directly instead.)
     setTimeout(() => {
-      handleGenerate();
+      updateStepIndicator(3);
+      compileDotenv(false);
     }, 100);
   }
 
@@ -1491,7 +1494,7 @@ function playTerminalStepTransition(fromStep, toStep, line1Text, line2Text, call
   overlay.className = 'transition-terminal jetbrains-font';
   overlay.style.position = 'absolute';
   overlay.style.inset = '0';
-  overlay.style.background = '#121212';
+  overlay.style.background = 'var(--surface)';
   overlay.style.borderRadius = '12px';
   overlay.style.padding = '32px';
   overlay.style.display = 'flex';
@@ -1499,7 +1502,7 @@ function playTerminalStepTransition(fromStep, toStep, line1Text, line2Text, call
   overlay.style.justifyContent = 'flex-start';
   overlay.style.alignItems = 'flex-start';
   overlay.style.zIndex = '100';
-  overlay.style.color = '#22c55e';
+  overlay.style.color = 'var(--accent)';
   overlay.style.fontSize = '14px';
   overlay.style.lineHeight = '1.8';
   overlay.style.boxSizing = 'border-box';
@@ -1536,7 +1539,7 @@ function playTerminalStepTransition(fromStep, toStep, line1Text, line2Text, call
     
     const spinnerIntervalId = setInterval(() => {
       const char = spinnerChars[spinnerIdx];
-      line2El.innerHTML = `<span style="color: #22c55e;">${char}</span> ${line2Text}`;
+      line2El.innerHTML = `<span style="color: var(--accent);">${char}</span> ${line2Text}`;
       spinnerIdx = (spinnerIdx + 1) % spinnerChars.length;
       elapsed += interval;
       
