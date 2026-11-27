@@ -492,6 +492,9 @@ a.sr-only:focus {
 .g-form-status[data-tone="error"] { color: var(--danger); }
 .g-form-status[data-tone="success"] { color: var(--success); }
 .g-form-hint { font-size: var(--fs-14); color: var(--muted); margin: 0; }
+/* Honeypot field: off-screen for people, still filled in by naive bots */
+.g-hp { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.g-waitlist { position: relative; }
 
 /* ---------- Notice (legal) ---------- */
 .g-notice {

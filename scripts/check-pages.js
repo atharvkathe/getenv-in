@@ -164,7 +164,10 @@ async function main() {
     await step(`sessionStorage.clear(); document.querySelector('.framework-card[data-id="nextjs"]').click()`, 300);
     await step(`document.getElementById('btn-step1-next').click()`, 1800);
     await step(`document.querySelector('.service-checkbox-card[data-id="stripe"]').click()`, 300);
-    await step(`document.getElementById('btn-step2-next').click()`, 2500);
+    await step(`document.getElementById('btn-step2-next').click()`, 500);
+    // The step transition animation takes a variable time; poll for step 3 (max ~8s).
+    for (let t = 0; t < 32 && !(await step(`document.getElementById('step-3-card').classList.contains('active')`)); t++) await sleep(250);
+    await sleep(300);
     const out = await step(`({ step3: document.getElementById('step-3-card').classList.contains('active'), raw: document.getElementById('btn-copy-env').getAttribute('data-raw') || '' })`);
     await step(`document.getElementById('tab-btn-example').click()`, 600);
     const example = await step(`document.getElementById('btn-copy-env').getAttribute('data-raw') || ''`);
@@ -199,7 +202,7 @@ async function main() {
     checks['DPDP page has waitlist form, no buy button'] = await step(`!!document.querySelector('#kit-detail-view form[data-waitlist]') && !document.querySelector('#kit-detail-view [data-buy-placeholder], #kit-detail-view a[href*="rzp"]')`);
     await step(`(() => { const f = document.querySelector('form[data-waitlist]'); f.querySelector('input').value = 'not-an-email'; f.requestSubmit(); })()`, 300);
     checks['waitlist rejects invalid email'] = await step(`document.querySelector('form[data-waitlist] input').getAttribute('aria-invalid') === 'true'`);
-    await step(`(() => { const f = document.querySelector('form[data-waitlist]'); f.querySelector('input').value = 'dev@example.com'; f.requestSubmit(); })()`, 300);
+    await step(`(() => { KIT_SETTINGS.waitlistEndpoint = null; const f = document.querySelector('form[data-waitlist]'); f.querySelector('input').value = 'dev@example.com'; f.requestSubmit(); })()`, 300);
     checks['waitlist (no backend) says signups are not open yet'] = await step(`/open soon/i.test(document.querySelector('form[data-waitlist] .g-form-status').textContent)`);
 
     await go('/kits/does-not-exist');
@@ -207,6 +210,37 @@ async function main() {
 
     Object.entries(checks).forEach(([k, v]) => { console.log(`${v ? 'ok  ' : 'FAIL'} [kits] ${k}`); if (!v) failures++; });
     events.filter(e => e.kind === 'exception').forEach(e => { console.log(`FAIL [kits] exception: ${e.text}`); failures++; });
+  }
+
+  // End-to-end waitlist test against the dev server mock (start it with MOCK_WAITLIST=1),
+  // which runs the real waitlist/Code.gs. Exercises the actual form + fetch code path.
+  if (process.env.FLOW_WAITLIST) {
+    events = [];
+    const step = async (expr, wait = 0) => { const r = await send('Runtime.evaluate', { expression: expr, returnByValue: true, awaitPromise: true }); if (wait) await sleep(wait); return r.result.value; };
+    const submit = (email, website = '') => step(`(() => {
+      KIT_SETTINGS.waitlistEndpoint = '/__mock/waitlist';
+      const f = document.querySelector('form[data-waitlist]');
+      f.querySelector('input[name="email"]').value = ${JSON.stringify(email)};
+      f.querySelector('input[name="website"]').value = ${JSON.stringify(website)};
+      f.requestSubmit();
+    })()`, 900);
+    const statusText = () => step(`document.querySelector('form[data-waitlist] .g-form-status').textContent`);
+    await send('Page.navigate', { url: BASE + '/kits/dpdp-ready-app' });
+    await sleep(1800);
+    const checks = {};
+    // Must be JSON: without the mock, the SPA fallback would answer with index.html.
+    checks['mock endpoint is running (start dev server with MOCK_WAITLIST=1)'] = await step(`fetch('/__mock/waitlist/rows').then(r => r.json()).then(Array.isArray).catch(() => false)`);
+    await submit('Founder@Example.com');
+    checks['signup shows success'] = /You're on the list/.test(await statusText());
+    await submit('founder@example.com');
+    checks['repeat signup shows "already on the list"'] = /already on the list/.test(await statusText());
+    await submit('bot@spam.co', 'http://spam.example');
+    const rows = await step(`fetch('/__mock/waitlist/rows').then(r => r.json())`);
+    checks['sheet has header + exactly one row'] = Array.isArray(rows) && rows.length === 2;
+    checks['row stores lower-cased email and kit slug'] = !!rows && rows[1] && rows[1][1] === 'founder@example.com' && rows[1][2] === 'dpdp-ready-app';
+    checks['honeypot submission not stored'] = !!rows && !JSON.stringify(rows).includes('bot@spam.co');
+    Object.entries(checks).forEach(([k, v]) => { console.log(`${v ? 'ok  ' : 'FAIL'} [waitlist] ${k}`); if (!v) failures++; });
+    events.filter(e => e.kind === 'exception').forEach(e => { console.log(`FAIL [waitlist] exception: ${e.text}`); failures++; });
   }
 
   ws.close();

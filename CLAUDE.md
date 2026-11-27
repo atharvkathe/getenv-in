@@ -29,7 +29,9 @@ Technical notes for this repo. For product direction read `PRODUCT.md`, and for 
 | `blog/<slug>/index.html`, `stack/<slug>/index.html` | Pre-rendered copies of `index.html` for SEO. **Regenerate them whenever `index.html` changes.** |
 | `build-blog-pages.js`, `build-stack-pages.js` | Build those pages. They inject content at the `<!-- SSG:... -->` marker comments in `index.html` and throw if a marker is missing. |
 | `generate-stacks.js` | Writes `stack-data.js`. |
-| `scripts/dev-server.js` | Local server with SPA fallback and the `vercel.json` headers (CSP included). |
+| `waitlist/Code.gs`, `waitlist/README.md` | Google Apps Script web app that appends waitlist signups to a Google Sheet, plus setup steps. Not deployed to the site. |
+| `scripts/apps-script-harness.js`, `scripts/test-waitlist.js` | Run `Code.gs` in Node against a fake sheet; unit tests (`node scripts/test-waitlist.js`). |
+| `scripts/dev-server.js` | Local server with SPA fallback and the `vercel.json` headers (CSP included). `MOCK_WAITLIST=1` adds `/__mock/waitlist`, which runs the real `Code.gs`. |
 | `scripts/check-pages.js` | Headless Chrome/Edge checker (see below). |
 | `update-*.js`, `generate-knowledge.js` | Old one-off codemods. Already applied; don't re-run. |
 
@@ -49,6 +51,8 @@ In a second terminal, with the server running:
 node scripts/check-pages.js http://localhost:3000 .tmp/shots / /kits /kits/gst-invoice-engine /how-it-works /faq /env
 $env:FLOW_GENERATOR=1; $env:FLOW_KITS=1; node scripts/check-pages.js http://localhost:3000 .tmp/shots /
 ```
+
+Waitlist tests: `node scripts/test-waitlist.js`. For the browser flow, start the server with `$env:MOCK_WAITLIST=1` and run `check-pages.js` with `$env:FLOW_WAITLIST=1`.
 
 `check-pages.js` loads each route at 375px and 1440px and reports JS exceptions, console errors, horizontal overflow, the active view and the `<h1>` count. It saves viewport screenshots (`SEGMENTS=n` sets how many per page) and exits 1 on any first-party problem. `FLOW_GENERATOR=1` clicks through the .env generator and checks the output. `FLOW_KITS=1` tests the legal notes, the placeholder buy button and the waitlist form.
 
@@ -95,8 +99,8 @@ It now sits on the homepage (`#env-generator`). Its markup was moved there uncha
 ## Fragile / confusing: read before editing
 
 1. **Pre-rendered pages copy `index.html`.** If you add a view or change markup and don't rerun the two build scripts, SPA navigation from a blog/stack page can hit missing elements.
-2. **Placeholders to replace before launch** (all in `kits-data.js`): `buyUrl` values containing `REPLACE_WITH` (the button shows "Checkout opens soon"), `waitlistEndpoint: null` (the form says signups aren't open yet), the refund FAQ answer, the DPDP date notice, and the draft file trees, edge cases and verify previews.
-3. **A waitlist endpoint needs a CSP change.** `default-src 'self'` blocks `fetch` to another origin, so add that origin to `connect-src` in `vercel.json`.
+2. **Placeholders to replace before launch** (all in `kits-data.js`): `buyUrl` values containing `REPLACE_WITH` (the button shows "Checkout opens soon"), `waitlistEndpoint: null` until the Apps Script is deployed (see `waitlist/README.md`), the refund FAQ answer, the DPDP date notice, and the draft file trees, edge cases and verify previews.
+3. **Waitlist requests must stay "simple" CORS requests.** Don't add a `Content-Type: application/json` header to the waitlist `fetch`: Apps Script can't answer preflight. `connect-src` in `vercel.json` allows `script.google.com` and `script.googleusercontent.com` (the redirect target); any other backend needs its origin added there.
 4. **The CSP blocks GA, AdSense and Mermaid** (`script-src 'self' 'unsafe-inline'`). Architect diagrams don't render in production. This needs a decision: add the hosts or drop the scripts (the tracking scripts also conflict with PRODUCT.md's privacy promise).
 5. **Duplicated data:** `BLOG_POSTS` is in both `compiler-core.js` and `build-blog-pages.js`. Stack slugs in `build-stack-pages.js` differ from those in `stack-data.js`.
 6. `compileDotenv` is defined twice in `compiler-core.js`. Edit the last one.

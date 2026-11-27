@@ -56,8 +56,27 @@ function resolveFile(urlPath) {
   return null;
 }
 
+// Optional mock of the Google Apps Script waitlist (MOCK_WAITLIST=1). It runs the real
+// waitlist/Code.gs against an in-memory sheet:
+//   POST /__mock/waitlist        same contract as the deployed web app
+//   GET  /__mock/waitlist/rows   rows stored so far (for tests)
+const mockWaitlist = process.env.MOCK_WAITLIST ? require('./apps-script-harness').createWaitlistScript() : null;
+
+function handleMock(req, res) {
+  const send = (obj) => { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(obj)); };
+  if (req.method === 'GET' && req.url === '/__mock/waitlist/rows') return send(mockWaitlist.rows());
+  if (req.method === 'POST' && req.url === '/__mock/waitlist') {
+    let body = '';
+    req.on('data', c => { body += c; });
+    req.on('end', () => send(mockWaitlist.post(body)));
+    return;
+  }
+  res.writeHead(404); res.end();
+}
+
 const server = http.createServer((req, res) => {
   SECURITY_HEADERS.forEach(h => res.setHeader(h.key, h.value));
+  if (mockWaitlist && req.url.startsWith('/__mock/waitlist')) return handleMock(req, res);
   const file = resolveFile(req.url);
   if (!file) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -74,4 +93,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`getenv.in dev server running at http://localhost:${PORT}  (Ctrl+C to stop)`);
+  if (mockWaitlist) console.log('Mock waitlist (waitlist/Code.gs) at /__mock/waitlist');
 });

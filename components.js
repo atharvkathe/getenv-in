@@ -170,8 +170,12 @@ const Components = {
       <form class="g-waitlist" data-waitlist="${KitUtils.esc(kit.slug)}" novalidate>
         <label for="${id}" class="g-field-label">Email for the ${KitUtils.esc(kit.name)} waitlist</label>
         <div class="g-waitlist-row">
-          <input id="${id}" name="email" type="email" class="g-input" autocomplete="email" inputmode="email" required>
+          <input id="${id}" name="email" type="email" class="g-input" autocomplete="email" inputmode="email" maxlength="254" required>
           <button type="submit" class="g-btn g-btn-primary">Join waitlist</button>
+        </div>
+        <div class="g-hp" aria-hidden="true">
+          <label for="${id}-website">Website</label>
+          <input id="${id}-website" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
         <p class="g-form-status" role="status" aria-live="polite"></p>
         <p class="g-form-hint">Email only. No account, no tracking.</p>
@@ -459,18 +463,37 @@ const KitPages = {
       }
       const button = form.querySelector('button[type="submit"]');
       button.disabled = true;
+      status.textContent = 'Joining…';
+      status.dataset.tone = 'info';
       try {
+        // No Content-Type header on purpose: the body goes as text/plain, a "simple" CORS request.
+        // Google Apps Script web apps can't answer a CORS preflight, so application/json would fail.
         const res = await fetch(KIT_SETTINGS.waitlistEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, kit: form.dataset.waitlist })
+          body: JSON.stringify({
+            email,
+            kit: form.dataset.waitlist,
+            website: (form.querySelector('input[name="website"]') || {}).value || ''
+          })
         });
-        if (!res.ok) throw new Error(String(res.status));
-        status.textContent = "You're on the list. We'll email you when it opens.";
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          const err = new Error(data.error || String(res.status));
+          err.code = data.error;
+          throw err;
+        }
+        status.textContent = data.duplicate
+          ? "You're already on the list. We'll email you when it opens."
+          : "You're on the list. We'll email you when it opens.";
         status.dataset.tone = 'success';
         form.reset();
       } catch (err) {
-        status.textContent = 'Could not join right now. Please try again in a minute.';
+        if (err.code === 'invalid_email') {
+          input.setAttribute('aria-invalid', 'true');
+          status.textContent = 'Enter a valid email address.';
+        } else {
+          status.textContent = 'Could not join right now. Please try again in a minute.';
+        }
         status.dataset.tone = 'error';
       } finally {
         button.disabled = false;

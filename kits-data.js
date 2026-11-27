@@ -31,10 +31,11 @@ const KIT_SETTINGS = {
     price: 3499,
     buyUrl: 'https://rzp.io/l/REPLACE_WITH_BUNDLE_LINK'
   },
-  // Waitlist: no form backend exists in this project yet. While this is null the
-  // form validates the email and tells the visitor signups aren't open yet.
-  // Set it to an endpoint that accepts POST JSON { email, kit } to go live
-  // (and allow that origin in vercel.json's Content-Security-Policy connect-src).
+  // Waitlist → Google Sheet via the Apps Script web app in waitlist/Code.gs.
+  // Paste the web app URL from Deploy → Manage deployments (ends in /exec), e.g.
+  //   'https://script.google.com/macros/s/AKfy.../exec'
+  // Setup steps: waitlist/README.md. vercel.json already allows script.google.com.
+  // While this is null the form validates the email and says signups aren't open yet.
   waitlistEndpoint: null
 };
 
